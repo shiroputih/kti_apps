@@ -177,7 +177,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                Data dosen telah disimpan <br />
+                Data mahasiswa telah disimpan <br />
                 <input type="button" class="btn btn-success btn-sm" data-dismiss="modal" value="Confirm"/>
             </div>
         </div>

@@ -20,67 +20,70 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                    <tr>
-                        <th>NIM</th>
-                        <th>Nama Mahasiswa</th>
-                        <th>Judul Outline</th>
-                        <th>Usulan Dosen 1</th>
-                        <th>Tgl Pengajuan</th>
-                        <th></th>
-                    </tr>
+                        <tr>
+                            <th>NIM</th>
+                            <th>Nama Mahasiswa</th>
+                            <th>Judul Outline</th>
+                            <th>Usulan Dosen 1</th>
+                            <th>Tgl Pengajuan</th>
+                            <th></th>
+                        </tr>
                     </thead>
                     <tfoot>
-                    <tr>
-                        <th>NIM</th>
-                        <th>Nama Mahasiswa</th>
-                        <th>Judul Outline</th>
-                        <th>Usulan Dosen 1</th>
-                        <th>Tgl Pengajuan</th>
-                        <th></th>
-                    </tr>
+                        <tr>
+                            <th>NIM</th>
+                            <th>Nama Mahasiswa</th>
+                            <th>Judul Outline</th>
+                            <th>Usulan Dosen 1</th>
+                            <th>Tgl Pengajuan</th>
+                            <th></th>
+                        </tr>
                     </tfoot>
                     <tbody>
-                    <?php
-                    $sql = "SELECT * FROM mahasiswa,outline,angkatan,dosen,semester where mahasiswa.nim = outline.nim AND angkatan.id_angkatan = mahasiswa.id_angkatan AND dosen.id_dosen = outline.usulan_dosen1 AND semester.id_semester = mahasiswa.id_semester AND outline.verified ='belum terverifikasi'";
-                    $result = $conn->query($sql);
-                    if ($result->num_rows > 0) {
-                        // output data of each row
-                        while ($path = $result->fetch_assoc()) {
-                            echo "<tr>
-                                        <td>$path[nim]</td>
-                                        <td>$path[nama]</td>
-                                        <td>$path[judul_outline]</td>
-                                        <td>$path[gelar_depan] $path[nama_dosen] $path[gelar_belakang]</td>
-                                        <td>$path[tgl_pengajuan]</td>
-                                        <td class='center'>
+                        <?php
+                        $sql = "SELECT * FROM mahasiswa,outline,angkatan,dosen,semester where mahasiswa.nim = outline.nim AND angkatan.id_angkatan = mahasiswa.id_angkatan AND dosen.id_dosen = outline.usulan_dosen1 AND semester.id_semester = mahasiswa.id_semester AND outline.verified ='belum terverifikasi'";
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0) 
+                        {
+                            // output data of each row
+                            while ($path = $result->fetch_assoc()) 
+                            {
+                                echo "<tr>
+                                            <td>$path[nim]</td>
+                                            <td>$path[nama]</td>
+                                            <td>$path[judul_outline]</td>
+                                            <td>$path[gelar_depan] $path[nama_dosen] $path[gelar_belakang]</td>
+                                            <td>$path[tgl_pengajuan]</td>
+                                            <td class='center'>
 
-                                        <a id ='VerifikasiOutline' 
-                                        data-nimmahasiswa='$path[nim]' 
-                                        data-namamahasiswa='$path[nama]'  
-                                        data-juduloutline='$path[judul_outline]' 
-                                        data-pertanyaan='$path[pertanyaan_penelitian]' 
-                                        data-manfaat ='$path[manfaat_penelitian]' 
-                                        data-desain ='$path[desain_penelitian]' 
-                                        data-sample ='$path[sample_penelitian]' 
-                                        data-bebas ='$path[variabel_bebas]' 
-                                        data-tergantung ='$path[variabel_tergantung]' 
-                                        data-hipotesis ='$path[hipotesis]' 
-                                        data-usulandosen1 ='$path[usulan_dosen1]' 
-                                        data-usulandosen2 ='$path[usulan_dosen2]'
-                                        data-tanggal = '$path[tgl_pengajuan]'
-                                        data-verifikasi = '$path[verified]'
-                                        data-toggle='modal' 
-                                        data-target='#VerifikasiOutlineModal'>
-                                        <button type='button' class='btn btn-warning btn-sm'>Verifikasi</button></a>
-                                        </td>
-                                        </tr>";
+                                            <a id ='VerifikasiOutline' 
+                                            data-nimmahasiswa='$path[nim]' 
+                                            data-namamahasiswa='$path[nama]'  
+                                            data-juduloutline='$path[judul_outline]' 
+                                            data-pertanyaan='$path[pertanyaan_penelitian]' 
+                                            data-manfaat ='$path[manfaat_penelitian]' 
+                                            data-desain ='$path[desain_penelitian]' 
+                                            data-sample ='$path[sample_penelitian]' 
+                                            data-bebas ='$path[variabel_bebas]' 
+                                            data-tergantung ='$path[variabel_tergantung]' 
+                                            data-hipotesis ='$path[hipotesis]' 
+                                            data-usulandosen1 ='$path[usulan_dosen1]' 
+                                            data-usulandosen2 ='$path[usulan_dosen2]'
+                                            data-tanggal = '$path[tgl_pengajuan]'
+                                            data-verifikasi = '$path[verified]'
+                                            data-angkatan = '$path[id_angkatan]'
+                                            data-toggle='modal' 
+                                            data-target='#VerifikasiOutlineModal'>
+                                            <button type='button' class='btn btn-warning btn-sm'>Verifikasi</button></a>
+                                            </td>
+                                            </tr>";
+                            }
+                        } else {
+
                         }
-                    } else {
-
-                    }
-                    ?>
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -113,7 +116,8 @@
                                    aria-describedby="nameHelp">
                             <input type="hidden" class="form-control" name="hiddenJudul" id="hiddenJudul" type="text"
                                    aria-describedby="nameHelp">
-
+                            <input type="hidden" class="form-control" name="hiddenAngkatan" id="hiddenAngkatan" type="text"
+                                   aria-describedby="nameHelp">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">NIM</label>
@@ -251,7 +255,7 @@
                                 </div>
                                 <select name="Dosen1" id="Dosen1" class="custom-select">
                                     <?php
-                                    $sql = "SELECT * FROM dosen";
+                                    $sql = "SELECT * FROM dosen ORDER BY nama_dosen ASC";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
@@ -269,7 +273,7 @@
                                 </div>
                                 <select name="Dosen2" id="Dosen2" class="custom-select">
                                     <?php
-                                    $sql = "SELECT * FROM dosen";
+                                    $sql = "SELECT * FROM dosen ORDER BY nama_dosen ASC";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
@@ -289,7 +293,7 @@
                                        placeholder="DD/MM/YYY"/>
                             </div>
                         </div>
-                        <button type="submit" name="UpdateVerifikasiOutline" class="btn btn-info btn-lg">SUBMIT</button>
+                        <button type="submit" name="UpdateVerifikasiOutline" class="btn btn-info btn-lg" >SUBMIT</button>
                     </form>
                 </div>
             </div>
@@ -329,6 +333,7 @@
         var udosen2 = $(this).data('usulandosen2');
         var tanggal = $(this).data('tanggal');
         var verifikasi = $(this).data('verifikasi');
+        var Vangkatan = $(this).data('angkatan');
 
         $('#EditNim').val(NIM);
         $('#hiddennim').val(NIM);
@@ -345,9 +350,9 @@
         $('#EditDosen2').val(udosen2);
         $('#EditTanggal').val(tanggal);
         $('#statusverifikasi').val(verifikasi);
-
         $('#hiddenNama').val(nama_mahasiswa);
         $('#hiddenJudul').val(juduloutline);
+        $('#hiddenAngkatan').val(Vangkatan);
 
     })
 </script>
@@ -363,7 +368,8 @@ if (isset($_POST['UpdateVerifikasiOutline'])) {
     if (mysqli_query($conn, $sql)) {
         //SAVE INTO TABLE PROPOSAL
         // field : nim, nama judul, dosen1, dosen 2
-        $sql = "INSERT INTO proposal (nim,nama,judulproposal,dosen1,dosen2) VALUES ('" . $_POST[hiddennim] . "','" . $_POST[hiddenNama] . "','" . $_POST[hiddenJudul] . "','" . $_POST[Dosen1] . "','" . $_POST[Dosen2] . "')";
+        $sql = "INSERT INTO proposal (nim,nama,judulproposal,dosen1,dosen2,id_angkatan) 
+        VALUES ('". $_POST[hiddennim] . "','". $_POST[hiddenNama] . "','". $_POST[hiddenJudul] . "','" . $_POST[Dosen1] . "','". $_POST[Dosen2] . "','".$_POST[hiddenAngkatan]."')";
         if (mysqli_query($conn, $sql)) {
             echo "<meta http-equiv='refresh' content='0'>";
         }
@@ -371,23 +377,15 @@ if (isset($_POST['UpdateVerifikasiOutline'])) {
 
 }
 ?>
-
-
-<!-- Bootstrap core JavaScript-->
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- Core plugin JavaScript-->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-<!-- Page level plugin JavaScript-->
-<script src="vendor/chart.js/Chart.min.js"></script>
-<script src="vendor/datatables/jquery.dataTables.js"></script>
-<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-<!-- Custom scripts for all pages-->
-<script src="js/sb-admin.min.js"></script>
-<!-- Custom scripts for this page-->
-<script src="js/sb-admin-datatables.min.js"></script>
-<script src="js/sb-admin-charts.min.js"></script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+<!-- Bootstrap core JavaScript
+    <script src="vendor/jquery/jquery.min.js"></script>-->
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="vendor/datatables/jquery.dataTables.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin.min.js"></script>
+    <!-- Custom scripts for this page-->
+    <script src="js/sb-admin-datatables.min.js"></script>

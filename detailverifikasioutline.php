@@ -124,7 +124,7 @@ if ($_POST['nim']) {
                     <input type='text' class="form-control" id="date" name="tanggal" placeholder="DD/MM/YYY"/>
                 </div>
             </table>
-            <button type="submit" name="VerifikasiDataOutline" class="btn btn-info btn-lg">Validasi</button>
+            <button type="submit" name="VerifikasiDataOutline" class="btn btn-info btn-lg" data-dismiss="modal">Validasi</button>
         </form>
         </body>
         <?php

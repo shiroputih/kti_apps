@@ -40,7 +40,7 @@
                     </div>
                     <br>
                 </div>
-                <button type="submit" class="btn btn-info btn-lg" >SUBMIT</button>
+                <button type="submit" class="btn btn-info btn-lg" data-dismiss="modal">SUBMIT</button>
            </form>
         </div>
     </div>

@@ -15,7 +15,7 @@
         </div>
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-table"></i>Data Dosen
+                <i class="fa fa-table"></i> Data Dosen
                 <button type="button" style="margin-left: 80%; width: 8%" class="btn btn-primary btn-sm" data-toggle="modal"
                 data-target="#inputdatadosen"> Add
             </button>
@@ -25,7 +25,6 @@
                 <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID Dosen</th>
                             <th>Nama Dosen</th>
                             <th>Gelar Depan</th>
                             <th>Gelar Belakang</th>
@@ -34,7 +33,6 @@
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>ID Dosen</th>
                             <th>Nama Dosen</th>
                             <th>Gelar Depan</th>
                             <th>Gelar Belakang</th>
@@ -49,7 +47,6 @@
                         // output data of each row
                             while ($row = $result->fetch_assoc()) {
                                 echo "<tr>
-                                <td>$row[id_dosen]</td>
                                 <td>$row[nama_dosen]</td>
                                 <td>$row[gelar_depan]</td>
                                 <td>$row[gelar_belakang]</td>
@@ -126,7 +123,7 @@
             </div>
             <div class="modal-body" style="background-color: #f7ca77">
                 <div class="card-body">
-                    <form method="post" enctype="multipart/form-data">
+                    <form method="POST">
                         <div class="form-group">
                             <input type="hidden" class="form-control" name="iddosen" id="iddosen" type="text"
                             aria-describedby="nameHelp">
@@ -153,7 +150,7 @@
                                 aria-describedby="nameHelp" placeholder="Masukkan Gelar Belakang">
                             </div>
                         </div>
-                        <button type="submit" name="updatedata" class="btn btn-info btn-lg">SUBMIT</button>
+                        <button type="submit" name="updatedata" class="btn btn-info btn-lg" >SUBMIT</button>
                     </form>
                 </div>
             </div>
@@ -175,8 +172,8 @@
                         <label for="exampleInputLastName">Apakah anda ingin menghapus data dosen</label> <br>
                         <input type="hidden" id="labeliddosen" name="labeliddosen" class="form-control"></input><br>
                         nama dosen :<input id="labelnmdosen" class="form-control" disabled></input><br>
-                        <button type="submit" class="btn btn-info btn-lg" data-dismiss="modal">NO</button>
-                        <button type="submit" name="deletedata" class="btn btn-danger btn-lg">YES</button>
+                        <button type="submit" class="btn btn-info btn-lg" data-dismiss="modal" >NO</button>
+                        <button type="submit" name="deletedata" class="btn btn-danger btn-lg" >YES</button>
                     </form>
                 </div>
             </div>
@@ -219,6 +216,7 @@ if (isset($_POST['adddata'])) {
 
 if (isset($_POST['updatedata'])) {
     $sql = "UPDATE dosen SET nama_dosen ='$_POST[namadosen]',gelar_depan='$_POST[gelardepan]',gelar_belakang='$_POST[gelarbelakang]' WHERE id_dosen='$_POST[iddosen]'";
+    echo $sql;
     if (mysqli_query($conn, $sql)) {
         echo "<meta http-equiv='refresh' content='0'>";
     }
@@ -232,8 +230,8 @@ if (isset($_POST['deletedata'])) {
 }
 ?>
 
-<!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
+<!-- Bootstrap core JavaScript
+    <script src="vendor/jquery/jquery.min.js"></script>-->
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
