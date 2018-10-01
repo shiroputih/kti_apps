@@ -24,7 +24,6 @@
                         <tr>
                             <th>NIM</th>
                             <th>Nama</th>
-                            <th>Angkatan</th>
                             <th>Tanggal Ujian KTI</th>
                             <th></th>
                         </tr>
@@ -33,14 +32,13 @@
                         <tr>
                             <th>NIM</th>
                             <th>Nama</th>
-                            <th>Angkatan</th>
                             <th>Tanggal Ujian KTI</th>
                             <th></th>
                         </tr>
                     </tfoot>
                     <tbody>
                         <?php
-                        $sql = "SELECT * FROM kti,mahasiswa,angkatan WHERE kti.nim = mahasiswa.nim AND kti.id_angkatan = angkatan.id_angkatan AND kti.status IS NULL";
+                        $sql = "SELECT * FROM kti,mahasiswa WHERE kti.nim = mahasiswa.nim AND kti.status IS NULL";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                         // output data of each row
@@ -48,11 +46,10 @@
                                 echo "<tr>
                                 <td>$row[nim]</td>
                                 <td>$row[nama]</td>
-                                <td>$row[angkatan]</td>
                                 <td>$row[tgl_sidangkti]</td>
                                 <td class=center>
                                 
-                                <a id ='beritaacarakti' data-nim='$row[nim]' data-nama='$row[nama]' data-gelardepan='$row[angkatan]' data-tglsidang='$row[tgl_sidangkti]' data-judulkti = '$row[judulkti]' data-dosen1 = '$row[dosen1]' data-dosen2 = '$row[dosen2]' data-dosenpenguji = '$row[penguji]' data-toggle='modal' data-target='#BeritaAcaraktiModal'>
+                                <a id ='beritaacarakti' data-nim='$row[nim]' data-nama='$row[nama]' data-tglsidang='$row[tgl_sidangkti]' data-judulkti = '$row[judulkti]' data-dosen1 = '$row[dosen1]' data-dosen2 = '$row[dosen2]' data-dosenpenguji = '$row[penguji]' data-toggle='modal' data-target='#BeritaAcaraktiModal'>
                                 <button type='button' class='btn btn-info btn-sm'>Berita Acara KTI</button></a>
                                 </td>
                                 </tr>";
@@ -97,7 +94,28 @@
                             <input type="hidden" class="form-control" name="hiddenDosen2" id="hiddenDosen2" type="text"
                                    aria-describedby="nameHelp">
                              <input type="hidden" class="form-control" name="hiddenDosenpenguji" id="hiddenDosenpenguji" type="text" aria-describedby="nameHelp">
-                            
+                            <textarea style="display:none;"rows="3" cols="50" name="judullamahidden" class="form-control" id="judullamahidden"
+                                          aria-describedby="nameHelp" onkeyup="this.value=this.value.toUpperCase()"
+                                          ></textarea>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Semester</label>
+                                </div>
+                                 <select class="custom-select" name="semester" id="semester">
+                                    <?php
+                                    $sql = "SELECT * FROM semester";
+                                    $result = $conn->query($sql);
+                                    if ($result->num_rows > 0) {
+                                        // output data of each row
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<option value=$row[id_semester]>$row[semester]</option>";
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                    ?>
+                                </select>
+                            </div>       
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">NIM</label>
@@ -118,7 +136,7 @@
                                 </div>
                                 <textarea rows="3" cols="50" name="EditJudul" class="form-control" id="EditJudul"
                                           aria-describedby="nameHelp" onkeyup="this.value=this.value.toUpperCase()"
-                                          disabled></textarea>
+                                          ></textarea>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend" data-provide='datetimepicker1'>
@@ -246,6 +264,7 @@
             $('#hiddenDosen1').val(pdosen1);
             $('#hiddenDosen2').val(pdosen2);
             $('#hiddenDosenpenguji').val(pdosenpenguji);
+            $('#judullamahidden').val(judulKTI);
         });
     </script>
 
@@ -294,6 +313,7 @@
                 ruangsidang = '$_POST[ruangsidang]',
                 tgl_sidangkti = '$_POST[tanggal]',
                 batas_pengumpulan = '$_POST[hiddenbatas]',
+                idsemester = '$_POST[semester]',
                 status = 'kti'
                 WHERE kti.nim = '$_POST[hiddennim]'";
                 
@@ -302,6 +322,13 @@
                          echo "<meta http-equiv='refresh' content='0'>";
                     
                 }
+
+                //save log history judul
+                $sql = "INSERT INTO loghistoryjudul (judullama,judulbaru,nim,status) VALUES ('" . $_POST[judullamahidden] . "','".$_POST[EditJudul]."','".$_POST[hiddennim]."','kti')";
+                if (mysqli_query($conn, $sql)) 
+                  {
+                      echo "<meta http-equiv='refresh' content='0'>";
+                 }
                 
     }
 ?>

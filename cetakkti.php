@@ -4,8 +4,8 @@ require("fpdf/fpdf.php");
 
 if($_POST['nim'])
 {
-	$query = "SELECT * FROM kti,ruangsidang
-                WHERE kti.ruangsidang = ruangsidang.id_ruang AND kti.nim = '".$_POST['nim']."'";
+	$query = "SELECT * FROM kti,ruangsidang,mahasiswa
+                WHERE kti.nim = mahasiswa.nim AND kti.ruangsidang = ruangsidang.id_ruang AND kti.nim = '".$_POST['nim']."'";
 	$result = mysqli_query($conn,$query);
 	foreach ($result as $row) 
 	{ 

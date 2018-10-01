@@ -30,7 +30,6 @@
                                 <th>NIM</th>
                                 <th>Nama Mahasiswa</th>
                                 <th>Judul KTI</th>
-                                <th>Angkatan</th>
                                 <th>Tgl Seminar Hasil</th>
                                 <th></th>
                             </tr>
@@ -40,14 +39,13 @@
                                 <th>NIM</th>
                                 <th>Nama Mahasiswa</th>
                                 <th>Judul KTI</th>
-                                <th>Angkatan</th>
                                 <th>Tgl Seminar Hasil</th>
                                 <th></th>
                             </tr>
                         </tfoot>
                         <tbody>
                             <?php
-                            $sql = "SELECT * FROM mahasiswa,semhas,angkatan where mahasiswa.nim = semhas.nim AND angkatan.id_angkatan = semhas.id_angkatan AND mahasiswa.id_angkatan = semhas.id_angkatan AND semhas.status IS NULL";
+                            $sql = "SELECT * FROM mahasiswa,semhas where mahasiswa.nim = semhas.nim AND semhas.status IS NULL";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
                                 // output data of each row
@@ -56,7 +54,6 @@
                                             <td>$path[nim]</td>
                                             <td>$path[nama]</td>
                                             <td>$path[judulKTI]</td>
-                                            <td>$path[angkatan]</td>
                                             <td>$path[tgl_seminarhasil]</td>
                                             <td class='center'>
                                             <a id ='BeritaAcaraSemhasModal' 
@@ -66,7 +63,6 @@
                                                 data-dosen1 = '$path[dosen1]'
                                                 data-dosen2 = '$path[dosen2]'
                                                 data-dosenpenguji = '$path[penguji]'
-                                                data-idangkatan = '$path[id_angkatan]'
                                                 data-toggle='modal' 
                                                 data-target='#SetupBeritaAcaraSemhasModal'>
                                             <button type='button' class='btn btn-primary btn-sm'>Setup Berita Acara</button></a>
@@ -115,6 +111,28 @@
                             <input type="hidden" class="form-control" name="hiddenDosen2" id="hiddenDosen2" type="text"
                                    aria-describedby="nameHelp">
                              <input type="hidden" class="form-control" name="hiddenDosenpenguji" id="hiddenDosenpenguji" type="text" aria-describedby="nameHelp">
+                             <textarea style="display:none;"rows="3" cols="50" name="judullamahidden" class="form-control" id="judullamahidden"
+                                          aria-describedby="nameHelp" onkeyup="this.value=this.value.toUpperCase()"
+                                          ></textarea>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Semester</label>
+                                </div>
+                                 <select class="custom-select" name="semester" id="semester">
+                                    <?php
+                                    $sql = "SELECT * FROM semester";
+                                    $result = $conn->query($sql);
+                                    if ($result->num_rows > 0) {
+                                        // output data of each row
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<option value=$row[id_semester]>$row[semester]</option>";
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                    ?>
+                                </select>
+                            </div>            
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">NIM</label>
@@ -135,7 +153,7 @@
                                 </div>
                                 <textarea rows="3" cols="50" name="EditJudul" class="form-control" id="EditJudul"
                                           aria-describedby="nameHelp" onkeyup="this.value=this.value.toUpperCase()"
-                                          disabled></textarea>
+                                          ></textarea>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend" data-provide='datetimepicker1'>
@@ -261,6 +279,7 @@
             $('#hiddenDosen1').val(pdosen1);
             $('#hiddenDosen2').val(pdosen2);
             $('#hiddenDosenpenguji').val(pdosenpenguji);
+            $('#judullamahidden').val(judulKTI);
         });
     </script>
 
@@ -286,18 +305,26 @@
         $sql = "UPDATE semhas SET 
                 waktupelaksanaan = '$_POST[waktu]',
                 ruangsidang = '$_POST[ruangsidang]',
+                judulKTI = '$_POST[EditJudul]',
                 tgl_seminarhasil = '$_POST[tanggal]',
                 status = 'semhas',
-                id_angkatan = '$_POST[hiddenAngkatan]'
+                idsemester = '$_POST[semester]'
                 WHERE semhas.nim = '$_POST[hiddennim]'";
                 if (mysqli_query($conn, $sql)) 
                 {
                     //save to kti
-                    $sql = "INSERT INTO kti (nim,nama,judulkti,dosen1,dosen2,penguji,id_angkatan) VALUES ('" . $_POST[hiddennim] . "','" . $_POST[hiddenNama] . "','" . $_POST[hiddenJudul] . "','" . $_POST[hiddenDosen1] . "','" . $_POST[hiddenDosen2]."','".$_POST[hiddenDosenpenguji]."','".$_POST[hiddenAngkatan]."')";
+                    $sql = "INSERT INTO kti (nim,judulkti,dosen1,dosen2,penguji) VALUES ('". $_POST[hiddennim]. "','" .$_POST[EditJudul]. "','" . $_POST[hiddenDosen1] . "','" . $_POST[hiddenDosen2]."','".$_POST[hiddenDosenpenguji]."')";
                     if (mysqli_query($conn, $sql)) 
                     {
                          echo "<meta http-equiv='refresh' content='0'>";
                     }
+
+                //save log history judul
+                $sql = "INSERT INTO loghistoryjudul (judullama,judulbaru,nim,status) VALUES ('" . $_POST[judullamahidden] . "','".$_POST[EditJudul]."','".$_POST[hiddennim]."','semhas')";
+                if (mysqli_query($conn, $sql)) 
+                  {
+                      echo "<meta http-equiv='refresh' content='0'>";
+                 }
                 }
                 
     }

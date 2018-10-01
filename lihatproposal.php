@@ -28,7 +28,6 @@
                                 <th>NIM</th>
                                 <th>Nama Mahasiswa</th>
                                 <th>Judul Proposal</th>
-                                <th>Angkatan</th>
                                 <th>Tgl Seminar Proposal</th>
                                 <th>Batas Sidang KTI</th>
                             </tr>
@@ -38,14 +37,13 @@
                                 <th>NIM</th>
                                 <th>Nama Mahasiswa</th>
                                 <th>Judul Proposal</th>
-                                <th>Angkatan</th>
                                 <th>Tgl Seminar Proposal</th>
                                 <th>Batas Sidang KTI</th>
                             </tr>
                         </tfoot>
                         <tbody>
                             <?php
-                            $sql = "SELECT * FROM mahasiswa,proposal,angkatan where mahasiswa.nim = proposal.nim AND proposal.id_angkatan = angkatan.id_angkatan";
+                            $sql = "SELECT * FROM mahasiswa,proposal where mahasiswa.nim = proposal.nim ";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
                                 // output data of each row
@@ -54,7 +52,6 @@
                                             <td>$path[nim]</td>
                                             <td>$path[nama]</td>
                                             <td>$path[judulproposal]</td>
-                                            <td>$path[angkatan]</td>
                                             <td>$path[tgl_sidangproposal] </td>
                                             <td>$path[batas_sidangkti]</td>
                                             </tr>";

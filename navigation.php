@@ -17,19 +17,39 @@
                     <span class="nav-link-text">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dosen">
-                <a class="nav-link" href="dosen.php">
-                    <i class="fa fa-table"></i>
-                        <span class="nav-link-text">Dosen Pembimbing</span>
-                    </a>
-                </li>
+            <li class="nav-item" data-toggle="tooltip"  data-placement="right" title="dosen">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsedosen" data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-table"></i>
+                    <span class="nav-link-text">Dosen</span>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapsedosen">
+                    <li>
+                        <a href="dosen.php">Data Dosen</a>
+                    </li>
+                    <li>
+                        <a href="dosenpersemester.php">Dosen Per Semester</a>
+                    </li>
+                    <li>
+                        <a href="dosenpertahun.php">Dosen Per Tahun</a>
+                    </li>
+                    <li>
+                        <a href="penerbitansk.php">Penerbitan SK</a>
+                    </li>
+                </ul>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Mahasiswa">
-                <a class="nav-link" href="mahasiswa.php">
-                    <i class="fa fa-table"></i>
-                        <span class="nav-link-text">Data Mahasiswa</span>
-                    </a>
-                </li>
+            <li class="nav-item" data-toggle="tooltip"  data-placement="right" title="mahasiswa">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsemahasiswa" data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-table"></i>
+                    <span class="nav-link-text">Mahasiswa</span>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapsemahasiswa">
+                    <li>
+                        <a href="mahasiswa.php">Data Mahasiswa</a>
+                    </li>
+                    <li>
+                        <a href="mahasiswapersemester.php">Mahasiswa Per Semester</a>
+                    </li>
+                </ul>
             </li>
             <li class="nav-item" data-toggle="tooltip"  data-placement="right" title="Outline">
                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseoutline" data-parent="#exampleAccordion">
@@ -96,6 +116,27 @@
                     <i class="fa fa-fw fa-link"></i>
                     <span class="nav-link-text">Cetak</span>
                 </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="KTI">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapsearsip" data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-wrench"></i>
+                    <span class="nav-link-text">Arsip</span>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapsearsip">
+                    <li>
+                        <a href="arsipsk.php">Arsip SK</a>
+                    </li>
+                    <li>
+                        <a href="arsipproposal.php">Arsip Berita Acara Proposal</a>
+                    </li>
+                    <li>
+                        <a href="arsipsemhas.php">Arsip Berita Acara Seminar Hasil</a>
+                    </li>
+                    <li>
+                        <a href="arsipkti.php">Arsip Berita Acara KTI</a>
+                    </li>
+
+                </ul>
             </li>
         </ul>
         <ul class="navbar-nav sidenav-toggler">

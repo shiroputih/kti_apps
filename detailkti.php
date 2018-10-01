@@ -1,19 +1,25 @@
 <?php
 @include ("dbconnect.php");
 if($_POST['nim']){
-	$query = "SELECT * FROM mahasiswa,kti,angkatan,ruangsidang WHERE ruangsidang.id_ruang = kti.ruangsidang AND angkatan.id_angkatan = mahasiswa.id_angkatan AND kti.nim = mahasiswa.nim AND kti.nim = '".$_POST['nim']."'";
+	$query = "SELECT * FROM mahasiswa,kti,ruangsidang WHERE ruangsidang.id_ruang = kti.ruangsidang AND kti.nim = mahasiswa.nim AND kti.nim = '".$_POST['nim']."'";
 	$result = mysqli_query($conn,$query);
 	foreach ($result as $row) { 
 ?>
 <!-- display : nim, nama, judul kti, dosen 1,dosen 2, dosen 3, tgl sidang kti,waktu ujian, ruangan ujian, tanggal kumpul berkas, nilai akhir KTi-->
             <table class="table">
                 <tr>
-                    <td width="25%">Nim</td>
+                    <td width="30%">Nim</td>
                     <td><?php echo $row['nim']; ?></td>
                 </tr>
                 <tr>
                     <td>Nama Mahasiswa</td>
-                    <td><?php echo $row['nama']; ?></td>
+                    <td><?php 
+                            $sql = "SELECT nama from mahasiswa WHERE $row[nim] = mahasiswa.nim";
+                            $result = mysqli_query($conn,$sql);
+                            foreach ($result as $path) {
+                                echo $path['nama'];
+                            } 
+                        ?></td>
                 </tr>
                 <tr>
                     <td>Judul KTI</td>

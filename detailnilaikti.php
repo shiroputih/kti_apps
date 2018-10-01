@@ -15,7 +15,13 @@ if($_POST['nim']){
                 </tr>
                 <tr>
                     <td>Nama Mahasiswa</td>
-                    <td colspan="3"><?php echo $row['nama']; ?></td>
+                    <td colspan="3"><?php 
+                            $sql = "SELECT nama from mahasiswa WHERE $row[nim] = mahasiswa.nim";
+                            $result = mysqli_query($conn,$sql);
+                            foreach ($result as $path) {
+                                echo $path['nama'];
+                            } 
+                        ?></td>
                 </tr>
                 <tr style="background-color: #818b70;">
                     <td>Dosen Penguji 1</td>

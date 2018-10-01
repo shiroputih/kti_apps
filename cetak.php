@@ -56,6 +56,7 @@
 						</div>
 					</div>					
 				</form>
+				<p style="color: red; size: 10px;">(*) Silahkan untuk menyimpan file dalam bentuk .pdf sebelum mencetak hard print </p>
 			</div>
 		</div>
 	</div>

@@ -5,92 +5,48 @@
 ?>
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 
-<div class="content-wrapper">
-    <div class="container-fluid">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="index.php">Home</a>
-            </li>
-            <li class="breadcrumb-item active">Data Outline</li>
-        </ol>
-    </div>
-    <div class="card mb-3">
-        <div class="card-header">
-            <i class="fa fa-table"></i> Verifikasi Data Outline
+    <div class="content-wrapper">
+        <div class="container-fluid">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="index.php">Home</a>
+                </li>
+                <li class="breadcrumb-item active">Data Outline</li>
+            </ol>
         </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>NIM</th>
-                            <th>Nama Mahasiswa</th>
-                            <th>Judul Outline</th>
-                            <th>Usulan Dosen 1</th>
-                            <th>Tgl Pengajuan</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>NIM</th>
-                            <th>Nama Mahasiswa</th>
-                            <th>Judul Outline</th>
-                            <th>Usulan Dosen 1</th>
-                            <th>Tgl Pengajuan</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fa fa-table"></i> Verifikasi Data Outline
+            </div>
+            <hr>
+            <div class="container-fluid">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">Semester</label>
+                    </div>
+                    <select class="custom-select" name="semester" id="semester"  selected="selected">
+                        <option>-- Pilih Semester --</option>
                         <?php
-                        $sql = "SELECT * FROM mahasiswa,outline,angkatan,dosen,semester where mahasiswa.nim = outline.nim AND angkatan.id_angkatan = mahasiswa.id_angkatan AND dosen.id_dosen = outline.usulan_dosen1 AND semester.id_semester = mahasiswa.id_semester AND outline.verified ='belum terverifikasi'";
+                        $sql = "SELECT * FROM semester";
                         $result = $conn->query($sql);
-                        if ($result->num_rows > 0) 
-                        {
-                            // output data of each row
-                            while ($path = $result->fetch_assoc()) 
-                            {
-                                echo "<tr>
-                                            <td>$path[nim]</td>
-                                            <td>$path[nama]</td>
-                                            <td>$path[judul_outline]</td>
-                                            <td>$path[gelar_depan] $path[nama_dosen] $path[gelar_belakang]</td>
-                                            <td>$path[tgl_pengajuan]</td>
-                                            <td class='center'>
-
-                                            <a id ='VerifikasiOutline' 
-                                            data-nimmahasiswa='$path[nim]' 
-                                            data-namamahasiswa='$path[nama]'  
-                                            data-juduloutline='$path[judul_outline]' 
-                                            data-pertanyaan='$path[pertanyaan_penelitian]' 
-                                            data-manfaat ='$path[manfaat_penelitian]' 
-                                            data-desain ='$path[desain_penelitian]' 
-                                            data-sample ='$path[sample_penelitian]' 
-                                            data-bebas ='$path[variabel_bebas]' 
-                                            data-tergantung ='$path[variabel_tergantung]' 
-                                            data-hipotesis ='$path[hipotesis]' 
-                                            data-usulandosen1 ='$path[usulan_dosen1]' 
-                                            data-usulandosen2 ='$path[usulan_dosen2]'
-                                            data-tanggal = '$path[tgl_pengajuan]'
-                                            data-verifikasi = '$path[verified]'
-                                            data-angkatan = '$path[id_angkatan]'
-                                            data-toggle='modal' 
-                                            data-target='#VerifikasiOutlineModal'>
-                                            <button type='button' class='btn btn-warning btn-sm'>Verifikasi</button></a>
-                                            </td>
-                                            </tr>";
+                        if ($result->num_rows > 0) {
+                                        // output data of each row
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<option value=$row[id_semester]>$row[semester]</option>";
                             }
                         } else {
-
+                            echo "0 results";
                         }
                         ?>
-                    </tbody>
-                </table>
+                    </select>
+                </div>
             </div>
+            <div class="card-body">
+                <div id="tabeloutline"></div>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
     </div>
-</div>
 
 </body>
 <?php
@@ -111,92 +67,115 @@
                     <form id="formdosen" method="POST">
                         <div class="form-group">
                             <input type="hidden" class="form-control" name="hiddennim" id="hiddennim" type="text"
-                                   aria-describedby="nameHelp">
+                            aria-describedby="nameHelp">
                             <input type="hidden" class="form-control" name="hiddenNama" id="hiddenNama" type="text"
-                                   aria-describedby="nameHelp">
+                            aria-describedby="nameHelp">
                             <input type="hidden" class="form-control" name="hiddenJudul" id="hiddenJudul" type="text"
-                                   aria-describedby="nameHelp">
-                            <input type="hidden" class="form-control" name="hiddenAngkatan" id="hiddenAngkatan" type="text"
-                                   aria-describedby="nameHelp">
+                            aria-describedby="nameHelp">
+                            <input type="hidden" class="form-control" name="hiddensemester" id="hiddensemester" type="text"
+                            aria-describedby="nameHelp">
+                             <input type="hidden" class="form-control" name="hiddendosen1" id="hiddendosen1" type="text"
+                            aria-describedby="nameHelp">
+                             <input type="hidden" class="form-control" name="hiddendosen2" id="hiddendosen2" type="text"
+                            aria-describedby="nameHelp">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Semester</label>
+                                </div>
+                                 <select class="custom-select" name="semester" id="semester" disabled>
+                                    <?php
+                                    $sql = "SELECT * FROM semester";
+                                    $result = $conn->query($sql);
+                                    if ($result->num_rows > 0) {
+                                        // output data of each row
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<option value=$row[id_semester]>$row[semester]</option>";
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">NIM</label>
                                 </div>
                                 <input class="form-control" name="EditNim" id="EditNim" type="text"
-                                       aria-describedby="nameHelp" disabled="">
+                                aria-describedby="nameHelp" disabled="">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">Nama Mahasiswa</label>
                                 </div>
                                 <input class="form-control" name="EditNama" id="EditNama" type="text"
-                                       aria-describedby="nameHelp" disabled="">
+                                aria-describedby="nameHelp" disabled="">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text">Judul Penelitian</label>
                                 </div>
                                 <textarea rows="3" cols="50" name="EditJudul" class="form-control" id="EditJudul"
-                                          aria-describedby="nameHelp" onkeyup="this.value=this.value.toUpperCase()"
-                                          disabled></textarea>
+                                aria-describedby="nameHelp" onkeyup="this.value=this.value.toUpperCase()"
+                                disabled></textarea>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text">Pertanyaan Penelitian</label>
                                 </div>
                                 <textarea rows="3" cols="50" class="form-control" name="EditPertanyaan"
-                                          id="EditPertanyaan" aria-describedby="nameHelp"
-                                          placeholder="Pertanyaan Penelitian"
-                                          onkeyup="this.value=this.value.toUpperCase()" disabled></textarea>
+                                id="EditPertanyaan" aria-describedby="nameHelp"
+                                placeholder="Pertanyaan Penelitian"
+                                onkeyup="this.value=this.value.toUpperCase()" disabled></textarea>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text">Manfaat Penelitian</label>
                                 </div>
                                 <textarea rows="3" cols="50" class="form-control" name="EditManfaat" id="EditManfaat"
-                                          aria-describedby="nameHelp" placeholder="Manfaat Penelitian"
-                                          onkeyup="this.value=this.value.toUpperCase()" disabled></textarea>
+                                aria-describedby="nameHelp" placeholder="Manfaat Penelitian"
+                                onkeyup="this.value=this.value.toUpperCase()" disabled></textarea>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text">Desain Penelitian</label>
                                 </div>
                                 <textarea rows="3" cols="50" class="form-control" name="EditDesain" id="EditDesain"
-                                          aria-describedby="nameHelp" placeholder="Desain Penelitian"
-                                          onkeyup="this.value=this.value.toUpperCase()" disabled=""></textarea>
+                                aria-describedby="nameHelp" placeholder="Desain Penelitian"
+                                onkeyup="this.value=this.value.toUpperCase()" disabled=""></textarea>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text">Sample Penelitian</label>
                                 </div>
                                 <textarea rows="3" cols="50" class="form-control" name="EditSample" id="EditSample"
-                                          aria-describedby="nameHelp" placeholder="Sample Penelitian"
-                                          onkeyup="this.value=this.value.toUpperCase()" disabled=""></textarea>
+                                aria-describedby="nameHelp" placeholder="Sample Penelitian"
+                                onkeyup="this.value=this.value.toUpperCase()" disabled=""></textarea>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text">Variabel Bebas</label>
                                 </div>
                                 <textarea rows="3" cols="50" class="form-control" id="EditBebas" name="EditBebas"
-                                          aria-describedby="nameHelp" placeholder="Variabel Bebas"
-                                          onkeyup="this.value=this.value.toUpperCase()" disabled></textarea>
+                                aria-describedby="nameHelp" placeholder="Variabel Bebas"
+                                onkeyup="this.value=this.value.toUpperCase()" disabled></textarea>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text">Variabel Tergantung</label>
                                 </div>
                                 <textarea rows="3" cols="50" class="form-control" id="EditTergantung"
-                                          name="EditTergantung" aria-describedby="nameHelp"
-                                          placeholder="Variabel Tergantung"
-                                          onkeyup="this.value=this.value.toUpperCase()" disabled></textarea>
+                                name="EditTergantung" aria-describedby="nameHelp"
+                                placeholder="Variabel Tergantung"
+                                onkeyup="this.value=this.value.toUpperCase()" disabled></textarea>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text">Hipotesis</label>
                                 </div>
                                 <textarea rows="3" cols="50" class="form-control" id="EditHipotesis"
-                                          name="EditHipotesis" aria-describedby="nameHelp" placeholder="Hipotesis"
-                                          onkeyup="this.value=this.value.toUpperCase()" disabled></textarea>
+                                name="EditHipotesis" aria-describedby="nameHelp" placeholder="Hipotesis"
+                                onkeyup="this.value=this.value.toUpperCase()" disabled></textarea>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -220,6 +199,7 @@
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text">Usulan Pembimbing 2</label>
+
                                 </div>
                                 <select name="EditDosen2" id="EditDosen2" class="custom-select" disabled>
                                     <?php
@@ -240,60 +220,26 @@
                                     <label class="input-group-text">Tanggal Pengajuan</label>
                                 </div>
                                 <input type='text' class="form-control" id="EditTanggal" name="EditTanggal"
-                                       placeholder="MM/DD/YYY" disabled/>
+                                placeholder="MM/DD/YYY" disabled/>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">Status Verifikasi</label>
                                 </div>
                                 <input class="form-control" name="statusverifikasi" id="statusverifikasi" type="text"
-                                       aria-describedby="nameHelp" disabled="">
+                                aria-describedby="nameHelp" disabled="">
                             </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text">Pembimbing 1</label>
-                                </div>
-                                <select name="Dosen1" id="Dosen1" class="custom-select">
-                                    <?php
-                                    $sql = "SELECT * FROM dosen ORDER BY nama_dosen ASC";
-                                    $result = $conn->query($sql);
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            echo "<option value=$row[id_dosen]>$row[gelar_depan] $row[nama_dosen] $row[gelar_belakang]</option> ";
-                                        }
-                                    } else {
-                                        echo "0 results";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text">Pembimbing 2</label>
-                                </div>
-                                <select name="Dosen2" id="Dosen2" class="custom-select">
-                                    <?php
-                                    $sql = "SELECT * FROM dosen ORDER BY nama_dosen ASC";
-                                    $result = $conn->query($sql);
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            echo "<option value=$row[id_dosen]>$row[gelar_depan] $row[nama_dosen] $row[gelar_belakang]</option> ";
-                                        }
-                                    } else {
-                                        echo "0 results";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
+                            
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend" data-provide='datetimepicker1'>
                                     <label class="input-group-text">Tanggal Verifikasi</label>
                                 </div>
                                 <input type='text' class="form-control" id="date" name="tanggal"
-                                       placeholder="DD/MM/YYY"/>
+                                placeholder="DD/MM/YYY"/>
                             </div>
                         </div>
-                        <button type="submit" name="UpdateVerifikasiOutline" class="btn btn-info btn-lg" >SUBMIT</button>
+                        <button type="submit" name="LolosVerifikasiOutline" class="btn btn-info btn-sm" >Lolos</button>
+                        <button type="submit" name="TidakLolosVerifikasiOutline" class="btn btn-danger btn-sm" >Tidak Lolos</button>
                     </form>
                 </div>
             </div>
@@ -332,8 +278,8 @@
         var udosen1 = $(this).data('usulandosen1');
         var udosen2 = $(this).data('usulandosen2');
         var tanggal = $(this).data('tanggal');
-        var verifikasi = $(this).data('verifikasi');
-        var Vangkatan = $(this).data('angkatan');
+        var status = $(this).data('status');
+        var semester = $(this).data('semester');
 
         $('#EditNim').val(NIM);
         $('#hiddennim').val(NIM);
@@ -349,33 +295,85 @@
         $('#EditDosen1').val(udosen1);
         $('#EditDosen2').val(udosen2);
         $('#EditTanggal').val(tanggal);
-        $('#statusverifikasi').val(verifikasi);
+        $('#status').val(status);
         $('#hiddenNama').val(nama_mahasiswa);
         $('#hiddenJudul').val(juduloutline);
-        $('#hiddenAngkatan').val(Vangkatan);
+        $('#hiddensemester').val(semester);
+        $('#hiddendosen1').val(udosen1);
+        $('#hiddendosen2').val(udosen2);
 
     })
 </script>
 
+<!-- show detail outline semester -->
+ <script type="text/javascript">
+    $(document).ready(function(){
+        $('#semester').change(function(){
+            var id = $(this).find(":selected").val();
+            $.ajax({
+                url : 'getoutlinepersemester.php',
+                type:'post',
+                data : 'idsemester='+ id,
+                cache : false,
+                success : function(data)
+                {
+                    $('#tabeloutline').html(data);
+                }
+            });
+        });
+    });
+ </script> 
 <?php
-if (isset($_POST['UpdateVerifikasiOutline'])) {
+if (isset($_POST['LolosVerifikasiOutline'])) {
     $sql = "UPDATE outline SET
     tgl_disetujui = '$_POST[tanggal]',
-    dosen1 = '$_POST[Dosen1]',
-    dosen2 = '$_POST[Dosen2]',
-    verified = 'Terverifikasi'
+    status = 'Lolos Outline'
+    WHERE nim = '$_POST[hiddennim]'";
+    
+    if (mysqli_query($conn, $sql)) {
+        echo "<meta http-equiv='refresh' content='0'>";
+    } 
+
+        //SAVE INTO TABLE PROPOSAL AND Table assign_dosen
+        // field : nim, nama judul, dosen1, dosen 2
+
+    $sql = "INSERT INTO proposal (nim,nama,judulproposal,dosen1,dosen2,id_semester) 
+       VALUES ('". $_POST[hiddennim] . "','". $_POST[hiddenNama] . "','". $_POST[hiddenJudul] . "','" . $_POST[hiddendosen1] . "','". $_POST[hiddendosen2] . "','".$_POST[hiddensemester]."')";
+    if (mysqli_query($conn, $sql)) {
+                echo "<meta http-equiv='refresh' content='0'>";
+     }
+
+    //insert into sk1
+    $sql = "INSERT INTO sk1 (id_semester,id_dosen1,nim) VALUES ('". $_POST[hiddensemester] . "','". $_POST[hiddendosen1] . "','". $_POST[hiddennim] . "')";
+    if (mysqli_query($conn, $sql)) {
+                echo "<meta http-equiv='refresh' content='0'>";
+     } 
+
+      //insert into sk2
+    $sql = "INSERT INTO sk2 (id_semester,id_dosen2,nim) VALUES ('". $_POST[hiddensemester] . "','". $_POST[hiddendosen2] . "','". $_POST[hiddennim] . "')";
+    if (mysqli_query($conn, $sql)) {
+                echo "<meta http-equiv='refresh' content='0'>";
+     } 
+
+    //insert into sk
+    $sql = "INSERT INTO sk (id_dosen1sk,id_dosen2sk,id_semestersk,nim_sk) VALUES ('". $_POST[hiddendosen1] . "','". $_POST[hiddendosen2] . "','". $_POST[hiddensemester] . "','". $_POST[hiddennim] . "')";
+    if (mysqli_query($conn, $sql)) {
+                echo "<meta http-equiv='refresh' content='0'>";
+     } 
+}
+?>
+
+<?php
+if (isset($_POST['TidakLolosVerifikasiOutline'])) {
+    $sql = "UPDATE outline SET
+    tgl_disetujui = '$_POST[tanggal]',
+    status = 'Tidak Lolos Outline'
     WHERE nim = '$_POST[hiddennim]'";
     if (mysqli_query($conn, $sql)) {
-        //SAVE INTO TABLE PROPOSAL
-        // field : nim, nama judul, dosen1, dosen 2
-        $sql = "INSERT INTO proposal (nim,nama,judulproposal,dosen1,dosen2,id_angkatan) 
-        VALUES ('". $_POST[hiddennim] . "','". $_POST[hiddenNama] . "','". $_POST[hiddenJudul] . "','" . $_POST[Dosen1] . "','". $_POST[Dosen2] . "','".$_POST[hiddenAngkatan]."')";
-        if (mysqli_query($conn, $sql)) {
-            echo "<meta http-equiv='refresh' content='0'>";
-        }
-    }
+       echo "<meta http-equiv='refresh' content='0'>";    
+     }
+ }
 
-}
 ?>
 <!-- Bootstrap core JavaScript
     <script src="vendor/jquery/jquery.min.js"></script>-->

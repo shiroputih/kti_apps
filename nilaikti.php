@@ -43,7 +43,7 @@ $globalnim = '';
                     </tfoot>
                     <tbody>
                         <?php
-                        $sql = "SELECT * FROM kti WHERE kti.nilaiakhir IS NULL OR kti.nilaiakhir = '0'";
+                        $sql = "SELECT * FROM kti join mahasiswa on kti.nim = mahasiswa.nim WHERE kti.nilaiakhir IS NULL OR kti.nilaiakhir=0 ";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                         // output data of each row
@@ -631,6 +631,7 @@ $globalnim = '';
         penguasaanmateri = '$_POST[hidnilaimaterifinal]',
         materidanpresentasi = '$_POST[hidnilaipresentasifinal]',
         nilaiakhir = '$_POST[hidnilaiakhirangka]',
+        nilaiakhirhuruf_temp = '$_POST[hidnilaiakhirhuruf]',
         nilaiakhirhuruf = '$_POST[hidnilaiakhirhuruf]'
         WHERE nim = '$_POST[hiddennimfinal]'";
         if (mysqli_query($conn, $sql)) {

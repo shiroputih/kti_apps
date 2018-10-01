@@ -13,18 +13,14 @@
                 <li class="breadcrumb-item active">Data Dosen</li>
             </ol>
         </div>
-        <div class="card mb-3">
-            <div class="card-header">
-                <i class="fa fa-table"></i> Data Dosen
-                <button type="button" style="margin-left: 80%; width: 8%" class="btn btn-primary btn-sm" data-toggle="modal"
-                data-target="#inputdatadosen"> Add
-            </button>
-        </div>
+         <button type="button" style="margin-top: 0; margin-left: 1%; width:12%" class="btn btn-primary btn-sm" data-toggle="modal"
+                data-target="#inputdatadosen"><img src="icons/contactadd.png" width="30px" height="30px"> Tambah Dosen </button>
         <div id="Table" class="card-body">
             <div id="tabledosen" class="table-responsive">
                 <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Nama Dosen</th>
                             <th>Gelar Depan</th>
                             <th>Gelar Belakang</th>
@@ -41,12 +37,14 @@
                     </tfoot>
                     <tbody>
                         <?php
+                        $no = 1;
                         $sql = "SELECT * FROM dosen";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                         // output data of each row
                             while ($row = $result->fetch_assoc()) {
                                 echo "<tr>
+                                <td>$no</td>
                                 <td>$row[nama_dosen]</td>
                                 <td>$row[gelar_depan]</td>
                                 <td>$row[gelar_belakang]</td>
@@ -57,6 +55,7 @@
                                 <button type='button' class='btn btn-danger btn-sm'>Delete</button></a>
                                 </td>
                                 </tr>";
+                                $no+= 1;
                             }
                         } else {
                             echo "0 results";
@@ -84,28 +83,38 @@
             <div class="modal-body">
                 <div class="card-body">
                     <form id="formdosen" method="POST">
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                <label for="exampleInputName">Nama Dosen</label>
+                      
+                     <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputsemester">Nama Dosen</label>
+                            </div>
                                 <input class="form-control" name="namadosen" id="exampleInputName" type="text"
                                 aria-describedby="nameHelp" placeholder="Masukkan Nama Dosen"
                                 onkeyup="this.value=this.value.toUpperCase()">
+                        </div>
+                    </div>
+                      
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputsemester">Gelar Depan</label>
                             </div>
-                            <br>
-                            <div class="col-md-6">
-                                <label for="exampleInputLastName">Gelar Depan</label>
                                 <input class="form-control" name="gelardepan" id="exampleInputLastName" type="text"
                                 aria-describedby="nameHelp" placeholder="Masukkan Gelar Depan">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="inputsemester">Gelar Belakang</label>
                             </div>
-                            <br>
-                            <div class="col-md-6">
-                                <label for="exampleInputLastName">Gelar Belakang</label>
                                 <input class="form-control" name="gelarbelakang" id="exampleInputLastName" type="text"
                                 aria-describedby="nameHelp" placeholder="Masukkan Gelar Belakang">
                             </div>
-                            <br>
                         </div>
-                        <button type="submit" name="adddata" class="btn btn-info btn-lg">SUBMIT</button>
+                    
+                    <button type="submit" name="adddata" class="btn btn-info btn-md">SUBMIT</button>
                     </form>
                 </div>
             </div>
@@ -137,25 +146,25 @@
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                     <label class="input-group-text" for="exampleInputLastName">Gelar Depan</label>
-                                 </div>
-                                <input class="form-control" name="gelardepan" id="gelardepan" type="text"
-                                aria-describedby="nameHelp" placeholder="Masukkan Gelar Depan">
+                                   <label class="input-group-text" for="exampleInputLastName">Gelar Depan</label>
+                               </div>
+                               <input class="form-control" name="gelardepan" id="gelardepan" type="text"
+                               aria-describedby="nameHelp" placeholder="Masukkan Gelar Depan">
+                           </div>
+                           <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="exampleInputLastName">Gelar Belakang</label>
                             </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="exampleInputLastName">Gelar Belakang</label>
-                                </div>
-                                <input class="form-control" name="gelarbelakang" id="gelarbelakang" type="text"
-                                aria-describedby="nameHelp" placeholder="Masukkan Gelar Belakang">
-                            </div>
+                            <input class="form-control" name="gelarbelakang" id="gelarbelakang" type="text"
+                            aria-describedby="nameHelp" placeholder="Masukkan Gelar Belakang">
                         </div>
-                        <button type="submit" name="updatedata" class="btn btn-info btn-lg" >SUBMIT</button>
-                    </form>
-                </div>
+                    </div>
+                    <button type="submit" name="updatedata" class="btn btn-info btn-lg" >SUBMIT</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <!-- Delete Modal -->

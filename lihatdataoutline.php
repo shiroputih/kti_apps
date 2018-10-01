@@ -15,18 +15,14 @@
                     <li class="breadcrumb-item active"> Data Outline</li>
                 </ol>
             </div>
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-table"></i>Data Outline
-                        <button type="button" style="margin-left: 80%; width: 8%" class="btn btn-primary btn-sm" data-toggle="modal"
-                        data-target="#inputdataoutline">Add</button>
-                </div>
-            </div>
+            <button type="button" style="margin-top: 0; margin-left: 1%; width:12%" class="btn btn-primary btn-sm" data-toggle="modal"
+                data-target="#inputdataoutline"><img src="icons/contactadd.png" width="30px" height="30px"> Tambah Outline </button>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
+                                <th>No</th>
                                 <th>NIM</th>
                                 <th>Nama Mahasiswa</th>
                                 <th>Judul Outline</th>
@@ -37,6 +33,7 @@
                         </thead>
                         <tfoot>
                             <tr>
+                                <th>No</th>
                                 <th>NIM</th>
                                 <th>Nama Mahasiswa</th>
                                 <th>Judul Outline</th>
@@ -47,22 +44,23 @@
                         </tfoot>
                         <tbody>
                             <?php
-                            $sql = "SELECT * FROM mahasiswa,outline,angkatan,dosen,semester where mahasiswa.nim = outline.nim AND angkatan.id_angkatan = mahasiswa.id_angkatan AND dosen.id_dosen = outline.usulan_dosen1 AND semester.id_semester = mahasiswa.id_semester ";
+                            $no=1;
+                            $sql = "SELECT * FROM outline,mahasiswa WHERE outline.nim = mahasiswa.nim";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
                                 // output data of each row
                                 while ($path = $result->fetch_assoc()) {
                                     echo "<tr>
+                                            <td>$no</td>
                                             <td>$path[nim]</td>
                                             <td>$path[nama]</td>
                                             <td>$path[judul_outline]</td>
                                             <td>$path[tgl_pengajuan]</td>
-                                            <td>$path[verified]</td>
+                                            <td>$path[status]</td>
                                             <td class='center'>
                                             <a id ='Viewoutline' 
                                                 data-nimmahasiswa='$path[nim]'
                                                 data-namamahasiswa='$path[nama]'  
-                                                data-angkatan='$path[angkatan]' 
                                                 data-semester='$path[semester]' 
                                                 data-toggle='modal' 
                                                 data-target='#ViewOutlineModal'>
@@ -95,6 +93,7 @@
                                             <button type='button' class='btn btn-danger btn-sm'>Delete</button></a>
                                             </td>
                                             </tr>";
+                                            $no+=1;
                                 }
                             } else {
 
@@ -130,6 +129,7 @@
                                         <label class="input-group-text" for="inputsemester">Semester</label>
                                     </div>
                                     <select name="semester" class="custom-select" id="inputsemester">
+                                        <option>--Pilih Semester--</option>
                                         <?php
                                         $sql = "SELECT * FROM semester";
                                         $result = $conn->query($sql);
@@ -148,13 +148,15 @@
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">NIM</label>
                                 </div>
+
                                 <?php
                                 $sql = "SELECT nim,nama FROM mahasiswa WHERE NOT EXISTS (SELECT nim FROM outline WHERE mahasiswa.nim = outline.nim)";
                                 $result = $conn->query($sql);
                                 if ($result->num_rows > 0) {
                                     echo "<select name ='nimmahasiswa' class='custom-select' id='inputGroupSelect01'>";
+                                    echo "<option>--Pilih Mahasiswa--</option>";
                                     while ($row = $result->fetch_assoc()) {
-                                        echo "<option value=$row[nim]>$row[nim]  |   $row[nama]</option>";
+                                        echo "<option value=$row[nim]>$row[nama] | $row[nim]</option>";
                                     }
                                 } else {
                                     echo "<input type='text' style='background-color:red;'class='form-control' value='Maaf Semua Mahasiswa Sudah Diinputkan'/></input>";
@@ -233,6 +235,7 @@
                                     <label class="input-group-text">Usulan Pembimbing 1</label>
                                 </div>
                                 <select class="custom-select" name="usulandosen1" id="inputsemester">
+                                    <option>--Pilih Dosen Pembimbing 1--</option>
                                     <?php
                                     $sql = "SELECT * FROM dosen";
                                     $result = $conn->query($sql);
@@ -252,6 +255,7 @@
                                     <label class="input-group-text">Usulan Pembimbing 2</label>
                                 </div>
                                 <select name="usulandosen2" class="custom-select">
+                                    <option>--Pilih Dosen Pembimbing 2--</option>
                                     <?php
                                     $sql = "SELECT * FROM dosen";
                                     $result = $conn->query($sql);
@@ -273,12 +277,12 @@
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend" data-provide='datetimepicker1'>
-                                    <label class="input-group-text">Verified</label>
+                                    <label class="input-group-text">Status</label>
                                 </div>
-                                <input type='text' class="form-control" id="verified" name="verified"
-                                       value="Belum Terverifikasi" disabled/>
+                                <input type='text' class="form-control" id="verified" name="status"
+                                       value="NULL" disabled/>
                             </div>
-                            <button type="submit" name="AddDataOutline" class="btn btn-info btn-lg" >SUBMIT</button>
+                            <button type="submit" name="AddDataOutline" class="btn btn-info btn-sm" >Simpan</button>
                         </form>
                     </div>
                 </div>
@@ -312,7 +316,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body" style="background-color: #f7ca77">
-                    <div class="card-body">
+                    <div class="card-body"> 
                         <form id="formdosen" method="POST">
                             <div class="form-group">
                                 <input type="hidden" class="form-control" name="hiddennim" id="hiddennim" type="text"
@@ -577,7 +581,7 @@
 
     <?php
         if (isset($_POST['AddDataOutline'])) {
-            $sql = "INSERT INTO outline (nim,judul_outline,pertanyaan_penelitian,manfaat_penelitian,desain_penelitian,sample_penelitian,variabel_bebas,variabel_tergantung,hipotesis ,usulan_dosen1,usulan_dosen2 ,tgl_pengajuan,verified) VALUES ('" . $_POST['nimmahasiswa'] . "','" . $_POST['JudulPenelitian'] . "','" . $_POST['pertanyaanpenelitian'] . "','" . $_POST['manfaatpenelitian'] . "','" . $_POST['desainpenelitian'] . "','" . $_POST['samplepenelitian'] . "','" . $_POST['variabelbebas'] . "','" . $_POST['variabeltergantung'] . "','" . $_POST['hipotesis'] . "','" . $_POST['usulandosen1'] . "','" . $_POST['usulandosen2'] . "','" . $_POST['tanggal'] . "','Belum Terverifikasi')";
+            $sql = "INSERT INTO outline (nim,judul_outline,pertanyaan_penelitian,manfaat_penelitian,desain_penelitian,sample_penelitian,variabel_bebas,variabel_tergantung,hipotesis ,usulan_dosen1,usulan_dosen2 ,tgl_pengajuan,status,semester) VALUES ('" . $_POST['nimmahasiswa'] . "','" . $_POST['JudulPenelitian'] . "','" . $_POST['pertanyaanpenelitian'] . "','" . $_POST['manfaatpenelitian'] . "','" . $_POST['desainpenelitian'] . "','" . $_POST['samplepenelitian'] . "','" . $_POST['variabelbebas'] . "','" . $_POST['variabeltergantung'] . "','" . $_POST['hipotesis'] . "','" . $_POST['usulandosen1'] . "','" . $_POST['usulandosen2'] . "','" . $_POST['tanggal'] . "','','".$_POST['semester']."')";
             if (mysqli_query($conn, $sql)) {
                 echo "<meta http-equiv='refresh' content='0'>";
             }

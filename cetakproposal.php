@@ -20,8 +20,10 @@ if($_POST['nim']){
 		
 		$pdf = new FPDF('P','mm','A4');
 		$pdf->AddPage();
+		$pdf->AddFont('cambria','','cambria.php');
+		$pdf->AddFont('cambriab','','cambriab.php');
 		$pdf->SetXY(90,10);
-		$pdf->SetFont('times','B',14);
+		$pdf->SetFont('cambriab','',14);
 		$pdf->Cell(30,10,$title1,0,0,'C');
 		$pdf->SetXY(90,15);
 		$pdf->Cell(30,10,$title2,0,0,'C');
@@ -29,50 +31,50 @@ if($_POST['nim']){
 		$pdf->Cell(30,10,$title3,0,0,'C');
 
 		$pdf->SetXY(20,35);
-		$pdf->SetFont('times','',12);
+		$pdf->SetFont('cambria','',10);
 		$pdf->Cell(45,10,'Tanggal',0,0);
 		$pdf->Cell(5,10,':',0,0,'R');
 		$pdf->Cell(120,8,$tgl,1,0);
 
 		$pdf->SetXY(20,45);
-		$pdf->SetFont('times','',12);
+		$pdf->SetFont('cambria','',10);
 		$pdf->Cell(45,10,'Jam',0,0);
 		$pdf->Cell(5,10,':',0,0,'R');
 		$pdf->Cell(120,8,$jam.'WIB',1,0);
 
 		$pdf->SetXY(20,55);
-		$pdf->SetFont('times','',12);
+		$pdf->SetFont('cambria','',10);
 		$pdf->Cell(45,10,'Tempat',0,0);
 		$pdf->Cell(5,10,':',0,0,'R');
 		$pdf->Cell(120,8,$tempat,1,0);
 
 		$pdf->SetXY(20,70);
-		$pdf->SetFont('times','',12);
+		$pdf->SetFont('cambria','',10);
 		$pdf->Cell(45,10,'NIM',0,0);
 		$pdf->Cell(5,10,':',0,0,'R');
 		$pdf->Cell(120,8,$nim,1,0);
 
 		$pdf->SetXY(20,80);
-		$pdf->SetFont('times','',12);
+		$pdf->SetFont('cambria','',10);
 		$pdf->Cell(45,10,'Nama',0,0);
 		$pdf->Cell(5,10,':',0,0,'R');
 		$pdf->Cell(120,8,$nama,1,0);
 
 		$pdf->SetXY(20,90);
-		$pdf->SetFont('times','',12);
+		$pdf->SetFont('cambria','',10);
 		$pdf->MultiCell(45,5,'Judul Karya Tulis Ilmiah (Bahasa Indonesia)',0);
 		$pdf->SetXY(65,90);
-		$pdf->SetFont('times','',11);
+		$pdf->SetFont('cambria','',10);
 		$pdf->Cell(5,10,':',0,0,'R');
 		$pdf->MultiCell(120,5,$judul,0);
 		$pdf->SetXY(70,90);
 		$pdf->Cell(120,28,'',1,0);
 
 		$pdf->SetXY(20,120);
-		$pdf->SetFont('times','',12);
+		$pdf->SetFont('cambria','',10);
 		$pdf->MultiCell(45,5,'Judul Karya Tulis Ilmiah (Bahasa Inggris)',0);
 		$pdf->SetXY(65,120);
-		$pdf->SetFont('times','',12);
+		$pdf->SetFont('cambria','',10);
 		$pdf->Cell(5,10,':',0,0,'R');
 		$pdf->Cell(120,28,' ',1,0);
 
@@ -115,7 +117,7 @@ if($_POST['nim']){
 			$nama_dosen = $row3['nama_dosen'];
 			$gelar_belakang = $row3['gelar_belakang'];
 			$pdf->SetXY(20, 175);
-			$pdf->SetFont('times','',12);
+			$pdf->SetFont('cambria','',10);
 			$pdf->Cell(30,10,"Penguji 3",1,0,'C');
 			$pdf->Cell(110,10,$gelar_depan.''.$nama_dosen.'.'.$gelar_belakang,1,0,'L');
 			$pdf->Cell(30,10,"",1,0,'C');
@@ -141,7 +143,9 @@ if($_POST['nim']){
 
 		$pdf->AddPage();
 		$pdf->SetXY(90,10);
-		$pdf->SetFont('times','B',14);
+		$pdf->AddFont('cambria','','cambria.php');
+		$pdf->AddFont('cambriab','','cambriab.php');
+		$pdf->SetFont('cambriab','',14);
 		$pdf->Cell(30,10,"Daftar Hadir",0,0,'C');
 		$pdf->SetXY(90,15);
 		$pdf->Cell(30,10,$title2,0,0,'C');
@@ -149,7 +153,7 @@ if($_POST['nim']){
 		$pdf->Cell(30,10,$title3,0,0,'C');
 
 		$pdf->SetXY(20, 35);
-		$pdf->SetFont('times','B',12);
+		$pdf->SetFont('cambria','',10);
 		$pdf->Cell(15,10,"No",1,0,'C');
 		$pdf->Cell(115,10,"Nama",1,0,'C');
 		$pdf->Cell(40,10,"Tanda Tangan",1,0,'C');
@@ -161,6 +165,7 @@ if($_POST['nim']){
 			$nama_dosen = $row1['nama_dosen'];
 			$gelar_belakang = $row1['gelar_belakang'];
 			$pdf->SetXY(20, 45);
+			$pdf->SetFont('cambria','',10);
 			$pdf->Cell(15,10,"1",1,0,'C');
 			$pdf->Cell(115,10,$gelar_depan.''.$nama_dosen.'.'.$gelar_belakang,1,0,'L');
 			$pdf->Cell(40,10,"",1,0,'C');
@@ -173,6 +178,7 @@ if($_POST['nim']){
 			$gelar_belakang = $row2['gelar_belakang'];
 		
 			$pdf->SetXY(20, 55);
+			$pdf->SetFont('cambria','',10);
 			$pdf->Cell(15,10,"2",1,0,'C');
 			$pdf->Cell(115,10,$gelar_depan.''.$nama_dosen.'.'.$gelar_belakang,1,0,'L');
 			$pdf->Cell(40,10,"",1,0,'C');
@@ -184,6 +190,7 @@ if($_POST['nim']){
 			$nama_dosen = $row3['nama_dosen'];
 			$gelar_belakang = $row3['gelar_belakang'];
 			$pdf->SetXY(20, 65);
+			$pdf->SetFont('cambria','',10);
 			$pdf->Cell(15,10,"3",1,0,'C');
 			$pdf->Cell(115,10,$gelar_depan.''.$nama_dosen.'.'.$gelar_belakang,1,0,'L');
 			$pdf->Cell(40,10,"",1,0,'C');

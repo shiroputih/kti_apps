@@ -14,54 +14,42 @@
                     <li class="breadcrumb-item active">Data Mahasiswa</li>
                 </ol>
             </div>
-            
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-table"></i>Data Mahasiswa
-                    <button type="button" style="margin-left: 80%; width: 8%" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#inputdatamahasiswa"> Add </button>
-                </div>
-            </div>
-            
+            <button type="button" style="margin-left: 1%; width: 4%" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#inputdatamahasiswa"><img src="icons/contactadd.png" width="30px" height="30px"></button>
+            <button type="button" style="margin-left: 1%; width: 4%" class="btn btn-default btn-sm" data-toggle="modal" data-target="#inputdatamahasiswa"> <img src="icons/upload.jpg" width="30px" height="30px"></button>
             <div  class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover " id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                            <tr>
+                            <tr align="center">
+                                <th>No</th>
                                 <th>Nim</th>
                                 <th>Nama</th>
-                                <th>Angkatan</th>
-                                <th>Keterangan</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Nim</th>
-                                <th>Nama</th>
-                                <th>Angkatan</th>
-                                <th>Keterangan</th>
-                            </tr>
-                        </tfoot>
                         <tbody>
                             <?php
-                            $sql = "SELECT * FROM mahasiswa,gender,angkatan,semester where gender.id_gender = mahasiswa.id_gender AND angkatan.id_angkatan = mahasiswa.id_angkatan AND semester.id_semester = mahasiswa.id_semester";
+                            $no=1;
+                            $sql = "SELECT * FROM mahasiswa";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) 
                             {
                                 while ($row = $result->fetch_assoc()) 
                                 {
                                     echo "<tr>
+                                    <td align='center'>$no</td>
                                     <td>$row[nim]</td>
                                     <td>$row[nama]</td>
-                                    <td>$row[angkatan]</td>
                                     <td align='center'>
-                                    <a id ='Viewmahasiswa' data-nimmahasiswa='$row[nim]' data-namamahasiswa='$row[nama]'  data-gender='$row[gender]' data-angkatan='$row[angkatan]' data-semester='$row[semester]' data-toggle='modal' data-target='#ViewmahasiswaModal'>
+                                    <a id ='Viewmahasiswa' data-nimmahasiswa='$row[nim]' data-namamahasiswa='$row[nama]' data-toggle='modal' data-target='#ViewmahasiswaModal'>
                                     <button type='button' class='btn btn-info btn-sm'>Detail</button></a>
-                                    <a id ='Editmahasiswa' data-nimmahasiswa='$row[nim]' data-namamahasiswa='$row[nama]'  data-idgender='$row[id_gender]' data-angkatan='$row[angkatan]' data-semester='$row[semester]' data-toggle='modal' data-target='#EditmahasiswaModal'>
+                                    <a id ='Editmahasiswa' data-nimmahasiswa='$row[nim]' data-namamahasiswa='$row[nama]' data-toggle='modal' data-target='#EditmahasiswaModal'>
                                     <button type='button' class='btn btn-warning btn-sm'>Edit</button></a>
-                                    <a id ='Deletemahasiswa' data-nimmahasiswa='$row[nim]' data-namamahasiswa='$row[nama]'  data-idgender='$row[id_gender]' data-angkatan='$row[angkatan]' data-semester='$row[semester]' data-toggle='modal' data-target='#DeletemahasiswaModal'>
+                                    <a id ='Deletemahasiswa' data-nimmahasiswa='$row[nim]' data-namamahasiswa='$row[nama]' data-toggle='modal' data-target='#DeletemahasiswaModal'>
                                     <button type='button' class='btn btn-danger btn-sm'>Delete</button></a>
                                     </td>
                                     </tr>";
+                                    $no+=1;
                                 }
                             } else {
 
@@ -118,66 +106,8 @@
                                             <input class="form-control" name="namamahasiswa" id="exampleInputLastName" type="text"
                                             aria-describedby="nameHelp" placeholder="Masukkan Nama Mahasiswa" onkeyup="this.value=this.value.toUpperCase()">
                                         </div>
-                                        <div class="col-md-6">
-                                            <label for="exampleInputLastName">Gender</label>
-                                            <div class="form-group" placeholder="Pilih Angkatan">
-                                                <select name="gender" class="form-control">
-                                                    <?php
-                                                    $sql = "SELECT * FROM gender";
-                                                    $result = $conn->query($sql);
-                                                    if ($result->num_rows > 0) {
-                                                    // output data of each row
-                                                        while ($row = $result->fetch_assoc()) {
-                                                            echo "<option value=$row[id_gender]>$row[gender]</option>";
-                                                        }
-                                                    } else {
-                                                        echo "0 results";
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="exampleInputLastName">Angkatan</label>
-                                            <div class="form-group" placeholder="Pilih Angkatan">
-                                                <select name="angkatan" class="form-control">
-                                                    <?php
-                                                    $sql = "SELECT * FROM angkatan";
-                                                    $result = $conn->query($sql);
-                                                    if ($result->num_rows > 0) {
-                                                    // output data of each row
-                                                        while ($row = $result->fetch_assoc()) {
-                                                            echo "<option value=$row[id_angkatan]>$row[angkatan]</option>";
-                                                        }
-                                                    } else {
-                                                        echo "0 results";
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="exampleInputLastName">Semester</label>
-                                            <div class="form-group">
-                                                <select name="semester" class="form-control">
-                                                    <?php
-                                                    $sql = "SELECT * FROM semester";
-                                                    $result = $conn->query($sql);
-                                                    if ($result->num_rows > 0) {
-                                                    // output data of each row
-                                                        while ($row = $result->fetch_assoc()) {
-                                                            echo "<option value=$row[id_semester]>$row[semester]</option>";
-                                                        }
-                                                    } else {
-                                                        echo "0 results";
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <br>
                                     </div>
-                                    <button type="submit" name="AddDataMahasiswa" class="btn btn-info btn-lg">SUBMIT</button>
+                                    <button type="submit" name="AddDataMahasiswa" class="btn btn-info btn-md" >SUBMIT</button>
                                 </form>
                             </div>
                         </div>
@@ -229,66 +159,6 @@
                                             <input class="form-control" name="namamahasiswa" id="namamahasiswa" type="text"
                                             aria-describedby="nameHelp" placeholder="Masukkan Nama Mahasiswa" onkeyup="this.value=this.value.toUpperCase()">
                                         </div>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <label class="input-group-text" for="exampleInputLastName">Gender</label>
-                                            </div> 
-                                            <select name="EditGender" id="EditGender" class="form-control">
-                                                <?php
-                                                $sql = "SELECT * FROM gender";
-                                                $result = $conn->query($sql);
-                                                if ($result->num_rows > 0) {
-                                                    // output data of each row
-                                                    while ($row = $result->fetch_assoc()) {
-                                                        echo "<option value=$row[id_gender]>$row[gender]</option>";
-                                                    }
-                                                } else {
-                                                    echo "0 results";
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <label class="input-group-text" for="exampleInputLastName">Angkatan</label>
-                                            </div>
-                                            <input class="form-control" name="angkatan" id="angkatan" type="hidden"
-                                            aria-describedby="nameHelp" placeholder="Masukkan NIM Mahasiswa" disabled="">
-                                            <select name="angkatan" id="angkatan" class="form-control">
-                                                <?php
-                                                $sql = "SELECT * FROM angkatan";
-                                                $result = $conn->query($sql);
-                                                if ($result->num_rows > 0) {
-                                                    // output data of each row
-                                                    while ($row = $result->fetch_assoc()) {
-                                                        echo "<option value=$row[id_angkatan]>$row[angkatan]</option>";
-                                                    }
-                                                } else {
-                                                    echo "0 results";
-                                                }
-                                                ?>
-                                            </select>  
-                                        </div>
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <label class="input-group-text" for="exampleInputLastName">Semester</label>
-                                            </div>
-                                            <input class="form-control" name="semester" id="semester" type="hidden"
-                                            aria-describedby="nameHelp" placeholder="Masukkan NIM Mahasiswa" disabled="">
-                                            <select name="semester" id="semester" class="form-control">
-                                                <?php
-                                                $sql = "SELECT * FROM semester";
-                                                $result = $conn->query($sql);
-                                                if ($result->num_rows > 0) {
-                                                    while ($row = $result->fetch_assoc()) {
-                                                        echo "<option value=$row[id_semester]>$row[semester]</option>";
-                                                    }                                            
-                                                }else {
-                                                    echo "0 results";
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
                                         <button type="submit" name="UpdateDataMahasiswa" class="btn btn-info btn-lg">UPDATE</button>
                                     </form>
                                 </div>
@@ -308,12 +178,12 @@
                             <div class="modal-body" style="background-color: #c82333;">
                                 <div class="card-body">
                                     <form method="post" enctype="multipart/form-data">
-                                        <label for="exampleInputLastName">Apakah anda ingin menghapus data mahasiswa</label><br>
-                                        <input type="hidden" id="lblnim" name="lblnim" class="form-control">
-                                        nim :<input id="deletenim" name="deletenim" class="form-control" disabled></input><br>
-                                        nama :<input id="deletenama" class="form-control" disabled></input><br>
-                                        <button type="submit" class="btn btn-info btn-lg" data-dismiss="modal" data-dismiss="modal">NO</button>
-                                        <button type="submit" name="DeleteDataMahasiswa" class="btn btn-danger btn-lg" data-dismiss="modal">YES</button>
+                                        <input type="hidden" class="form-control" name="deletenim" id="deletenim" type="text"
+                                            aria-describedby="nameHelp">
+                                        <div id="hapusmahasiswa"></div>
+                                        <br>
+                                        <button type="submit" class="btn btn-info btn-sm" data-dismiss="modal" data-dismiss="modal">NO</button>
+                                        <button type="submit" name="DeleteDataMahasiswa" class="btn btn-danger btn-sm" >YES</button>
                                     </form>
                                 </div>
                             </div>
@@ -326,7 +196,7 @@
                 <!--  All function mahasiswa -->
                 <?php
                 if (isset($_POST['AddDataMahasiswa'])) {
-                    $sql = "INSERT INTO mahasiswa (nim,nama,id_angkatan,id_gender,id_semester) VALUES ('".$_POST['nimmahasiswa']."','".$_POST['namamahasiswa']."','".$_POST['angkatan']."','".$_POST['gender']."','".$_POST['semester']."')";
+                    $sql = "INSERT INTO mahasiswa (nim,nama) VALUES ('".$_POST['nimmahasiswa']."','".$_POST['namamahasiswa']."')";
                     if (mysqli_query($conn, $sql)) {
                         echo "<meta http-equiv='refresh' content='0'>";
                     }
@@ -334,20 +204,15 @@
 
                 if (isset($_POST['UpdateDataMahasiswa'])) {
         //update tabel mahasiswa
-                    $sql = "UPDATE mahasiswa SET nama='$_POST[namamahasiswa]',id_angkatan='$_POST[angkatan]',id_gender='$_POST[EditGender]',id_semester='$_POST[semester]' where nim='$_POST[nimmahasiswa]'";
-                    if (mysqli_query($conn, $sql)) {
-                        echo "<meta http-equiv='refresh' content='0'>";
-                    }
-
-        //update tabel proposal
-                    $sql = "UPDATE proposal SET nama='$_POST[namamahasiswa]',id_angkatan='$_POST[angkatan]' where nim='$_POST[nimmahasiswa]'";
+                    $sql = "UPDATE mahasiswa SET nama='$_POST[namamahasiswa]' WHERE nim = '$_POST[nimmahasiswa]'";
                     if (mysqli_query($conn, $sql)) {
                         echo "<meta http-equiv='refresh' content='0'>";
                     }
                 }
 
                 if (isset($_POST['DeleteDataMahasiswa'])) {
-                    $sql = "DELETE FROM mahasiswa WHERE nim='$_POST[lblnim]'";
+        //update tabel mahasiswa
+                    $sql = "DELETE FROM mahasiswa WHERE nim = '$_POST[deletenim]'";
                     if (mysqli_query($conn, $sql)) {
                         echo "<meta http-equiv='refresh' content='0'>";
                     }
@@ -368,10 +233,6 @@
                         $('#nimmahasiswa').val(NIM);
                         $('#shownim').val(NIM);
                         $('#namamahasiswa').val(nama_mahasiswa);
-                        $('#EditGender').val(idgender);
-                        $('#angkatan').val(angkatan);
-                        $('#semester').val(semester);
-
                     });
                 </script> 
 
@@ -383,7 +244,6 @@
 
                         $('#deletenim').val(NIM);
                         $('#deletenama').val(nama_mahasiswa);
-                        $('#lblnim').val(NIM);
                     });
                 </script> 
 
@@ -394,18 +254,38 @@
                         $('#ViewmahasiswaModal').on('show.bs.modal', function (e) 
                         {
                             var nim = $(e.relatedTarget).data('nimmahasiswa');
-                //menggunakan fungsi ajax untuk pengambilan data
-                $.ajax(
-                {
-                    type : 'post',
-                    url : 'detailmahasiswa.php',
-                    data :  'nim='+ nim,
-                    success : function(data)
-                    {
-                        $('.fetched-data').html(data);//menampilkan data ke dalam modal
-                    }
-                });
-            });
+                            //menggunakan fungsi ajax untuk pengambilan data
+                            $.ajax(
+                            {
+                                type : 'post',
+                                url : 'detailmahasiswa.php',
+                                data :  'nim='+ nim,
+                                success : function(data)
+                                {
+                                    $('.fetched-data').html(data);//menampilkan data ke dalam modal
+                                }
+                            });
+                        });
                     });
                 </script> 
-
+                <!-- hapus Mahasiswa -->
+                <script type="text/javascript">
+                    $(document).ready(function()
+                    {
+                        $('#DeletemahasiswaModal').on('show.bs.modal', function (e) 
+                        {
+                            var nim = $(e.relatedTarget).data('nimmahasiswa');
+                            //menggunakan fungsi ajax untuk pengambilan data
+                            $.ajax(
+                            {
+                                type : 'post',
+                                url : 'hapusmahasiswa.php',
+                                data :  'nim='+ nim,
+                                success : function(data)
+                                {
+                                    $('#hapusmahasiswa').html(data);//menampilkan data ke dalam modal
+                                }
+                            });
+                        });
+                    });
+                </script> 

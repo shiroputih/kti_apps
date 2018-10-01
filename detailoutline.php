@@ -68,7 +68,16 @@ if($_POST['nim']){
                 </tr>
                 <tr>
                     <td>Status Verifikasi</td>
-                    <td><?php echo $row['verified']; ?></td>
+                    <td><?php 
+                            if($row['status']==""){
+                                echo "NULL";
+                            }else{
+                                echo $row['status'];
+                            }
+
+                        ?>
+                        
+                    </td>
                 </tr>
             </table>
 <?php 
