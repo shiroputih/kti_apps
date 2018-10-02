@@ -26,7 +26,7 @@ if($_POST['idsemester']){
                             ?>
                             <tr>
                                 <td><?php echo $row['semester'];?></td>
-                                <td><a href="<?php echo $row['sk_filepdf']; ?>"><img src="icons/pdficon.png" width="30px" height="30px"></a></td>
+                                <td><a href="<?php echo $row['sk_filepdf']; ?>" target="_blank"><img src="icons/pdficon.png" width="30px" height="30px"></a></td>
                             </tr>
                             
                             <?php

@@ -50,7 +50,7 @@
                             </select>
                         </div>
                             <a href="cetaksk.php?semester=<?php echo $semester; ?>" target="_blank">
-                        <button type="submit" class="btn btn-info btn-medium" ><img src="icons/add.png" width="30px" height="30px">Cetak SK</button></a>
+                            <button type="submit" class="btn btn-info btn-medium" ><img src="icons/add.png" width="30px" height="30px">Cetak SK</button></a>
                     </div>
                 </form>
 
