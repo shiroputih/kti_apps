@@ -69,9 +69,10 @@
 								<thead>
 									<tr>
 										<th>NIM</th>
-										<th>Semester</th>
-										<th>File Pdf</th>
-										<th>Action</th>
+		                                <th>Nama</th>
+		                                <th>Semester</th>
+		                                <th>File Pdf</th>
+		                                <th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -81,15 +82,20 @@
 									if ($result->num_rows > 0) {
         // output data of each row
 										while ($row = $result->fetch_assoc()) {
-											?>
+											echo "
 											<tr>
-												<td><?php echo $row['nim'];?></td>
-												<td><?php echo $row['nama'];?></td>
-												<td><a href="<?php echo $row['kti_filepdf'];?>" target="_blank"><img src="icons/pdficon.png" width="30px" height="30px"></a></td>
-												<td></td>.
-											</tr>
-
-											<?php
+												<td>$row[nim]</td>
+												<td>$row[nama]</td>
+												<td>$row[semester]</td>
+												<td><a href=$row[kti_filepdf] target='_blank'><img src='icons/pdficon.png' width='30px' height='30px'></a></td>
+												<td>
+												<a id ='deletearsipkti' data-idarsipkti=$row[id_arsipkti] data-toggle='modal' data-target='#deletearsipktimodal'>
+												<button type='button' class='btn btn-danger btn-circle btn-sm'>
+												<i class='fa fa-times'></i>
+												</button>
+											</a>
+											</td>
+											</tr>";
 										}
 									}
 									?>
@@ -109,6 +115,58 @@
 <?php
 @include("footer.php");
 ?>
+<div class="modal fade" id="deletearsipktimodal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Delete Arsip Berita Acara Seminar Hasil</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body" style="background-color: #c82333;">
+				<div class="card-body">
+					<form method="post" enctype="multipart/form-data">
+						<input type="hidden" class="form-control" name="delnmkti" id="delnmkti" type="text"
+						aria-describedby="nameHelp">
+						<div id="datahapusarsipkti"></div>
+						<br>
+						<button type="submit" class="btn btn-info btn-sm" data-dismiss="modal" data-dismiss="modal">NO</button>
+						<button type="submit" name="DeleteDataBAkti" class="btn btn-danger btn-sm" >YES</button>
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- hapus arsip berita acara proposal -->
+<script type="text/javascript">
+	$(document).on("click", "#deletearsipkti", function () {
+		var id_arsippsemhas = $(this).data('idarsipkti');
+		
+		$('#delnmkti').val(id_arsippsemhas);
+	});
+</script> 
+
+<script type="text/javascript">
+	$(document).ready(function()
+	{
+		$('#deletearsipktimodal').on('show.bs.modal', function (e) 
+		{
+			var idarsipkti = $(e.relatedTarget).data('idarsipkti');
+			//menggunakan fungsi ajax untuk pengambilan data
+            $.ajax(
+            {
+            	type : 'post',
+            	url : 'hapusBAkti.php',
+            	data :  'id='+ idarsipkti,
+            	success : function(data)
+            	{
+                    $('#datahapusarsipkti').html(data);//menampilkan data ke dalam modal
+                }
+            });
+        });
+	});
+</script> 
 
 <?php
 if(isset($_POST['uploadkti']))
@@ -131,6 +189,17 @@ if(isset($_POST['uploadkti']))
   	 }
 }
 ?>
+
+<?php
+if (isset($_POST['DeleteDataBAkti'])) {
+        //update tabel mahasiswa
+	$sql = "DELETE FROM arsipkti WHERE id_arsipkti = '$_POST[delnmkti]'";
+	if (mysqli_query($conn, $sql)) {
+		echo "<meta http-equiv='refresh' content='0'>";
+	}
+}
+?>
+
 <!-- Bootstrap core JavaScript
 	<script src="vendor/jquery/jquery.min.js"></script>-->
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

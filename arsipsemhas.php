@@ -72,7 +72,7 @@
 		                                <th>Nama</th>
 		                                <th>Semester</th>
 		                                <th>File Pdf</th>
-		                                <th>Action</th
+		                                <th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
