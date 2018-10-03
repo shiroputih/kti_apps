@@ -52,6 +52,7 @@
 									<tr>
 										<th>Semester</th>
 										<th>Download</th>
+										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -61,13 +62,20 @@
 									if ($result->num_rows > 0) {
         // output data of each row
 										while ($row = $result->fetch_assoc()) {
-											?>
+											echo "
 											<tr>
-												<td><?php echo $row['semester'];?></td>
-												<td><a href="<?php echo $row['sk_filepdf']; ?>"><img src="icons/pdficon.png" width="30px" height="30px"></a></td>
+											<td>$row[semester]</td>
+											<td><a href=$row[sk_filepdf] target='_blank'><img src='icons/pdficon.png' width='30px' height='30px'></a>
+											</td>
+											<td>
+											<a id ='deletesk' data-idsk=$row[id_arsipsk] data-nm_file = $row[sk_filepdf] data-toggle='modal' data-target='#deleteskmodal'>
+												<button type='button' class='btn btn-danger btn-circle btn-sm'>
+												<i class='fa fa-times'></i>
+												</button>
+											</a>
+											</td>
 											</tr>
-
-											<?php
+											";
 										}
 									}
 									?>
@@ -85,6 +93,69 @@
 </body>
 <?php
 @include("footer.php");
+?>
+
+<div class="modal fade" id="deleteskmodal" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Delete Arsip SK</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body" style="background-color: #c82333;">
+				<div class="card-body">
+					<form method="post" enctype="multipart/form-data">
+						<input type="hidden" class="form-control" name="delnmsk" id="delnmsk" type="text"
+						aria-describedby="nameHelp">
+						<div id="datahapussk"></div>
+						<br>
+						<button type="submit" class="btn btn-info btn-sm" data-dismiss="modal" data-dismiss="modal">NO</button>
+						<button type="submit" name="DeleteDataSK" class="btn btn-danger btn-sm" >YES</button>
+					</form>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+<!-- hapus SK -->
+<script type="text/javascript">
+	$(document).on("click", "#deletesk", function () {
+		var id_sk = $(this).data('idsk');
+		var nama_file = $(this).data('nm_file');
+
+		$('#delnmsk').val(id_sk);
+	});
+</script> 
+
+<script type="text/javascript">
+	$(document).ready(function()
+	{
+		$('#deleteskmodal').on('show.bs.modal', function (e) 
+		{
+			var idsk = $(e.relatedTarget).data('idsk');
+            //menggunakan fungsi ajax untuk pengambilan data
+            $.ajax(
+            {
+            	type : 'post',
+            	url : 'hapussk.php',
+            	data :  'idsk='+ idsk,
+            	success : function(data)
+            	{
+                    $('#datahapussk').html(data);//menampilkan data ke dalam modal
+                }
+            });
+        });
+	});
+</script> 
+<?php
+if (isset($_POST['DeleteDataSK'])) {
+        //update tabel mahasiswa
+	$sql = "DELETE FROM arsipsk WHERE id_arsipsk = '$_POST[delnmsk]'";
+	if (mysqli_query($conn, $sql)) {
+		echo "<meta http-equiv='refresh' content='0'>";
+	}
+}
 ?>
 
 <?php
@@ -106,6 +177,7 @@ if(isset($_POST['uploadsk']))
 	}
 }
 ?>
+
 <!-- Bootstrap core JavaScript
 	<script src="vendor/jquery/jquery.min.js"></script>-->
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

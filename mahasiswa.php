@@ -167,7 +167,7 @@
                     </div>
                 </div>
             </div>
-                <!-- Modal  Delete Mahasiswa-->
+            <!-- Modal  Delete Mahasiswa-->
             <div class="modal fade" id="DeletemahasiswaModal" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
