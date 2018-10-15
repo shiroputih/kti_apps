@@ -10,7 +10,7 @@
 				<li class="breadcrumb-item">
 					<a href="index.php">Home</a>
 				</li>
-				<li class="breadcrumb-item active">Arsip Surat Keputusan</li>
+				<li class="breadcrumb-item active">Upload Arsip Surat Keputusan</li>
 			</ol>
 		</div>
 

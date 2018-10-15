@@ -10,7 +10,7 @@
 				<li class="breadcrumb-item">
 					<a href="index.php">Home</a>
 				</li>
-				<li class="breadcrumb-item active">Arsip Karya Tulis Ilmiah</li>
+				<li class="breadcrumb-item active">Upload Arsip Karya Tulis Ilmiah</li>
 			</ol>
 		</div>
 		
@@ -45,13 +45,13 @@
                 <select class="custom-select" name="datanim" id="semester">
                     <option> -- Pilih Nim --</option>
                     <?php
-                    $sql = "SELECT * FROM mahasiswa";
+                    $sql = "SELECT * FROM mahasiswa ORDER BY nama ASC";
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
                         // output data of each row
                         while ($row = $result->fetch_assoc()) {
                     ?>
-                        <option value ="<?php echo $row['nim']; ?>"><?php echo $row['nim']." | ". $row['nama']; ?></option>
+                        <option value ="<?php echo $row['nim']; ?>"><?php echo $row['nama']." | ". $row['nim']; ?></option>
                     <?php
                         }
                     } else {
