@@ -13,8 +13,13 @@
 				<li class="breadcrumb-item active">Arsip Karya Tulis Ilmiah</li>
 			</ol>
 		</div>
-
+		
 		<form method="post" enctype="multipart/form-data">
+			<div class="input-group mb-3">
+            	<div class="input-group-prepend">
+            	    <label class="input-group-text" for="inputGroupNama">Semester</label>
+            	 </div>
+       		 
 			<select class="custom-select" name="datasemester" id="semester">
                     <option> -- Pilih Semester --</option>
                     <?php
@@ -32,7 +37,11 @@
                     }
                     ?>
                 </select>
-                
+                </div>
+                <div class="input-group mb-3">
+            	<div class="input-group-prepend">
+            	    <label class="input-group-text" for="inputGroupNama">NIM Mahasiswa</label>
+            	 </div>
                 <select class="custom-select" name="datanim" id="semester">
                     <option> -- Pilih Nim --</option>
                     <?php
@@ -50,11 +59,12 @@
                     }
                     ?>
                 </select>
+            </div>
 			<input class="form-control" name="pdf" id="pdf" accept="application/pdf" type="file">
 			<br>
 			<button style="margin-left: 2%;" type="submit" name="uploadkti" id ="uploadkti" class="btn btn-info btn-sm" value="Upload File">SUBMIT</button>
 		</form>
-
+	
 		<div id="Table" class="card-body">
 			<div id="tabledosen" class="table-responsive">
 				<div class = "tabeldata">

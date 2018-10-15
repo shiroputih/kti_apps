@@ -2,6 +2,10 @@
     @include("header.php");
     @include("navigation.php");
     @include("dbconnect.php");
+
+    $katakunci1 = "";
+    $katakunci2 ="";
+    $katakunci3= "";
 ?>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -172,6 +176,18 @@
                                           aria-describedby="nameHelp" placeholder="Judul Penelitian"
                                           onkeyup="this.value=this.value.toUpperCase()"></textarea>
                             </div>
+                        <form>
+                            <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text">Kata Kunci</label>
+                            </div>
+                            <input type='text' class="form-control" placeholder="Kata Kunci 1" id="katakunci1" name="katakunci1" onkeyup="this.value=this.value.toUpperCase()"/>
+                            <input type='text' class="form-control" placeholder="Kata Kunci 2" id="katakunci2" name="katakunci2" onkeyup="this.value=this.value.toUpperCase()"/>
+                            <input type='text' class="form-control" placeholder="Kata Kunci 3" id="katakunci3" name="katakunci3" onkeyup="this.value=this.value.toUpperCase()"/>
+                            <a href="ViewCheckJudul" id ='checkjudul' data-toggle='modal' data-target='#ViewCheckJudul'>
+                            <button type='button' data-dismiss="modal"class='btn btn-info btn-sm'>Check Judul</button></a>
+                            </div>
+                        </form>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text">Pertanyaan Penelitian</label>
@@ -301,6 +317,25 @@
                 </div>
                 <div class="modal-body" id="detailoutline">
                     <div class="outline-data"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End of -->
+
+    <!-- view check judul outline -->
+    <div class="modal fade" id="ViewCheckJudul" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Judul yang Terdeteksi</h4>
+                    <button type="button" class="close" id="closejudul" onclick="recall()" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" id="detailoutline">
+                    <div class="data-checkjudul">
+                    </div>
                 </div>
             </div>
         </div>
@@ -513,7 +548,32 @@
         })
     </script>
 
-<!-- Show Detail Mahasiswa -->
+    <!-- Show Check Judul -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(document).on("click", "#checkjudul", function () {
+                var kk1 = document.getElementById('katakunci1').value;
+                var kk2 = document.getElementById('katakunci2').value;
+                var kk3 = document.getElementById('katakunci3').value;
+            //menggunakan fungsi ajax untuk pengambilan data
+            $.ajax({
+                type : 'post',
+                url : 'checkjudul.php',
+                data :  "kk1="+kk1+"&kk2="+kk2+"&kk3="+kk3,
+                success : function(data){
+                $('.data-checkjudul').html(data);//menampilkan data ke dalam modal
+            }
+
+        });
+        });
+        });
+    </script> 
+    <script type="text/javascript">
+        function recall(){
+            $('#inputdataoutline').modal('show');      
+        }
+    </script> 
+    <!-- Show Detail Mahasiswa -->
     <script type="text/javascript">
         $(document).ready(function(){
             $('#ViewOutlineModal').on('show.bs.modal', function (e) {

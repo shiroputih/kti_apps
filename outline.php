@@ -170,6 +170,14 @@
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
+                                <label class="input-group-text">Kata Kunci</label>
+                            </div>
+                            <input type='text' class="form-control" id="katakunci1" name="katakunci1"/>
+                            <input type='text' class="form-control" id="katakunci1" name="katakunci1"/>
+                            <input type='text' class="form-control" id="katakunci1" name="katakunci1"/>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
                                 <label class="input-group-text">Pertanyaan Penelitian</label>
                             </div>
                             <textarea rows="3" cols="50" class="form-control" name="pertanyaanpenelitian"
