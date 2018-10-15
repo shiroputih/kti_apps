@@ -20,7 +20,7 @@
                 </ol>
             </div>
             <button type="button" style="margin-top: 0; margin-left: 1%; width:12%" class="btn btn-primary btn-sm" data-toggle="modal"
-                data-target="#inputdataoutline"><img src="icons/contactadd.png" width="30px" height="30px"> Tambah Outline </button>
+                data-target="#inputdataoutlineModal"><img src="icons/contactadd.png" width="30px" height="30px"> Tambah Outline </button>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -117,7 +117,7 @@
 ?>
 
     <!-- Modal ADD Data Outline-->
-    <div class="modal fade" id="inputdataoutline" role="dialog">
+    <div class="modal fade" id="inputdataoutlineModal" tabindex="1" style="overflow-y: auto;" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -184,8 +184,9 @@
                             <input type='text' class="form-control" placeholder="Kata Kunci 1" id="katakunci1" name="katakunci1" onkeyup="this.value=this.value.toUpperCase()"/>
                             <input type='text' class="form-control" placeholder="Kata Kunci 2" id="katakunci2" name="katakunci2" onkeyup="this.value=this.value.toUpperCase()"/>
                             <input type='text' class="form-control" placeholder="Kata Kunci 3" id="katakunci3" name="katakunci3" onkeyup="this.value=this.value.toUpperCase()"/>
+                            
                             <a href="ViewCheckJudul" id ='checkjudul' data-toggle='modal' data-target='#ViewCheckJudul'>
-                            <button type='button' data-dismiss="modal"class='btn btn-info btn-sm'>Check Judul</button></a>
+                            <button type='button' id = "btncheck" class='btn btn-info btn-sm'>Check Judul</button></a>
                             </div>
                         </form>
                             <div class="input-group mb-3">
@@ -313,7 +314,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Detail Data Outline</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="close" data-dismiss="ViewOutlineModal">&times;</button>
                 </div>
                 <div class="modal-body" id="detailoutline">
                     <div class="outline-data"></div>
@@ -331,7 +332,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Judul yang Terdeteksi</h4>
-                    <button type="button" class="close" id="closejudul" onclick="recall()" data-dismiss="modal">&times;</button>
+                    <button type="button" class="close" id="closeModal"  data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body" id="detailoutline">
                     <div class="data-checkjudul">
@@ -533,6 +534,17 @@
     </div>
 
     <!-- Javascript , ajax, jquery run here -->
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#closeModal').click(function(){
+                $('#inputdataoutlineModal').modal('show');
+            });
+
+            $('#btncheck').click(function(){
+                $('#inputdataoutlineModal').modal('hide');
+            });
+        });
+    </script>
     <!-- datepicker -->
     <script>
         $(document).ready(function () {
@@ -555,6 +567,7 @@
                 var kk1 = document.getElementById('katakunci1').value;
                 var kk2 = document.getElementById('katakunci2').value;
                 var kk3 = document.getElementById('katakunci3').value;
+                $('#inputdataoutlineModal').modal('hide');
             //menggunakan fungsi ajax untuk pengambilan data
             $.ajax({
                 type : 'post',
@@ -568,11 +581,7 @@
         });
         });
     </script> 
-    <script type="text/javascript">
-        function recall(){
-            $('#inputdataoutline').modal('show');      
-        }
-    </script> 
+
     <!-- Show Detail Mahasiswa -->
     <script type="text/javascript">
         $(document).ready(function(){

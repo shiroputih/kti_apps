@@ -118,8 +118,8 @@ textarea:focus:-moz-placeholder { color:transparent; }
 textarea:focus::-moz-placeholder { color:transparent; }
 textarea:focus:-ms-input-placeholder { color:transparent; }
 
-input::-webkit-input-placeholder {color: #999999;}
-input:-moz-placeholder {color: #999999;}
+input::-webkit-input-placeholder {color:transparent;}
+input:-moz-placeholder {color:transparent;}
 input::-moz-placeholder {color: #999999;}
 input:-ms-input-placeholder {color: #999999;}
 
@@ -164,6 +164,7 @@ iframe {
 .limiter {
   width: 100%;
   margin: 0 auto;
+  color: #4651d8;
 }
 
 .container-login100 {
@@ -178,14 +179,14 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
-  background: #ebeeef;
+  background: #4651d8;
 }
 
 
 .wrap-login100 {
-  width: 670px;
-  background: #fff;
-  border-radius: 10px;
+  width: 500px;
+  background: transparent;
+  border-radius: 0px;
   overflow: hidden;
   position: relative;
 }
@@ -208,14 +209,13 @@ iframe {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-
-  padding: 70px 15px 74px 15px;
+  padding: 50px 15px 50px 15px;
 }
 
 .login100-form-title-1 {
   font-family: Poppins-Bold;
-  font-size: 30px;
-  color: #fff;
+  font-size: 15px;
+  color: white;
   text-transform: uppercase;
   line-height: 1.2;
   text-align: center;
@@ -230,7 +230,7 @@ iframe {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: rgba(54,84,99,0.7);
+  background-color: transparent;
 }
 
 
@@ -246,7 +246,7 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 43px 88px 93px 190px;
+  padding: 10px 50px 50px 140px;
 }
 
 
@@ -262,7 +262,7 @@ iframe {
 .label-input100 {
   font-family: Poppins-Regular;
   font-size: 15px;
-  color: #808080;
+  color: white;
   line-height: 1.2;
   text-align: right;
 
@@ -277,12 +277,12 @@ iframe {
 .input100 {
   font-family: Poppins-Regular;
   font-size: 15px;
-  color: #555555;
+  color: white;
   line-height: 1.2;
 
   display: block;
   width: 100%;
-  background: transparent;
+  background-color: transparent;
   padding: 0 5px;
 }
 

@@ -31,9 +31,9 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<div class="login100-form-title" style="background-image: url(login/images/bg-01.jpg);">
+				<div class="login100-form-title">
 					<span class="login100-form-title-1">
-						Karya Tulis Ilmiah 
+						Login <br> Karya Tulis Ilmiah 
 					</span>
 				</div>
 
