@@ -314,7 +314,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Detail Data Outline</h4>
-                    <button type="button" class="close" data-dismiss="ViewOutlineModal">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body" id="detailoutline">
                     <div class="outline-data"></div>
