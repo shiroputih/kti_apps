@@ -61,6 +61,9 @@
                         <a href="lihatdataoutline.php">Lihat Data Outline</a>
                     </li>
                     <li>
+                        <a href="cekjuduloutline.php">Periksa Judul Outline</a>
+                    </li>
+                    <li>
                         <a href="verifikasioutline.php">Validasi Outline</a>
                     </li>
                 </ul>
