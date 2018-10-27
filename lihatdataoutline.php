@@ -2,10 +2,10 @@
     @include("header.php");
     @include("navigation.php");
     @include("dbconnect.php");
-
+/*
     $katakunci1 = "";
     $katakunci2 ="";
-    $katakunci3= "";
+    $katakunci3= "";*/
 ?>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -21,6 +21,15 @@
             </div>
             <button type="button" style="margin-top: 0; margin-left: 1%; width:12%" class="btn btn-primary btn-sm" data-toggle="modal"
                 data-target="#inputdataoutlineModal"><img src="icons/contactadd.png" width="30px" height="30px"> Tambah Outline </button>
+
+            <a href="javascript:void(0);" onclick="$('#uploadfileoutline').slideToggle();">
+                <button type="button" style="margin-left: 1%; width: 4%" class="btn btn-default btn-sm" > <img src="icons/upload.jpg" width="30px" height="30px"></button>
+            </a>
+                <form action="uploadoutline.php" method="post" enctype="multipart/form-data" id="uploadfileoutline" >
+                    <input type="file" name="file" />
+                    <input type="submit" class="btn btn-primary btn-sm" name="importOutline" value="IMPORT">
+                </form>
+
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -176,8 +185,7 @@
                                           aria-describedby="nameHelp" placeholder="Judul Penelitian"
                                           onkeyup="this.value=this.value.toUpperCase()"></textarea>
                             </div>
-                        <form>
-                            <div class="input-group mb-3">
+                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <label class="input-group-text">Kata Kunci</label>
                             </div>
@@ -188,7 +196,7 @@
                             <a href="ViewCheckJudul" id ='checkjudul' data-toggle='modal' data-target='#ViewCheckJudul'>
                             <button type='button' id = "btncheck" class='btn btn-info btn-sm'>Check Judul</button></a>
                             </div>
-                        </form>
+                        
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text">Pertanyaan Penelitian</label>
@@ -650,7 +658,7 @@
 
     <?php
         if (isset($_POST['AddDataOutline'])) {
-            $sql = "INSERT INTO outline (nim,judul_outline,pertanyaan_penelitian,manfaat_penelitian,desain_penelitian,sample_penelitian,variabel_bebas,variabel_tergantung,hipotesis ,usulan_dosen1,usulan_dosen2 ,tgl_pengajuan,status,semester) VALUES ('" . $_POST['nimmahasiswa'] . "','" . $_POST['JudulPenelitian'] . "','" . $_POST['pertanyaanpenelitian'] . "','" . $_POST['manfaatpenelitian'] . "','" . $_POST['desainpenelitian'] . "','" . $_POST['samplepenelitian'] . "','" . $_POST['variabelbebas'] . "','" . $_POST['variabeltergantung'] . "','" . $_POST['hipotesis'] . "','" . $_POST['usulandosen1'] . "','" . $_POST['usulandosen2'] . "','" . $_POST['tanggal'] . "','','".$_POST['semester']."')";
+            $sql = "INSERT INTO outline (nim,judul_outline,pertanyaan_penelitian,manfaat_penelitian,desain_penelitian,sample_penelitian,variabel_bebas,variabel_tergantung,hipotesis ,usulan_dosen1,usulan_dosen2 ,tgl_pengajuan,status,semester,kk1,kk2,kk3) VALUES ('" . $_POST['nimmahasiswa'] . "','" . $_POST['JudulPenelitian'] . "','" . $_POST['pertanyaanpenelitian'] . "','" . $_POST['manfaatpenelitian'] . "','" . $_POST['desainpenelitian'] . "','" . $_POST['samplepenelitian'] . "','" . $_POST['variabelbebas'] . "','" . $_POST['variabeltergantung'] . "','" . $_POST['hipotesis'] . "','" . $_POST['usulandosen1'] . "','" . $_POST['usulandosen2'] . "','" . $_POST['tanggal'] . "','','".$_POST['semester']."','".$_POST['katakunci1']."','".$_POST['katakunci2']."','".$_POST['katakunci3']."')";  
             if (mysqli_query($conn, $sql)) {
                 echo "<meta http-equiv='refresh' content='0'>";
             }
