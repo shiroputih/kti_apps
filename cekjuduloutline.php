@@ -14,28 +14,28 @@
 					<li class="breadcrumb-item active"> Periksa Judul Outline</li>
 				</ol>
 			</div>
-			<div class="input-group mb-3">
+			<div class="input-group mb-2" style="margin: 0 50px 0px 10px; width:50%;">
 				<div class="input-group-prepend">
 					<label class="input-group-text">Kata Kunci 1</label>
 				</div>
 				<input type='text' class="form-control" placeholder="Kata Kunci 1" id="katakunci1" name="katakunci1" onkeyup="this.value=this.value.toUpperCase()"/>
 			</div>
-			<div class="input-group mb-3">
+			<div class="input-group mb-2" style="margin: 0 50px 0px 10px; width:50%;">
 				<div class="input-group-prepend">
 					<label class="input-group-text">Kata Kunci 2</label>
 				</div>
 				<input type='text' class="form-control" placeholder="Kata Kunci 2" id="katakunci2" name="katakunci2" onkeyup="this.value=this.value.toUpperCase()"/>
 			</div>
-			<div class="input-group mb-3">
+			<div class="input-group mb-2" style="margin: 0 50px 0px 10px; width:50%;">
 				<div class="input-group-prepend">
 					<label class="input-group-text">Kata Kunci 3</label>
 				</div>			
 				<input type='text' class="form-control" placeholder="Kata Kunci 3" id="katakunci3" name="katakunci3" onkeyup="this.value=this.value.toUpperCase()"/>
 			</div>
-
+			<div class="input-group mb-2" style="margin: 0 50px 0px 10px;"">
 				<a href="ViewCheckJudul" id ='checkjudul' data-toggle='modal' data-target='#ViewCheckJudul'>
-					<button type='button' id = "btncheck" class='btn btn-info btn-sm'>Check Judul</button></a>
-				
+					<button type='button' id = "btncheck" class='btn btn-primary btn-sm'>Check Judul</button></a>
+				</div>
 
 				<div class="card-body">
 					<div class="table-responsive">
@@ -76,32 +76,6 @@
 										data-toggle='modal' 
 										data-target='#ViewOutlineModal'>
 										<button type='button' class='btn btn-info btn-sm'>Detail</button></a>
-
-										<a id ='Editoutline' 
-										data-nimmahasiswa='$path[nim]' 
-										data-namamahasiswa='$path[nama]'  
-										data-juduloutline='$path[judul_outline]' 
-										data-pertanyaan='$path[pertanyaan_penelitian]' 
-										data-manfaat ='$path[manfaat_penelitian]' 
-										data-desain ='$path[desain_penelitian]' 
-										data-sample ='$path[sample_penelitian]' 
-										data-bebas ='$path[variabel_bebas]' 
-										data-tergantung ='$path[variabel_tergantung]' 
-										data-hipotesis ='$path[hipotesis]' 
-										data-usulandosen1 ='$path[usulan_dosen1]' 
-										data-usulandosen2 ='$path[usulan_dosen2]'
-										data-tanggal = '$path[tgl_pengajuan]'
-										data-toggle='modal' 
-										data-target='#EditOutlineModal'>
-										<button type='button' class='btn btn-warning btn-sm'>Edit</button></a>
-
-										<a id ='Deleteoutline'
-										data-nimmahasiswa='$path[nim]' 
-										data-namamahasiswa='$path[nama]'  
-										data-juduloutline='$path[judul_outline]' 
-										data-toggle='modal' 
-										data-target='#DeleteOutlineModal'>
-										<button type='button' class='btn btn-danger btn-sm'>Delete</button></a>
 										</td>
 										</tr>";
 										$no+=1;

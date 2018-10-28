@@ -52,7 +52,8 @@
                             <tbody>
                                 <?php
                                 $no=1;
-                                $sql = "SELECT * FROM outline,mahasiswa WHERE outline.nim = mahasiswa.nim";
+                                $sql = "SELECT outline.*,mahasiswa.nama FROM outline,mahasiswa WHERE mahasiswa.nim = outline.nim AND outline.usulan_dosen1 = 'NOT SET'  ";
+                                //$sql = "SELECT mahasiswa.nim, mahasiswa.nama, outline.*, d1.nama_dosen as d1_nama,d1.gelar_depan AS d1_gelardepan,d1.gelar_belakang AS d1_gelarbelakang,d2.nama_dosen,d2.gelar_depan,d2.gelar_belakang, outline.tgl_pengajuan, outline.status FROM outline JOIN dosen AS d1 ON outline.usulan_dosen1 = d1.id_dosen JOIN mahasiswa ON outline.nim = mahasiswa.nim JOIN dosen AS d2 ON outline.usulan_dosen2 = d2.id_dosen";
                                 $result = $conn->query($sql);
                                 if ($result->num_rows > 0) {
                                 // output data of each row
@@ -130,7 +131,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <div class="input-group mb-3">
+                        <form action="uploadoutline.php" method="post" enctype="multipart/form-data" id="uploadfileoutline" >
+                            <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="inputsemester">Semester</label>
                             </div>
@@ -150,7 +152,7 @@
                             </select>
                         </div>
                     </div>
-                    <form action="uploadoutline.php" method="post" enctype="multipart/form-data" id="uploadfileoutline" >
+                    
                         <input type="file" name="file" />
                         <input type="submit" class="btn btn-primary btn-sm" name="importOutline" value="IMPORT">
                     </form>

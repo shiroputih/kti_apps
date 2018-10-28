@@ -33,7 +33,7 @@ if($_POST['idsemester']){
                         </tfoot>
                         <tbody>
                             <?php
-                            $sql = "SELECT * FROM outline,dosen,mahasiswa WHERE outline.status = '' AND outline.usulan_dosen1 = dosen.id_dosen AND outline.nim = mahasiswa.nim AND outline.semester = '".$_POST['idsemester']."' ";
+                             $sql = "SELECT * FROM outline,dosen,mahasiswa WHERE outline.status = '' AND outline.usulan_dosen1 = dosen.id_dosen AND outline.nim = mahasiswa.nim AND outline.semester = '".$_POST['idsemester']."' ";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) 
                             {

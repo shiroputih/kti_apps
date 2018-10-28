@@ -13,22 +13,22 @@ if(isset($_POST['importSubmit'])){
         //parse data from csv file line by line
         while(($line = fgetcsv($csvFile)) !== FALSE)
         {
-        	//check whether member already exists in database with same email
-            $sql = "SELECT * FROM mahasiswa";
+        	$sql = "SELECT * FROM mahasiswa";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) 
             {
-            	$sqlupdate= "UPDATE mahasiswa SET nama='".$line[1]."'";
+                $sql = "INSERT INTO mahasiswa (nim,nama) VALUES ('".$line[0]."','".$line[1]."')";
+                if (mysqli_query($conn, $sql)) {
+
+                }
+            	/*$sqlupdate= "UPDATE mahasiswa SET nama='".$line[1]."'";
             	if (mysqli_query($conn, $sql)) {
             
-       			}
+       			}*/
        		}
        		else
        		{
-            	$sql = "INSERT INTO mahasiswa (nim,nama) VALUES ('".$line[0]."','".$line[1]."')";
-            	if (mysqli_query($conn, $sql)) {
-
-            	}
+            	
             }
         }
         //close opened csv file
