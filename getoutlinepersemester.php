@@ -72,7 +72,16 @@ if($_POST['idsemester']){
                                     </tr>";
                                 }
                             } else {
-
+                                echo "<div 
+                                style='background-color:#B3FF66; 
+                                padding-top: 5px;
+                                font-size: 20px;
+                                border: 2px solid #1C6EA4;
+                                border-radius: 5px;
+                                height: 40px; 
+                                text-align:center; 
+                                '>
+                                Data Outline Kurang Lengkap, Silahkan Periksa di <a href='lihatdataoutline.php'> Sini </a><div>";
                             }
                             ?>
                         </tbody>

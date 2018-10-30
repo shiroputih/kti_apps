@@ -28,7 +28,7 @@ session_start();
               </div>
               <div class="mr-5">
                 <?php 
-                  $sql = "SELECT * FROM outline where outline.status IS NULL";
+                  $sql = "SELECT * FROM outline where outline.tgl_disetujui IS NULL ";
                   $result = $conn->query($sql);
                   if ($result->num_rows > 0) 
                   {

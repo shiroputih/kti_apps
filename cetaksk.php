@@ -39,7 +39,8 @@ if($_POST['semester']){
 
 		$cellY = 50;
 		$no=1;
-		$dosensql = "SELECT * FROM sk1,dosen,mahasiswa where sk1.id_dosen1 = dosen.id_dosen AND mahasiswa.nim = sk1.nim AND sk1.id_semester = '".$_POST['semester']."' GROUP BY sk1.id_dosen1";
+		$dosensql = "SELECT * FROM sk1 JOIN mahasiswa ON sk1.nim = mahasiswa.nim JOIN dosen ON dosen.id_dosen = sk1.id_dosen1 WHERE sk1.id_semester = '".$_POST['semester']."' ORDER BY sk1.id_dosen1 ASC ";
+		//$dosensql = "SELECT * FROM sk1,dosen,mahasiswa where sk1.id_dosen1 = dosen.id_dosen AND mahasiswa.nim = sk1.nim AND sk1.id_semester = '".$_POST['semester']."' GROUP BY sk1.id_dosen1";
 		$resdosen1 = mysqli_query($conn,$dosensql);
 		foreach ($resdosen1 as $row1) { 
 			$gelar_depan = $row1['gelar_depan'];
@@ -50,7 +51,7 @@ if($_POST['semester']){
 			$pdf->SetFont('cambria','',10);
 			$pdf->SetXY(20,$cellY);
 			$pdf->Cell(10,10,$no,1,0);
-			$pdf->Cell(120,10,$gelar_depan.''.$nama_dosen.'.'.$gelar_belakang,1,0,'C');
+			$pdf->Cell(120,10,$gelar_depan.''.$nama_dosen.'.'.$gelar_belakang,1,0,'L');
 			$pdf->Cell(65,10,$row1['nim'],1,0,'L');
 			$pdf->Cell(65,10,$row1['nama'],1,0,'L');
 			$cellY +=10;
@@ -68,7 +69,7 @@ if($_POST['semester']){
 
 		$cellY = $celly2+10;
 		$no=1;
-		$dosensql = "SELECT * FROM sk2,dosen,mahasiswa where sk2.id_dosen2 = dosen.id_dosen AND mahasiswa.nim = sk2.nim AND sk2.id_semester = '".$_POST['semester']."' GROUP BY sk2.id_dosen2";
+		$dosensql = "SELECT * FROM sk2 JOIN mahasiswa ON sk2.nim = mahasiswa.nim JOIN dosen ON dosen.id_dosen = sk2.id_dosen2 WHERE sk2.id_semester = '".$_POST['semester']."' ORDER BY sk2.id_dosen2 ASC";
 		$resdosen1 = mysqli_query($conn,$dosensql);
 		foreach ($resdosen1 as $row1) { 
 			$gelar_depan = $row1['gelar_depan'];
@@ -79,7 +80,7 @@ if($_POST['semester']){
 			$pdf->SetFont('cambria','',10);
 			$pdf->SetXY(20,$cellY);
 			$pdf->Cell(10,10,$no,1,0);
-			$pdf->Cell(120,10,$gelar_depan.''.$nama_dosen.'.'.$gelar_belakang,1,0,'C');
+			$pdf->Cell(120,10,$gelar_depan.''.$nama_dosen.'.'.$gelar_belakang,1,0,'L');
 			$pdf->Cell(65,10,$row1['nim'],1,0,'L');
 			$pdf->Cell(65,10,$row1['nama'],1,0,'L');
 			$cellY +=10;

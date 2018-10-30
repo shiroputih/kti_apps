@@ -29,10 +29,10 @@
                         <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>No</th>
                                     <th>NIM</th>
                                     <th>Nama Mahasiswa</th>
                                     <th>Judul Outline</th>
+                                    <th>Dosen Pembimbing 1</th>
                                     <th>Tgl Pengajuan</th>
                                     <th>Status</th>
                                     <th></th>
@@ -40,10 +40,10 @@
                             </thead>
                             <tfoot>
                                 <tr>
-                                    <th>No</th>
                                     <th>NIM</th>
                                     <th>Nama Mahasiswa</th>
                                     <th>Judul Outline</th>
+                                    <th>Dosen Pembimbing 1</th>
                                     <th>Tgl Pengajuan</th>
                                     <th>Status</th>
                                     <th></th>
@@ -52,17 +52,17 @@
                             <tbody>
                                 <?php
                                 $no=1;
-                                $sql = "SELECT outline.*,mahasiswa.nama FROM outline,mahasiswa WHERE mahasiswa.nim = outline.nim AND outline.usulan_dosen1 = 'NOT SET'  ";
+                                $sql = "SELECT * FROM outline JOIN mahasiswa ON mahasiswa.nim = outline.nim LEFT JOIN dosen ON outline.usulan_dosen1 = dosen.id_dosen ORDER BY outline.nim ASC";
                                 //$sql = "SELECT mahasiswa.nim, mahasiswa.nama, outline.*, d1.nama_dosen as d1_nama,d1.gelar_depan AS d1_gelardepan,d1.gelar_belakang AS d1_gelarbelakang,d2.nama_dosen,d2.gelar_depan,d2.gelar_belakang, outline.tgl_pengajuan, outline.status FROM outline JOIN dosen AS d1 ON outline.usulan_dosen1 = d1.id_dosen JOIN mahasiswa ON outline.nim = mahasiswa.nim JOIN dosen AS d2 ON outline.usulan_dosen2 = d2.id_dosen";
                                 $result = $conn->query($sql);
                                 if ($result->num_rows > 0) {
                                 // output data of each row
                                     while ($path = $result->fetch_assoc()) {
                                         echo "<tr>
-                                        <td>$no</td>
                                         <td>$path[nim]</td>
                                         <td>$path[nama]</td>
                                         <td>$path[judul_outline]</td>
+                                        <td>$path[gelar_depan] $path[nama_dosen] $path[gelar_belakang]</td>
                                         <td>$path[tgl_pengajuan]</td>
                                         <td>$path[status]</td>
                                         <td class='center'>
@@ -93,6 +93,7 @@
                                         <button type='button' class='btn btn-warning btn-sm'>Edit</button></a>
 
                                         <a id ='Deleteoutline'
+                                        data-idoutline='$path[id_outline]' 
                                         data-nimmahasiswa='$path[nim]' 
                                         data-namamahasiswa='$path[nama]'  
                                         data-juduloutline='$path[judul_outline]' 
@@ -549,6 +550,7 @@
                         <div class="card-body">
                             <form method="post" enctype="multipart/form-data">
                                 <label>Apakah anda ingin menghapus data outline</label> <br>
+                                <input type="hidden" id="hpsid" name="hpsid" class="form-control"></input><br>
                                 <input type="hidden" id="hpsnim" name="hpsnim" class="form-control"></input><br>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
@@ -681,11 +683,13 @@
         <!-- delete outline -->
         <script type="text/javascript">
             $(document).on("click", "#Deleteoutline", function () {
+                var idoutline =  $(this).data('idoutline');
                 var NIM = $(this).data('nimmahasiswa');
                 var nama = $(this).data('namamahasiswa');
                 var judul = $(this).data('juduloutline');
 
                 $('#deletenim').val(NIM);
+                $('#hpsid').val(idoutline);
                 $('#hpsnim').val(NIM);
                 $('#deletenama').val(nama);
                 $('#deletejudul').val(judul);
@@ -735,7 +739,7 @@
     }
 
     if (isset($_POST['DeleteDataOutline'])) {
-        $sql = "DELETE FROM outline WHERE nim='$_POST[hpsnim]'";
+        $sql = "DELETE FROM outline WHERE id_outline='$_POST[hpsid]'";
         if (mysqli_query($conn, $sql)) {
             echo "<meta http-equiv='refresh' content='0'>";
         }

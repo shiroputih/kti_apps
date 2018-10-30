@@ -43,7 +43,7 @@ $globalnim = '';
                     </tfoot>
                     <tbody>
                         <?php
-                        $sql = "SELECT * FROM kti join mahasiswa on kti.nim = mahasiswa.nim WHERE kti.nilaiakhir IS NULL OR kti.nilaiakhir=0 ";
+                        $sql = "SELECT * FROM kti,mahasiswa WHERE kti.nim=mahasiswa.nim AND kti.nilaiakhir IS NULL";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
                         // output data of each row
@@ -91,7 +91,7 @@ $globalnim = '';
                                 </tr>";
                             }
                         } else {
-                            echo "0 results";
+                            echo "belum ada mahasiswa yang mendaftar untuk ujian KTI";
                         }
                         ?>
                     </tbody>

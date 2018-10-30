@@ -1,39 +1,36 @@
 <?php
 @include "dbconnect.php";
-if(isset($_POST['importSubmit'])){
-	//validasi csv file
-    $csvMimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain');
-    if(is_uploaded_file($_FILES['file']['tmp_name'])){
-    	//open uploaded csv file with read only mode
-        $csvFile = fopen($_FILES['file']['tmp_name'], 'r');
+// menggunakan class phpExcelReader
+@include "excelreader/excel_reader2.php";
 
-        //skip first line
-        fgetcsv($csvFile);
+// membaca file excel yang diupload
+$data = new Spreadsheet_Excel_Reader($_FILES['file']['tmp_name']);
 
-        //parse data from csv file line by line
-        while(($line = fgetcsv($csvFile)) !== FALSE)
-        {
-        	$sql = "SELECT * FROM mahasiswa";
-            $result = $conn->query($sql);
-            if ($result->num_rows > 0) 
-            {
-                $sql = "INSERT INTO mahasiswa (nim,nama) VALUES ('".$line[0]."','".$line[1]."')";
-                if (mysqli_query($conn, $sql)) {
+// membaca jumlah baris dari data excel
+$baris = $data->rowcount($sheet_index=0);
 
-                }
-            	/*$sqlupdate= "UPDATE mahasiswa SET nama='".$line[1]."'";
-            	if (mysqli_query($conn, $sql)) {
-            
-       			}*/
-       		}
-       		else
-       		{
-            	
-            }
-        }
-        //close opened csv file
-        fclose($csvFile);
-    }
+// nilai awal counter untuk jumlah data yang sukses dan yang gagal diimport
+$sukses = 0;
+$gagal = 0;
+
+// import data excel mulai baris ke-2 (karena baris pertama adalah nama kolom)
+for ($i=2; $i<=$baris; $i++)
+{
+  // membaca data nim (kolom ke-1)
+  $nim = $data->val($i, 1);
+  // membaca data nama (kolom ke-2)
+  $nama = $data->val($i, 2);
+  
+  // setelah data dibaca, sisipkan ke dalam tabel mhs
+  $query = "INSERT INTO mahasiswa VALUES ('$nim', '$nama')";
+  $result = $conn->query($query);
+
+  // jika proses insert data sukses, maka counter $sukses bertambah
+  // jika gagal, maka counter $gagal yang bertambah
+  if ($result) $sukses++;
+  else $gagal++;
 }
+
 header("location:mahasiswa.php");
+
 ?>

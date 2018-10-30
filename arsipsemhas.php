@@ -36,7 +36,7 @@
                 <select class="custom-select" name="datanim" id="semester">
                     <option> -- Pilih Nim --</option>
                     <?php
-                    $sql = "SELECT * FROM mahasiswa";
+                    $sql = "SELECT * FROM semhas WHERE status IS NOT NULL";
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
                         // output data of each row
