@@ -13,7 +13,7 @@
                 <li class="breadcrumb-item active">Mahasiswa Per Semester</li>
             </ol>
         </div>
-        
+
         <div class="container-fluid">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -39,11 +39,11 @@
                 </select>
             </div>
         </div>
-        <div id="Table" class="card-body">
+
             <div id="tabledosen" class="table-responsive">
                 <div class = "tabeldata"></div>
             </div>
-        </div>
+
     </div>
 </body>
 <?php
@@ -69,7 +69,7 @@
             });
         });
     });
- </script>   
+ </script>
 <!-- Bootstrap core JavaScript
     <script src="vendor/jquery/jquery.min.js"></script>-->
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

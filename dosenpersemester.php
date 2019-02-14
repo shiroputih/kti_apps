@@ -22,15 +22,14 @@
                 <select class="custom-select" name="semester" id="semester" selected="selected">
                     <option> -- Pilih Semester --</option>
                     <?php
-                    $sql = "SELECT * FROM semester";
-                    $result = $conn->query($sql);
-                    if ($result->num_rows > 0) {
-                        // output data of each row
+                        $sql = "SELECT * FROM semester";
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                     ?>
-                        <option value ="<?php echo $row['id_semester']; ?>"> <?php echo $row['semester']; ?></option>
+                            <option value ="<?php echo $row['id_semester']; ?>"> <?php echo $row['semester']; ?></option>
                     <?php
-                        }
+                         }
                     } else {
                         echo "0 results";
                     }
@@ -38,21 +37,18 @@
                 </select>
             </div>
         </div>
-        
-            <button type="submit" name="export" style="margin-top: 0; margin-left: 1%; width:12%" class="btn btn-success btn-sm"><img src="icons/excel.png" width="30px" height="30px"> Extract Dosen </button>
+            <button type="submit" name="export" style="margin-top: 0; margin-left: 1%; width:8%" class="btn btn-default btn-sm"><img src="icons/excel.png" width="30px" height="30px">Export</button>
         </form>
-        <div id="Table" class="card-body">
-            <div id="tabledosen" class="table-responsive">
-                <div class = "tabeldata"></div>
-            </div>
-        </div>
+
+         <div class = "tabeldata"></div>
+
     </div>
 </body>
 <?php
 @include("footer.php");
 ?>
 
-  
+
 <!-- show detail dosen semester -->
  <script type="text/javascript">
     $(document).ready(function(){
@@ -70,20 +66,5 @@
             });
         });
     });
- </script>   
-
- <!-- export data dosen per semester-->
- 
-<!-- Bootstrap core JavaScript
-    <script src="vendor/jquery/jquery.min.js"></script>-->
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Page level plugin JavaScript-->
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
-    <!-- Custom scripts for this page-->
-    <script src="js/sb-admin-datatables.min.js"></script>
+ </script>
 

@@ -1,164 +1,114 @@
 <?php
 @include("header.php");
-@include("navigation.php");
 @include("dbconnect.php");
-?>
-<body class="fixed-nav sticky-footer bg-dark" id="page-top">
-    <div class="content-wrapper">
-        <div class="container-fluid">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="index.php">Home</a>
-                </li>
-                <li class="breadcrumb-item active"> Data Karya Tulis Ilmiah</li>
-            </ol>
-        </div>
-        <div class="card mb-3">
-            <div class="card-header">
-                <i class="fa fa-table"></i> Data Karya Tulis Ilmiah
-        </div>
-        <div id="Table" class="card-body">
-            <div id="tablekti" class="table-responsive">
-                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>NIM</th>
-                            <th>Nama</th>
-                            <th>Tanggal Ujian KTI</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>NIM</th>
-                            <th>Nama</th>
-                            <th>Tanggal Ujian KTI</th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        <?php
-                        $sql = "SELECT * FROM kti,mahasiswa WHERE kti.nim = mahasiswa.nim AND kti.status IS NULL";
-                        $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
-                        // output data of each row
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr>
-                                <td>$row[nim]</td>
-                                <td>$row[nama]</td>
-                                <td>$row[tgl_sidangkti]</td>
-                                <td class=center>
-                                
-                                <a id ='beritaacarakti' data-nim='$row[nim]' data-nama='$row[nama]' data-tglsidang='$row[tgl_sidangkti]' data-judulkti = '$row[judulkti]' data-dosen1 = '$row[dosen1]' data-dosen2 = '$row[dosen2]' data-dosenpenguji = '$row[penguji]' data-toggle='modal' data-target='#BeritaAcaraktiModal'>
-                                <button type='button' class='btn btn-info btn-sm'>Berita Acara KTI</button></a>
-                                </td>
-                                </tr>";
-                            }
-                        } else {
-                           
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</body>
-<?php
-@include("footer.php");
-?>
 
-<!-- Detail Modal -->
-<!-- Modal content Detail-->
-<div class="modal fade" id="BeritaAcaraktiModal" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Setup Berita Acara Ujian KTI</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="card-body">
-                    <form id="formdosen" method="POST">
+//New berita Acara -->
+if($_POST['nim'] && $_POST['flag'] == 'baru')
+{
+    $sql = "SELECT assign_sk.nim,mahasiswa.nama,kti.judul_penelitian,assign_sk.id_semester,assign_sk.id_tahunajaran 
+    FROM assign_sk,mahasiswa,kti 
+    WHERE kti.nim = assign_sk.nim AND mahasiswa.nim = assign_sk.nim AND assign_sk.nim = '".$_POST['nim']."' GROUP BY assign_sk.nim";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) 
+    {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) 
+        {
+?>          
+            <form method="POST">
                         <div class="form-group">
-                            <input type="hidden" class="form-control" name="hiddennim" id="hiddennim" type="text"
-                                   aria-describedby="nameHelp">
-                            <input type="hidden" class="form-control" name="hiddenNama" id="hiddenNama" type="text"
-                                   aria-describedby="nameHelp">
-                            <input type="hidden" class="form-control" name="hiddenJudul" id="hiddenJudul" type="text"
-                                   aria-describedby="nameHelp">
-                            <input type="hidden" class="form-control" name="hiddenAngkatan" id="hiddenAngkatan" type="text"
-                                   aria-describedby="nameHelp">
-                            <input type="hidden" class="form-control" name="hiddenDosen1" id="hiddenDosen1" type="text"
-                                   aria-describedby="nameHelp">
-                            <input type="hidden" class="form-control" name="hiddenDosen2" id="hiddenDosen2" type="text"
-                                   aria-describedby="nameHelp">
-                             <input type="hidden" class="form-control" name="hiddenDosenpenguji" id="hiddenDosenpenguji" type="text" aria-describedby="nameHelp">
-                            <textarea style="display:none;"rows="3" cols="50" name="judullamahidden" class="form-control" id="judullamahidden"
-                                          aria-describedby="nameHelp" onkeyup="this.value=this.value.toUpperCase()"
-                                          ></textarea>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Semester</label>
-                                </div>
-                                 <select class="custom-select" name="semester" id="semester">
-                                    <?php
-                                    $sql = "SELECT * FROM semester";
-                                    $result = $conn->query($sql);
-                                    if ($result->num_rows > 0) {
-                                        // output data of each row
-                                        while ($row = $result->fetch_assoc()) {
-                                            echo "<option value=$row[id_semester]>$row[semester]</option>";
+                                <input class="form-control" name="hiddennim" id="hiddennim" value="<?php echo $_POST['nim'];?>" type="hidden"
+                                aria-describedby="nameHelp">
+                                <input class="form-control" name="hiddensemester" id="hiddensemester" value="<?php echo $row['id_semester'];?>" type="hidden"
+                                aria-describedby="nameHelp">
+                                <input class="form-control" name="hiddentahunajaran" id="hiddentahunajaran" value="<?php echo $row['id_tahunajaran'];?>" type="hidden"
+                                aria-describedby="nameHelp">
+                                
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text">Semester</label>
+                                    </div>
+                                    <select id="semester" name="semester" class="custom-select">
+                                        <option>-- Pilih Semester --</option>
+                                        <?php
+                                        $sql = "SELECT * FROM semester";
+                                        $result = $conn->query($sql);
+                                        if ($result->num_rows > 0) {
+                                            while ($data = $result->fetch_assoc()) {
+                                                echo "<option value=$data[id_semester]>$data[semester]</option> ";
+                                            }
+                                        } else {
+                                            echo "0 results";
                                         }
-                                    } else {
-                                        echo "0 results";
-                                    }
-                                    ?>
-                                </select>
-                            </div>       
+                                        ?>
+                                    </select>
+                                </div>
+                            
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">NIM</label>
                                 </div>
-                                <input class="form-control" name="EditNim" id="EditNim" type="text"
-                                       aria-describedby="nameHelp" disabled="">
+                                <input class="form-control" name="nim" id="nim" value="<?php echo $_POST['nim'];?>" type="text"
+                                aria-describedby="nameHelp" disabled="">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">Nama Mahasiswa</label>
                                 </div>
-                                <input class="form-control" name="EditNama" id="EditNama" type="text"
-                                       aria-describedby="nameHelp" disabled="">
+                                <input class="form-control" name="nama" id="nama" type="text" value = "<?php echo $row['nama'];?>"
+                                aria-describedby="nameHelp" disabled="">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text">Judul Penelitian</label>
                                 </div>
-                                <textarea rows="3" cols="50" name="EditJudul" class="form-control" id="EditJudul"
-                                          aria-describedby="nameHelp" onkeyup="this.value=this.value.toUpperCase()"
-                                          ></textarea>
+                                <textarea rows="3" cols="50" name="judul" class="form-control" id="judul"
+                                aria-describedby="nameHelp"  style="text-transform: uppercase;"
+                                ><?php echo $row['judul_penelitian']; ?></textarea>
                             </div>
                             <div class="input-group mb-3">
-                                <div class="input-group-prepend" data-provide='datetimepicker1'>
+                                <div class="input-group-prepend" id='datetimepicker1'>
                                     <label class="input-group-text">Tanggal Seminar Hasil</label>
                                 </div>
-                                <input type='text' class="form-control" id="date" name="tanggal"
-                                       placeholder="DD/MM/YYY" onchange="bataskumpulkti(this.value)"/>
-                                <input type='hidden' class="form-control" id="hiddenbatas" name="hiddenbatas"
-                                       />        
+                                <input class="form-control" id="date" name="tanggal" placeholder="mm/dd/yyyy" type="text" onchange="bataskti(this.value)"/>
+                                <input type="hidden" class="form-control" id="hiddenbatas" name="hiddenbatas"/>        
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend" data-provide='datetimepicker1'>
                                     <label class="input-group-text">Waktu Seminar Hasil</label>
                                 </div>
-                                <input type='text' class="form-control" id="time" name="waktu"
-                                       placeholder="HH:mm"/>
+                                <select id="waktusidang" name="waktusidang" class="custom-select">
+                                    <option>-- Pilih Waktu Sidang --</option>
+                                    <option>07.00</option>
+                                    <option>07.30</option>
+                                    <option>08.00</option>
+                                    <option>08.30</option>
+                                    <option>09.00</option>
+                                    <option>09.30</option>
+                                    <option>10.00</option>
+                                    <option>10.30</option>
+                                    <option>11.00</option>
+                                    <option>11.30</option>
+                                    <option>12.00</option>
+                                    <option>12.30</option>
+                                    <option>13.00</option>
+                                    <option>13.30</option>
+                                    <option>14.00</option>
+                                    <option>14.30</option>
+                                    <option>15.00</option>
+                                    <option>15.30</option>
+                                    <option>16.00</option>
+                                    <option>16.30</option>
+                                    <option>17.00</option>
+                                    <option>17.30</option>
+                                </select>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text">Ruang Sidang</label>
                                 </div>
                                 <select id="ruangsidang" name="ruangsidang" class="custom-select">
+                                    <option>-- Pilih Ruang Sidang --</option>
                                     <?php
                                     $sql = "SELECT * FROM ruangsidang";
                                     $result = $conn->query($sql);
@@ -173,14 +123,13 @@
                                 </select>
                             </div>
                             <hr width="10px">
-                            
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text">Dosen Pembimbing 1</label>
                                 </div>
-                                <select class="custom-select" name="KtiDosen1" id="KtiDosen1" disabled>
+                                <select class="custom-select" name="Dosen1" id="Dosen1" disabled>
                                     <?php
-                                    $sql = "SELECT * FROM dosen,kti where kti.dosen1 = dosen.id_dosen";
+                                    $sql = "SELECT * FROM assign_sk,dosen WHERE assign_sk.assign_dosen = 'pembimbing 1' AND assign_sk.id_dosen = dosen.id_dosen AND assign_sk.nim = '".$_POST['nim']."' ";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         // output data of each row
@@ -193,14 +142,13 @@
                                     ?>
                                 </select>
                             </div>
-                           
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text">Dosen Pembimbing 2</label>
                                 </div>
-                                <select name="KtiDosen2" id="KtiDosen2" class="custom-select" disabled>
+                                <select name="Dosen2" id="Dosen2" class="custom-select" disabled>
                                     <?php
-                                    $sql = "SELECT * FROM dosen ,kti where kti.dosen2 = dosen.id_dosen";
+                                    $sql = "SELECT * FROM assign_sk,dosen WHERE assign_sk.assign_dosen = 'pembimbing 2' AND assign_sk.id_dosen = dosen.id_dosen AND assign_sk.nim = '".$_POST['nim']."' ";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
@@ -216,9 +164,9 @@
                                 <div class="input-group-prepend">
                                     <label class="input-group-text">Dosen Penguji</label>
                                 </div>
-                                <select id="KtiDosenpenguji" name='KtiDosenpenguji' class="custom-select" disabled="">
-                                    <?php
-                                    $sql = "SELECT * FROM dosen ,kti where kti.penguji = dosen.id_dosen";
+                                <select id="DosenPenguji" name='DosenPenguji' class="custom-select" disabled>
+                                <?php
+                                    $sql = "SELECT * FROM assign_sk,dosen WHERE assign_sk.assign_dosen = 'penguji' AND assign_sk.id_dosen = dosen.id_dosen AND assign_sk.nim = '".$_POST['nim']."' ";
                                     $result = $conn->query($sql);
                                     if ($result->num_rows > 0) {
                                         while ($row = $result->fetch_assoc()) {
@@ -231,43 +179,380 @@
                                 </select>
                             </div>
                         </div>
-                            <button type="submit" name="UpdateBeritaAcarakti" class="btn btn-info btn-lg" >Simpan dan Cetak</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                        <button type="submit" name="CreateBeritaAcarakti" class="btn btn-primary btn-sm">Simpan</button>
+            </form>
+<?php
+        }
+    }
+} 
+//ulang berita acara kti
+if($_POST['nim'] && $_POST['flag'] == 'ulang')
+{
+    $sql = "SELECT assign_sk.nim,mahasiswa.nama,kti.judul_penelitian,assign_sk.id_semester,assign_sk.id_tahunajaran 
+    FROM assign_sk,mahasiswa,kti 
+    WHERE kti.nim = assign_sk.nim AND mahasiswa.nim = assign_sk.nim AND assign_sk.nim = '".$_POST['nim']."' GROUP BY assign_sk.nim";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) 
+    {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) 
+        {
+?>          
+            <form method="POST">
+                        <div class="form-group">
+                                <input class="form-control" name="hiddennim" id="hiddennim" value="<?php echo $_POST['nim'];?>" type="hidden"
+                                aria-describedby="nameHelp">
+                                <input class="form-control" name="hiddensemester" id="hiddensemester" value="<?php echo $row['id_semester'];?>" type="hidden"
+                                aria-describedby="nameHelp">
+                                <input class="form-control" name="hiddentahunajaran" id="hiddentahunajaran" value="<?php echo $row['id_tahunajaran'];?>" type="hidden"
+                                aria-describedby="nameHelp">
+                                
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text">Semester</label>
+                                    </div>
+                                    <select id="semester" name="semester" class="custom-select">
+                                        <option>-- Pilih Semester --</option>
+                                        <?php
+                                        $sql = "SELECT * FROM semester";
+                                        $result = $conn->query($sql);
+                                        if ($result->num_rows > 0) {
+                                            while ($data = $result->fetch_assoc()) {
+                                                echo "<option value=$data[id_semester]>$data[semester]</option> ";
+                                            }
+                                        } else {
+                                            echo "0 results";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">NIM</label>
+                                </div>
+                                <input class="form-control" name="nim" id="nim" value="<?php echo $_POST['nim'];?>" type="text"
+                                aria-describedby="nameHelp" disabled="">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Nama Mahasiswa</label>
+                                </div>
+                                <input class="form-control" name="nama" id="nama" type="text" value = "<?php echo $row['nama'];?>"
+                                aria-describedby="nameHelp" disabled="">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Judul Penelitian</label>
+                                </div>
+                                <textarea rows="3" cols="50" name="judul" class="form-control" id="judul"
+                                aria-describedby="nameHelp"  style="text-transform: uppercase;"
+                                ><?php echo $row['judul_penelitian']; ?></textarea>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend" id='datetimepicker1'>
+                                    <label class="input-group-text">Tanggal Seminar Hasil</label>
+                                </div>
+                                <input class="form-control" id="date" name="tanggal" placeholder="mm/dd/yyyy" type="text" onchange="bataskti(this.value)"/>
+                                <input type="hidden" class="form-control" id="hiddenbatas" name="hiddenbatas"/>        
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend" data-provide='datetimepicker1'>
+                                    <label class="input-group-text">Waktu Seminar Hasil</label>
+                                </div>
+                                <select id="waktusidang" name="waktusidang" class="custom-select">
+                                    <option>-- Pilih Waktu Sidang --</option>
+                                    <option>07.00</option>
+                                    <option>07.30</option>
+                                    <option>08.00</option>
+                                    <option>08.30</option>
+                                    <option>09.00</option>
+                                    <option>09.30</option>
+                                    <option>10.00</option>
+                                    <option>10.30</option>
+                                    <option>11.00</option>
+                                    <option>11.30</option>
+                                    <option>12.00</option>
+                                    <option>12.30</option>
+                                    <option>13.00</option>
+                                    <option>13.30</option>
+                                    <option>14.00</option>
+                                    <option>14.30</option>
+                                    <option>15.00</option>
+                                    <option>15.30</option>
+                                    <option>16.00</option>
+                                    <option>16.30</option>
+                                    <option>17.00</option>
+                                    <option>17.30</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Ruang Sidang</label>
+                                </div>
+                                <select id="ruangsidang" name="ruangsidang" class="custom-select">
+                                    <option>-- Pilih Ruang Sidang --</option>
+                                    <?php
+                                    $sql = "SELECT * FROM ruangsidang";
+                                    $result = $conn->query($sql);
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<option value=$row[id_ruang]>$row[ruangsidang]</option> ";
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <hr width="10px">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Dosen Pembimbing 1</label>
+                                </div>
+                                <select class="custom-select" name="Dosen1" id="Dosen1" disabled>
+                                    <?php
+                                    $sql = "SELECT * FROM assign_sk,dosen WHERE assign_sk.assign_dosen = 'pembimbing 1' AND assign_sk.id_dosen = dosen.id_dosen AND assign_sk.nim = '".$_POST['nim']."' ";
+                                    $result = $conn->query($sql);
+                                    if ($result->num_rows > 0) {
+                                        // output data of each row
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<option value=$row[id_dosen]>$row[gelar_depan] $row[nama_dosen] $row[gelar_belakang]</option>";
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Dosen Pembimbing 2</label>
+                                </div>
+                                <select name="Dosen2" id="Dosen2" class="custom-select" disabled>
+                                    <?php
+                                    $sql = "SELECT * FROM assign_sk,dosen WHERE assign_sk.assign_dosen = 'pembimbing 2' AND assign_sk.id_dosen = dosen.id_dosen AND assign_sk.nim = '".$_POST['nim']."' ";
+                                    $result = $conn->query($sql);
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<option value=$row[id_dosen]>$row[gelar_depan] $row[nama_dosen] $row[gelar_belakang]</option> ";
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Dosen Penguji</label>
+                                </div>
+                                <select id="DosenPenguji" name='DosenPenguji' class="custom-select" disabled>
+                                <?php
+                                    $sql = "SELECT * FROM assign_sk,dosen WHERE assign_sk.assign_dosen = 'penguji' AND assign_sk.id_dosen = dosen.id_dosen AND assign_sk.nim = '".$_POST['nim']."' ";
+                                    $result = $conn->query($sql);
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<option value=$row[id_dosen]>$row[gelar_depan] $row[nama_dosen] $row[gelar_belakang]</option> ";
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" name="UlangBeritaAcarakti" class="btn btn-primary btn-sm">Simpan</button>
+            </form>
+<?php
+        }
+    }
+} 
 
-<!-- berita acara kti -->
-    <script type="text/javascript">
-        $(document).on("click", "#beritaacarakti", function () {
-            var NIM = $(this).data('nim');
-            var nama_mahasiswa = $(this).data('nama');
-            var judulKTI = $(this).data('judulkti');
-            var pdosen1 = $(this).data('dosen1');
-            var pdosen2 = $(this).data('dosen2');
-            var pdosenpenguji = $(this).data('dosenpenguji');
-            var angkatan = $(this).data('idangkatan');
-
-            $('#EditNim').val(NIM);
-            $('#EditNama').val(nama_mahasiswa);
-            $('#EditJudul').val(judulKTI);
-            $('#KtiDosen1').val(pdosen1);
-            $('#KtiDosen2').val(pdosen2);
-            $('#KtiDosenpenguji').val(pdosenpenguji);
-            
-            $('#hiddennim').val(NIM);
-            $('#hiddenNama').val(nama_mahasiswa);
-            $('#hiddenJudul').val(judulKTI);
-            $('#hiddenAngkatan').val(angkatan);
-            $('#hiddenDosen1').val(pdosen1);
-            $('#hiddenDosen2').val(pdosen2);
-            $('#hiddenDosenpenguji').val(pdosenpenguji);
-            $('#judullamahidden').val(judulKTI);
-        });
-    </script>
-
+//edit berita acara kti
+if($_POST['nim'] && $_POST['flag'] == 'edit')
+{
+    $sql = "SELECT assign_sk.nim,mahasiswa.nama,kti.judul_penelitian,assign_sk.id_semester,assign_sk.id_tahunajaran 
+    FROM assign_sk,mahasiswa,kti 
+    WHERE kti.nim = assign_sk.nim AND mahasiswa.nim = assign_sk.nim AND assign_sk.nim = '".$_POST['nim']."' GROUP BY assign_sk.nim";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) 
+    {
+        // output data of each row
+        while ($row = $result->fetch_assoc()) 
+        {
+?>          
+            <form method="POST">
+                        <div class="form-group">
+                                <input class="form-control" name="hiddennim" id="hiddennim" value="<?php echo $_POST['nim'];?>" type="hidden"
+                                aria-describedby="nameHelp">
+                                <input class="form-control" name="hiddensemester" id="hiddensemester" value="<?php echo $row['id_semester'];?>" type="hidden"
+                                aria-describedby="nameHelp">
+                                <input class="form-control" name="hiddentahunajaran" id="hiddentahunajaran" value="<?php echo $row['id_tahunajaran'];?>" type="hidden"
+                                aria-describedby="nameHelp">
+                                
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text">Semester</label>
+                                    </div>
+                                    <select id="semester" name="semester" class="custom-select">
+                                        <option>-- Pilih Semester --</option>
+                                        <?php
+                                        $sql = "SELECT * FROM semester";
+                                        $result = $conn->query($sql);
+                                        if ($result->num_rows > 0) {
+                                            while ($data = $result->fetch_assoc()) {
+                                                echo "<option value=$data[id_semester]>$data[semester]</option> ";
+                                            }
+                                        } else {
+                                            echo "0 results";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">NIM</label>
+                                </div>
+                                <input class="form-control" name="nim" id="nim" value="<?php echo $_POST['nim'];?>" type="text"
+                                aria-describedby="nameHelp" disabled="">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Nama Mahasiswa</label>
+                                </div>
+                                <input class="form-control" name="nama" id="nama" type="text" value = "<?php echo $row['nama'];?>"
+                                aria-describedby="nameHelp" disabled="">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Judul Penelitian</label>
+                                </div>
+                                <textarea rows="3" cols="50" name="judul" class="form-control" id="judul"
+                                aria-describedby="nameHelp"  style="text-transform: uppercase;"
+                                ><?php echo $row['judul_penelitian']; ?></textarea>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend" id='datetimepicker1'>
+                                    <label class="input-group-text">Tanggal Seminar Hasil</label>
+                                </div>
+                                <input class="form-control" id="date" name="tanggal" placeholder="mm/dd/yyyy" type="text" onchange="bataskti(this.value)"/>
+                                <input type="hidden" class="form-control" id="hiddenbatas" name="hiddenbatas"/>        
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend" data-provide='datetimepicker1'>
+                                    <label class="input-group-text">Waktu Seminar Hasil</label>
+                                </div>
+                                <select id="waktusidang" name="waktusidang" class="custom-select">
+                                    <option>-- Pilih Waktu Sidang --</option>
+                                    <option>07.00</option>
+                                    <option>07.30</option>
+                                    <option>08.00</option>
+                                    <option>08.30</option>
+                                    <option>09.00</option>
+                                    <option>09.30</option>
+                                    <option>10.00</option>
+                                    <option>10.30</option>
+                                    <option>11.00</option>
+                                    <option>11.30</option>
+                                    <option>12.00</option>
+                                    <option>12.30</option>
+                                    <option>13.00</option>
+                                    <option>13.30</option>
+                                    <option>14.00</option>
+                                    <option>14.30</option>
+                                    <option>15.00</option>
+                                    <option>15.30</option>
+                                    <option>16.00</option>
+                                    <option>16.30</option>
+                                    <option>17.00</option>
+                                    <option>17.30</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Ruang Sidang</label>
+                                </div>
+                                <select id="ruangsidang" name="ruangsidang" class="custom-select">
+                                    <option>-- Pilih Ruang Sidang --</option>
+                                    <?php
+                                    $sql = "SELECT * FROM ruangsidang";
+                                    $result = $conn->query($sql);
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<option value=$row[id_ruang]>$row[ruangsidang]</option> ";
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <hr width="10px">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Dosen Pembimbing 1</label>
+                                </div>
+                                <select class="custom-select" name="Dosen1" id="Dosen1" disabled>
+                                    <?php
+                                    $sql = "SELECT * FROM assign_sk,dosen WHERE assign_sk.assign_dosen = 'pembimbing 1' AND assign_sk.id_dosen = dosen.id_dosen AND assign_sk.nim = '".$_POST['nim']."' ";
+                                    $result = $conn->query($sql);
+                                    if ($result->num_rows > 0) {
+                                        // output data of each row
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<option value=$row[id_dosen]>$row[gelar_depan] $row[nama_dosen] $row[gelar_belakang]</option>";
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Dosen Pembimbing 2</label>
+                                </div>
+                                <select name="Dosen2" id="Dosen2" class="custom-select" disabled>
+                                    <?php
+                                    $sql = "SELECT * FROM assign_sk,dosen WHERE assign_sk.assign_dosen = 'pembimbing 2' AND assign_sk.id_dosen = dosen.id_dosen AND assign_sk.nim = '".$_POST['nim']."' ";
+                                    $result = $conn->query($sql);
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<option value=$row[id_dosen]>$row[gelar_depan] $row[nama_dosen] $row[gelar_belakang]</option> ";
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Dosen Penguji</label>
+                                </div>
+                                <select id="DosenPenguji" name='DosenPenguji' class="custom-select" disabled>
+                                <?php
+                                    $sql = "SELECT * FROM assign_sk,dosen WHERE assign_sk.assign_dosen = 'penguji' AND assign_sk.id_dosen = dosen.id_dosen AND assign_sk.nim = '".$_POST['nim']."' ";
+                                    $result = $conn->query($sql);
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<option value=$row[id_dosen]>$row[gelar_depan] $row[nama_dosen] $row[gelar_belakang]</option> ";
+                                        }
+                                    } else {
+                                        echo "0 results";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" name="UpdateBeritaAcarakti" class="btn btn-primary btn-sm">Simpan</button>
+            </form>
+<?php
+        }
+    }
+}
+?>
 <!-- datepicker -->
     <script>
         $(document).ready(function () {
@@ -304,45 +589,7 @@
             $('#hiddenbatas').val(newdate);
         }
     </script>
-<!-- update berita acara kti-->
-<?php
-    if(isset($_POST['UpdateBeritaAcarakti']))
-    {
-        $sql = "UPDATE kti SET 
-                waktupelaksanaan = '$_POST[waktu]',
-                ruangsidang = '$_POST[ruangsidang]',
-                tgl_sidangkti = '$_POST[tanggal]',
-                batas_pengumpulan = '$_POST[hiddenbatas]',
-                idsemester = '$_POST[semester]',
-                status = 'kti'
-                WHERE kti.nim = '$_POST[hiddennim]'";
-                
-                if (mysqli_query($conn, $sql)) 
-                {
-                         echo "<meta http-equiv='refresh' content='0'>";
-                    
-                }
 
-                //save log history judul
-                $sql = "INSERT INTO loghistoryjudul (judullama,judulbaru,nim,status) VALUES ('" . $_POST[judullamahidden] . "','".$_POST[EditJudul]."','".$_POST[hiddennim]."','kti')";
-                if (mysqli_query($conn, $sql)) 
-                  {
-                      echo "<meta http-equiv='refresh' content='0'>";
-                 }
-                
-    }
-?>
 
-<!-- Bootstrap core JavaScript
-    <script src="vendor/jquery/jquery.min.js"></script>-->
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Page level plugin JavaScript-->
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
-    <!-- Custom scripts for this page-->
-    <script src="js/sb-admin-datatables.min.js"></script>
+
 

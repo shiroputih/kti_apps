@@ -4,7 +4,6 @@ session_start();
 
 	$username = $_POST[txtusername];
 	$password = $_POST[txtpass];
-
 	$sql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
 	$result = $conn->query($sql);
     if ($result->num_rows == 1) {
@@ -17,4 +16,5 @@ session_start();
 				header("location: dashboard.php");
 			}
 		}
+
 ?>

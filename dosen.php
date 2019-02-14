@@ -13,58 +13,12 @@
                 <li class="breadcrumb-item active">Data Dosen</li>
             </ol>
         </div>
-         <button type="button" style="margin-top: 0; margin-left: 1%; width:12%" class="btn btn-primary btn-sm" data-toggle="modal"
-                data-target="#inputdatadosen"><img src="icons/contactadd.png" width="30px" height="30px"> Tambah Dosen </button>
-        <div id="Table" class="card-body">
-            <div id="tabledosen" class="table-responsive">
-                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama Dosen</th>
-                            <th>Gelar Depan</th>
-                            <th>Gelar Belakang</th>
-                            <th>Keterangan</th>
-                        </tr>
-                    </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Nama Dosen</th>
-                            <th>Gelar Depan</th>
-                            <th>Gelar Belakang</th>
-                            <th>Keterangan</th>
-                        </tr>
-                    </tfoot>
-                    <tbody>
-                        <?php
-                        $no = 1;
-                        $sql = "SELECT * FROM dosen";
-                        $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
-                        // output data of each row
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr>
-                                <td>$no</td>
-                                <td>$row[nama_dosen]</td>
-                                <td>$row[gelar_depan]</td>
-                                <td>$row[gelar_belakang]</td>
-                                <td class=center>
-                                <a id ='editdosen' data-iddosen=$row[id_dosen] data-namadosen='$row[nama_dosen]' data-gelardepan='$row[gelar_depan]' data-gelarbelakang='$row[gelar_belakang]' data-toggle='modal' data-target='#editModal'>
-                                <button type='button' class='btn btn-warning btn-sm'>Edit</button></a>
-                                <a id ='deletedosen' data-iddosen=$row[id_dosen] data-namadosen='$row[nama_dosen]' data-gelardepan='$row[gelar_depan]' data-gelarbelakang='$row[gelar_belakang]' data-toggle='modal' data-target='#deleteModal'>
-                                <button type='button' class='btn btn-danger btn-sm'>Delete</button></a>
-                                </td>
-                                </tr>";
-                                $no+= 1;
-                            }
-                        } else {
-                            echo "0 results";
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
+        <button type="button" style="margin-top: 0; margin-left: 1%; width:7% border-radius:10px;" class="btn btn-default btn-sm" data-toggle="modal"
+        data-target="#inputdatadosen"><img src="icons/contactadd.png" width="30px" height="30px"></button>
+        
+        <div id="tabledosen" class="table-responsive">
         </div>
+        
     </div>
 </body>
 <?php
@@ -74,7 +28,6 @@
 <!-- insert form -->
 <div class="modal fade" id="inputdatadosen" role="dialog">
     <div class="modal-dialog">
-
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Input Data Dosen</h4>
@@ -83,25 +36,24 @@
             <div class="modal-body">
                 <div class="card-body">
                     <form id="formdosen" method="POST">
-                      
-                     <div class="form-group">
+                       <div class="form-group">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="inputsemester">Nama Dosen</label>
                             </div>
-                                <input class="form-control" name="namadosen" id="exampleInputName" type="text"
-                                aria-describedby="nameHelp" placeholder="Masukkan Nama Dosen"
-                                onkeyup="this.value=this.value.toUpperCase()">
+                            <input class="form-control" name="namadosen" id="exampleInputName" type="text"
+                            aria-describedby="nameHelp" placeholder="Masukkan Nama Dosen"
+                            onkeyup="this.value=this.value.toUpperCase()">
                         </div>
                     </div>
-                      
+
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="inputsemester">Gelar Depan</label>
                             </div>
-                                <input class="form-control" name="gelardepan" id="exampleInputLastName" type="text"
-                                aria-describedby="nameHelp" placeholder="Masukkan Gelar Depan">
+                            <input class="form-control" name="gelardepan" id="exampleInputLastName" type="text"
+                            aria-describedby="nameHelp" placeholder="Masukkan Gelar Depan">
                         </div>
                     </div>
                     <div class="form-group">
@@ -109,17 +61,17 @@
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="inputsemester">Gelar Belakang</label>
                             </div>
-                                <input class="form-control" name="gelarbelakang" id="exampleInputLastName" type="text"
-                                aria-describedby="nameHelp" placeholder="Masukkan Gelar Belakang">
-                            </div>
+                            <input class="form-control" name="gelarbelakang" id="exampleInputLastName" type="text"
+                            aria-describedby="nameHelp" placeholder="Masukkan Gelar Belakang">
                         </div>
+                    </div>
                     
                     <button type="submit" name="adddata" class="btn btn-info btn-md">SUBMIT</button>
-                    </form>
-                </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <!-- Edit and Update Modal content Detail-->
@@ -141,17 +93,17 @@
                                     <label class="input-group-text" for="namadosen">Nama Dosen</label>
                                 </div>
                                 <input class="form-control" name="namadosen" id="namadosen" type="text"
-                                aria-describedby="nameHelp" placeholder="Masukkan Nama Dosen"
-                                onkeyup="this.value=this.value.toUpperCase()">
+                                aria-describedby="nameHelp" placeholder="Masukkan Nama Dosen" style="text-transform:uppercase"
+                                >
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                   <label class="input-group-text" for="exampleInputLastName">Gelar Depan</label>
-                               </div>
-                               <input class="form-control" name="gelardepan" id="gelardepan" type="text"
-                               aria-describedby="nameHelp" placeholder="Masukkan Gelar Depan">
-                           </div>
-                           <div class="input-group mb-3">
+                                 <label class="input-group-text" for="exampleInputLastName">Gelar Depan</label>
+                             </div>
+                             <input class="form-control" name="gelardepan" id="gelardepan" type="text"
+                             aria-describedby="nameHelp" placeholder="Masukkan Gelar Depan">
+                         </div>
+                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="exampleInputLastName">Gelar Belakang</label>
                             </div>
@@ -159,7 +111,7 @@
                             aria-describedby="nameHelp" placeholder="Masukkan Gelar Belakang">
                         </div>
                     </div>
-                    <button type="submit" name="updatedata" class="btn btn-info btn-lg" >SUBMIT</button>
+                    <button type="submit" name="updatedata" id="updatedata" class="btn btn-info btn-sm" >SUBMIT</button>
                 </form>
             </div>
         </div>
@@ -178,11 +130,11 @@
             <div class="modal-body" style="background-color: #c82333">
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data">
-                        <label for="exampleInputLastName">Apakah anda ingin menghapus data dosen</label> <br>
-                        <input type="hidden" id="labeliddosen" name="labeliddosen" class="form-control"></input><br>
-                        nama dosen :<input id="labelnmdosen" class="form-control" disabled></input><br>
-                        <button type="submit" class="btn btn-info btn-lg" data-dismiss="modal" >NO</button>
-                        <button type="submit" name="deletedata" class="btn btn-danger btn-lg" >YES</button>
+                        <input type="hidden" class="form-control" name="hididdosen" id="hididdosen"
+                            aria-describedby="nameHelp">
+                        <div id="deldosen"></div>
+                        <button type="submit" class="btn btn-info btn-sm" data-dismiss="modal" >NO</button>
+                        <button type="submit" name="deletedata" class="btn btn-danger btn-sm" >YES</button>
                     </form>
                 </div>
             </div>
@@ -201,54 +153,62 @@
         $('#namadosen').val(nama_dosen);
         $('#gelardepan').val(gelar_depan);
         $('#gelarbelakang').val(gelar_belakang);
-
     })
-</script>
 
-<script type="text/javascript">
     $(document).on("click", "#deletedosen", function () {
         var id_dosen = $(this).data('iddosen');
         var nama_dosen = $(this).data('namadosen');
 
-        $('#labeliddosen').val(id_dosen);
-        $('#labelnmdosen').val(nama_dosen);
+        $('#hididdosen').val(id_dosen);
+    $.ajax({
+        url : 'hapusdosen.php',
+        type:'post',
+        data: "id="+id_dosen,
+        cache : false,
+        success : function(data)
+        {
+         $('#deldosen').html(data);
+        }
+    });
     })
+    
+    $(document).ready(function(){
+    $.ajax({
+        url : 'getdosenall.php',
+        type:'post',
+        cache : false,
+        success : function(data)
+        {
+         $('#tabledosen').html(data);
+        }
+    });
+ });
 </script>
+
+
 
 <?php
 if (isset($_POST['adddata'])) {
     $sql = "INSERT INTO dosen (nama_dosen,gelar_depan,gelar_belakang) VALUES ('" . $_POST['namadosen'] . "','" . $_POST['gelardepan'] . "','" . $_POST['gelarbelakang'] . "')";
     if (mysqli_query($conn, $sql)) {
-        echo "<meta http-equiv='refresh' content='0'>";
+       
     }
 }
 
 if (isset($_POST['updatedata'])) {
-    $sql = "UPDATE dosen SET nama_dosen ='$_POST[namadosen]',gelar_depan='$_POST[gelardepan]',gelar_belakang='$_POST[gelarbelakang]' WHERE id_dosen='$_POST[iddosen]'";
+    $sql = "UPDATE dosen SET nama_dosen =UPPER('$_POST[namadosen]'),gelar_depan='$_POST[gelardepan]',gelar_belakang='$_POST[gelarbelakang]' WHERE id_dosen='$_POST[iddosen]'";
     echo $sql;
     if (mysqli_query($conn, $sql)) {
-        echo "<meta http-equiv='refresh' content='0'>";
+
     }
 }
 
 if (isset($_POST['deletedata'])) {
-    $sql = "DELETE FROM dosen WHERE id_dosen='$_POST[labeliddosen]'";
+    $sql = "DELETE FROM dosen WHERE id_dosen='$_POST[hididdosen]'";
     if (mysqli_query($conn, $sql)) {
-        echo "<meta http-equiv='refresh' content='0'>";
+       
     }
 }
 ?>
 
-<!-- Bootstrap core JavaScript
-    <script src="vendor/jquery/jquery.min.js"></script>-->
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Page level plugin JavaScript-->
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
-    <!-- Custom scripts for this page-->
-    <script src="js/sb-admin-datatables.min.js"></script>
 

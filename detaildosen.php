@@ -1,13 +1,11 @@
 <?php
 @include ("dbconnect.php");
 if($_POST['iddosen']){
-    $sql = "SELECT * FROM dosen,sk WHERE sk.id_semestersk = '".$_POST['idsemester']."' AND dosen.id_dosen = '".$_POST['iddosen']."'";
+    $sql = "SELECT * FROM dosen,assign_sk WHERE assign_sk.id_semester = '".$_POST['idsemester']."' AND dosen.id_dosen = '".$_POST['iddosen']."'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
-        // output data of each row
         while ($row = $result->fetch_assoc()) {
 ?>
-            <!-- display : nim, nama, judul kti, dosen 1,dosen 2, dosen 3, tgl sidang kti,waktu ujian, ruangan ujian, tanggal kumpul berkas, nilai akhir KTi-->
             <table  class="table table-hover">
                 <tr>
                     <td colspan ="2">Nama Dosen</td>
@@ -26,7 +24,7 @@ if($_POST['iddosen']){
                 </tr>    
                         <?php
                         $no = 1;
-                        $sql = "SELECT * from mahasiswa,sk1 where mahasiswa.nim = sk1.nim AND sk1.id_dosen1 = $_POST[iddosen] AND sk1.id_semester = $_POST[idsemester]";
+                        $sql = "SELECT * from mahasiswa,assign_sk where mahasiswa.nim = assign_sk.nim AND assign_sk.assign_dosen = 'pembimbing 1' AND assign_sk.id_dosen = $_POST[iddosen] AND assign_sk.id_semester = $_POST[idsemester]";
                         $result = mysqli_query($conn,$sql);
                         foreach ($result as $path) {
                             echo "
@@ -54,14 +52,14 @@ if($_POST['iddosen']){
                 </tr>    
                         <?php
                         $no = 1;
-                        $sql = "SELECT * from mahasiswa,sk2 where mahasiswa.nim = sk2.nim AND sk2.id_dosen2= $_POST[iddosen] AND sk2.id_semester = $_POST[idsemester]";
+                        $sql = "SELECT * from mahasiswa,assign_sk where mahasiswa.nim = assign_sk.nim AND assign_sk.assign_dosen = 'pembimbing 2' AND assign_sk.id_dosen= $_POST[iddosen] AND assign_sk.id_semester = $_POST[idsemester]";
                         $result = mysqli_query($conn,$sql);
                         foreach ($result as $path) {
                             echo "
                             <tr>
                                 <td>$no</td>
-                                <td> $path[nim] </td>    
-                                <td> $path[nama] </td>              
+                                <td>$path[nim] </td>    
+                                <td>$path[nama] </td>              
                             </tr>";
                             $no ++;
                         } 

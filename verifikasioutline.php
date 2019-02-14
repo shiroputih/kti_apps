@@ -2,250 +2,46 @@
 @include("header.php");
 @include("navigation.php");
 @include("dbconnect.php");
+
 ?>
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
-
     <div class="content-wrapper">
         <div class="container-fluid">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item">
                     <a href="index.php">Home</a>
                 </li>
-                <li class="breadcrumb-item active">Data Outline</li>
+                <li class="breadcrumb-item active">Data Verifikasi Outline</li>
             </ol>
         </div>
-        <div class="card mb-3">
-            <div class="card-header">
-                <i class="fa fa-table"></i> Verifikasi Data Outline
-            </div>
-            <hr>
-            <div class="container-fluid">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <label class="input-group-text" for="inputGroupSelect01">Semester</label>
-                    </div>
-                    <select class="custom-select" name="semester" id="semester"  selected="selected">
-                        <option>-- Pilih Semester --</option>
-                        <?php
+        <div class="card-body">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Semester</label>
+                </div>
+                <select class="custom-select" name="semester" id="semester"  selected="selected">
+                    <option>-- Pilih Semester --</option>
+                    <?php
                         $sql = "SELECT * FROM semester";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0) {
-                                        // output data of each row
                             while ($row = $result->fetch_assoc()) {
-                                echo "<option value=$row[id_semester]>$row[semester]</option>";
+                                    echo "<option value=$row[id_semester]>$row[semester]</option>";
                             }
                         } else {
                             echo "0 results";
                         }
-                        ?>
-                    </select>
-                </div>
+                    ?>
+                </select>
             </div>
-            <div class="card-body">
-                <div id="tabeloutline"></div>
-            </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
+            <div id="tabeloutline" class="table-responsive-sm"></div>
     </div>
-
 </body>
+
 <?php
 @include("footer.php");
 ?>
-
-<!-- Modal content Detail-->
-<div class="modal fade" id="VerifikasiOutlineModal" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Verifikasi Outline Mahasiswa</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="card-body">
-                    <form id="formdosen" method="POST">
-                        <div class="form-group">
-                            <input type="hidden" class="form-control" name="hiddennim" id="hiddennim" type="text"
-                            aria-describedby="nameHelp">
-                            <input type="hidden" class="form-control" name="hiddenNama" id="hiddenNama" type="text"
-                            aria-describedby="nameHelp">
-                            <input type="hidden" class="form-control" name="hiddenJudul" id="hiddenJudul" type="text"
-                            aria-describedby="nameHelp">
-                            <input type="hidden" class="form-control" name="hiddensemester" id="hiddensemester" type="text"
-                            aria-describedby="nameHelp">
-                             <input type="hidden" class="form-control" name="hiddendosen1" id="hiddendosen1" type="text"
-                            aria-describedby="nameHelp">
-                             <input type="hidden" class="form-control" name="hiddendosen2" id="hiddendosen2" type="text"
-                            aria-describedby="nameHelp">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Semester</label>
-                                </div>
-                                 <select class="custom-select" name="semester" id="semester" disabled>
-                                    <?php
-                                    $sql = "SELECT * FROM semester";
-                                    $result = $conn->query($sql);
-                                    if ($result->num_rows > 0) {
-                                        // output data of each row
-                                        while ($row = $result->fetch_assoc()) {
-                                            echo "<option value=$row[id_semester]>$row[semester]</option>";
-                                        }
-                                    } else {
-                                        echo "0 results";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">NIM</label>
-                                </div>
-                                <input class="form-control" name="EditNim" id="EditNim" type="text"
-                                aria-describedby="nameHelp" disabled="">
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Nama Mahasiswa</label>
-                                </div>
-                                <input class="form-control" name="EditNama" id="EditNama" type="text"
-                                aria-describedby="nameHelp" disabled="">
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text">Judul Penelitian</label>
-                                </div>
-                                <textarea rows="3" cols="50" name="EditJudul" class="form-control" id="EditJudul"
-                                aria-describedby="nameHelp" onkeyup="this.value=this.value.toUpperCase()"
-                                disabled></textarea>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text">Pertanyaan Penelitian</label>
-                                </div>
-                                <textarea rows="3" cols="50" class="form-control" name="EditPertanyaan"
-                                id="EditPertanyaan" aria-describedby="nameHelp"
-                                placeholder="Pertanyaan Penelitian"
-                                onkeyup="this.value=this.value.toUpperCase()" disabled></textarea>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text">Manfaat Penelitian</label>
-                                </div>
-                                <textarea rows="3" cols="50" class="form-control" name="EditManfaat" id="EditManfaat"
-                                aria-describedby="nameHelp" placeholder="Manfaat Penelitian"
-                                onkeyup="this.value=this.value.toUpperCase()" disabled></textarea>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text">Desain Penelitian</label>
-                                </div>
-                                <textarea rows="3" cols="50" class="form-control" name="EditDesain" id="EditDesain"
-                                aria-describedby="nameHelp" placeholder="Desain Penelitian"
-                                onkeyup="this.value=this.value.toUpperCase()" disabled=""></textarea>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text">Sample Penelitian</label>
-                                </div>
-                                <textarea rows="3" cols="50" class="form-control" name="EditSample" id="EditSample"
-                                aria-describedby="nameHelp" placeholder="Sample Penelitian"
-                                onkeyup="this.value=this.value.toUpperCase()" disabled=""></textarea>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text">Variabel Bebas</label>
-                                </div>
-                                <textarea rows="3" cols="50" class="form-control" id="EditBebas" name="EditBebas"
-                                aria-describedby="nameHelp" placeholder="Variabel Bebas"
-                                onkeyup="this.value=this.value.toUpperCase()" disabled></textarea>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text">Variabel Tergantung</label>
-                                </div>
-                                <textarea rows="3" cols="50" class="form-control" id="EditTergantung"
-                                name="EditTergantung" aria-describedby="nameHelp"
-                                placeholder="Variabel Tergantung"
-                                onkeyup="this.value=this.value.toUpperCase()" disabled></textarea>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text">Hipotesis</label>
-                                </div>
-                                <textarea rows="3" cols="50" class="form-control" id="EditHipotesis"
-                                name="EditHipotesis" aria-describedby="nameHelp" placeholder="Hipotesis"
-                                onkeyup="this.value=this.value.toUpperCase()" disabled></textarea>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text">Usulan Pembimbing 1</label>
-                                </div>
-                                <select class="custom-select" name="EditDosen1" id="EditDosen1" disabled>
-                                    <?php
-                                    $sql = "SELECT * FROM dosen";
-                                    $result = $conn->query($sql);
-                                    if ($result->num_rows > 0) {
-                                        // output data of each row
-                                        while ($row = $result->fetch_assoc()) {
-                                            echo "<option value=$row[id_dosen]>$row[gelar_depan] $row[nama_dosen] $row[gelar_belakang]</option>";
-                                        }
-                                    } else {
-                                        echo "0 results";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text">Usulan Pembimbing 2</label>
-
-                                </div>
-                                <select name="EditDosen2" id="EditDosen2" class="custom-select" disabled>
-                                    <?php
-                                    $sql = "SELECT * FROM dosen";
-                                    $result = $conn->query($sql);
-                                    if ($result->num_rows > 0) {
-                                        while ($row = $result->fetch_assoc()) {
-                                            echo "<option value=$row[id_dosen]>$row[gelar_depan] $row[nama_dosen] $row[gelar_belakang]</option> ";
-                                        }
-                                    } else {
-                                        echo "0 results";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend" data-provide='datetimepicker1'>
-                                    <label class="input-group-text">Tanggal Pengajuan</label>
-                                </div>
-                                <input type='text' class="form-control" id="EditTanggal" name="EditTanggal"
-                                placeholder="MM/DD/YYY" disabled/>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Status Verifikasi</label>
-                                </div>
-                                <input class="form-control" name="statusverifikasi" id="statusverifikasi" type="text"
-                                aria-describedby="nameHelp" disabled="">
-                            </div>
-                            
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend" data-provide='datetimepicker1'>
-                                    <label class="input-group-text">Tanggal Verifikasi</label>
-                                </div>
-                                <input type='text' class="form-control" id="date" name="tanggal"
-                                placeholder="DD/MM/YYY"/>
-                            </div>
-                        </div>
-                        <button type="submit" name="LolosVerifikasiOutline" class="btn btn-info btn-sm" >Lolos</button>
-                        <button type="submit" name="TidakLolosVerifikasiOutline" class="btn btn-danger btn-sm" >Tidak Lolos</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- datepicker -->
 <script>
@@ -266,46 +62,23 @@
 <script type="text/javascript">
     $(document).on("click", "#VerifikasiOutline", function () {
         var NIM = $(this).data('nimmahasiswa');
-        var nama_mahasiswa = $(this).data('namamahasiswa');
-        var juduloutline = $(this).data('juduloutline');
-        var pertanyaan = $(this).data('pertanyaan');
-        var manfaat = $(this).data('manfaat');
-        var desain = $(this).data('desain');
-        var sample = $(this).data('sample');
-        var bebas = $(this).data('bebas');
-        var tergantung = $(this).data('tergantung');
-        var hipotesis = $(this).data('hipotesis');
-        var udosen1 = $(this).data('usulandosen1');
-        var udosen2 = $(this).data('usulandosen2');
-        var tanggal = $(this).data('tanggal');
-        var status = $(this).data('status');
-        var semester = $(this).data('semester');
-
-        $('#EditNim').val(NIM);
         $('#hiddennim').val(NIM);
-        $('#EditNama').val(nama_mahasiswa);
-        $('#EditJudul').val(juduloutline);
-        $('#EditPertanyaan').val(pertanyaan);
-        $('#EditManfaat').val(manfaat);
-        $('#EditDesain').val(desain);
-        $('#EditSample').val(sample);
-        $('#EditBebas').val(bebas);
-        $('#EditTergantung').val(tergantung);
-        $('#EditHipotesis').val(hipotesis);
-        $('#EditDosen1').val(udosen1);
-        $('#EditDosen2').val(udosen2);
-        $('#EditTanggal').val(tanggal);
-        $('#status').val(status);
-        $('#hiddenNama').val(nama_mahasiswa);
-        $('#hiddenJudul').val(juduloutline);
-        $('#hiddensemester').val(semester);
-        $('#hiddendosen1').val(udosen1);
-        $('#hiddendosen2').val(udosen2);
 
-    })
+        $.ajax({
+                url : 'getverifikasi.php',
+                type:'post',
+                data : 'nim='+ NIM,
+                cache : false,
+                success : function(data)
+                {
+                    $('#form-verifikasioutline').html(data);
+                }
+            });
+    });
 </script>
 
-<!-- show detail outline semester -->
+
+<!-- show outline persemester -->
  <script type="text/javascript">
     $(document).ready(function(){
         $('#semester').change(function(){
@@ -322,68 +95,59 @@
             });
         });
     });
- </script> 
+ </script>
+
 <?php
 if (isset($_POST['LolosVerifikasiOutline'])) {
-    $sql = "UPDATE outline SET
-    tgl_disetujui = '$_POST[tanggal]',
-    status = 'Lolos Outline'
-    WHERE nim = '$_POST[hiddennim]'";
-    
-    if (mysqli_query($conn, $sql)) {
-        echo "<meta http-equiv='refresh' content='0'>";
-    } 
+    foreach($_POST['verifikasi'] as $verify)
+    {
+        $tgl_verifikasi = date('d/m/Y');
+        $sql = "UPDATE outline SET tgl_disetujui = '$tgl_verifikasi', status = 'Lolos Outline' WHERE nim = '$verify'";
+        if (mysqli_query($conn, $sql)) {
+            //$sql_select = "SELECT * FROM outline,mahasiswa WHERE outline.nim = '$verify' AND mahasiswa.nim = '$verify'";
+            $sql_select = "SELECT semester.id_semester as semester, semester.id_tahunajaran as idtahunajaran, outline.nim,outline.usulan_dosen1 as dosen1, outline.nim,outline.usulan_dosen2 as dosen2 FROM outline
+            JOIN semester ON semester.id_semester = outline.semester
+            JOIN mahasiswa ON mahasiswa.nim = '$verify'
+            WHERE outline.nim = '$verify'
+            ";
+            $result = $conn->query($sql_select);
+            if ($result->num_rows > 0){
+                while ($row = $result->fetch_assoc()) {
+                    $sql_insertSKdosen1 = "INSERT INTO assign_sk (id_dosen,nim,id_semester,id_tahunajaran,assign_dosen,status_sk)
+                    VALUES ('$row[dosen1]','$row[nim]','$row[semester]','$row[idtahunajaran]','pembimbing 1','aktif')";
+                    if (mysqli_query($conn, $sql_insertSKdosen1)) {
 
-        //SAVE INTO TABLE PROPOSAL AND Table assign_dosen
-        // field : nim, nama judul, dosen1, dosen 2
+                    }
+                    $sql_insertSKdosen2 = "INSERT INTO assign_sk (id_dosen,nim,id_semester,id_tahunajaran,assign_dosen,status_sk)
+                    VALUES ('$row[dosen2]','$row[nim]','$row[semester]','$row[idtahunajaran]','pembimbing 2','aktif')";
+                    if (mysqli_query($conn, $sql_insertSKdosen2)) {
 
-    $sql = "INSERT INTO proposal (nim,nama,judulproposal,dosen1,dosen2,id_semester) 
-       VALUES ('". $_POST[hiddennim] . "','". $_POST[hiddenNama] . "','". $_POST[hiddenJudul] . "','" . $_POST[hiddendosen1] . "','". $_POST[hiddendosen2] . "','".$_POST[hiddensemester]."')";
-    if (mysqli_query($conn, $sql)) {
-                echo "<meta http-equiv='refresh' content='0'>";
-     }
+                    }
+                    $sql_insertToProposal = "INSERT INTO proposal (nim,judulproposal,tgl_sidangproposal,id_semester,status_proposal)
+                    VALUES ('$row[nim]','$row[judul_outline]','00/00/0000','0','0')";
+                    if (mysqli_query($conn, $sql_insertToProposal)) {
 
-    //insert into sk1
-    $sql = "INSERT INTO sk1 (id_semester,id_dosen1,nim) VALUES ('". $_POST[hiddensemester] . "','". $_POST[hiddendosen1] . "','". $_POST[hiddennim] . "')";
-    if (mysqli_query($conn, $sql)) {
-                echo "<meta http-equiv='refresh' content='0'>";
-     } 
+                    }
+                    $sql_insertToLogHistory = "INSERT INTO loghistoryjudul (nim,judul_penelitian,stage)
+                    VALUES ('$row[nim]','$row[judul_outline]','OUTLINE')";
+                    if (mysqli_query($conn, $sql_insertToLogHistory)) {
 
-      //insert into sk2
-    $sql = "INSERT INTO sk2 (id_semester,id_dosen2,nim) VALUES ('". $_POST[hiddensemester] . "','". $_POST[hiddendosen2] . "','". $_POST[hiddennim] . "')";
-    if (mysqli_query($conn, $sql)) {
-                echo "<meta http-equiv='refresh' content='0'>";
-     } 
-
-    //insert into sk
-    $sql = "INSERT INTO sk (id_dosen1sk,id_dosen2sk,id_semestersk,nim_sk) VALUES ('". $_POST[hiddendosen1] . "','". $_POST[hiddendosen2] . "','". $_POST[hiddensemester] . "','". $_POST[hiddennim] . "')";
-    if (mysqli_query($conn, $sql)) {
-                echo "<meta http-equiv='refresh' content='0'>";
-     } 
+                    }
+                }
+            }
+        }
+    }
 }
-?>
 
-<?php
 if (isset($_POST['TidakLolosVerifikasiOutline'])) {
-    $sql = "UPDATE outline SET
-    tgl_disetujui = '$_POST[tanggal]',
-    status = 'Tidak Lolos Outline'
-    WHERE nim = '$_POST[hiddennim]'";
-    if (mysqli_query($conn, $sql)) {
-       echo "<meta http-equiv='refresh' content='0'>";    
-     }
- }
+    foreach($_POST['verifikasi'] as $verify)
+    {
+        $tgl_verifikasi = date('d/m/Y');
+        $sql = "UPDATE outline SET tgl_disetujui = '$tgl_verifikasi', status = 'Tidak Lolos Outline' WHERE nim = '$verify'";
+        if (mysqli_query($conn, $sql)) {
+
+        }
+    }
+}
 
 ?>
-<!-- Bootstrap core JavaScript
-    <script src="vendor/jquery/jquery.min.js"></script>-->
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Page level plugin JavaScript-->
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
-    <!-- Custom scripts for this page-->
-    <script src="js/sb-admin-datatables.min.js"></script>

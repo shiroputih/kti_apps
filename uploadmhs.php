@@ -22,7 +22,7 @@ for ($i=2; $i<=$baris; $i++)
   $nama = $data->val($i, 2);
   
   // setelah data dibaca, sisipkan ke dalam tabel mhs
-  $query = "INSERT INTO mahasiswa VALUES ('$nim', '$nama')";
+  $query = "INSERT INTO mahasiswa (nim,nama,id_tahunajaran,id_semester,id_angkatan) VALUES ('$nim', '$nama','','','')";
   $result = $conn->query($query);
 
   // jika proses insert data sukses, maka counter $sukses bertambah

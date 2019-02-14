@@ -1,7 +1,7 @@
 <?php
 @include ("dbconnect.php");
 if($_POST['idsemester']){
-    $sql = "SELECT * FROM sk WHERE sk.id_semestersk = '".$_POST['idsemester']."'";
+    $sql = "SELECT * FROM assign_sk WHERE assign_sk.id_semester = '".$_POST['idsemester']."'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         // output data of each row
@@ -21,40 +21,52 @@ if($_POST['idsemester']){
                
                <tbody>
                 <?php
-                $no =1;
-                $sql = "SELECT sk.nim_sk AS nim ,mahasiswa.nama AS nama,d1.gelar_depan AS d1depan,d1.gelar_belakang AS d1belakang,d2.gelar_depan AS d2depan,d2.gelar_belakang AS d2belakang,d1.nama_dosen as nmdosen1, d2.nama_dosen as nmdosen2 from dosen d1, dosen d2, sk,mahasiswa where d1.id_dosen <> d2.id_dosen and d1.id_dosen = sk.id_dosen1sk AND d2.id_dosen = sk.id_dosen2sk AND mahasiswa.nim = sk.nim_sk AND sk.id_semestersk ='".$_POST['idsemester']."'" ;
-                $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                        // output data of each row
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr>
-                        <td>$no</td>
-                        <td>$row[nim]</td>
-                        <td>$row[nama]</td>
-                        <td>$row[d1depan] $row[nmdosen1],$row[d1belakang]</td>
-                        <td>$row[d2depan] $row[nmdosen2],$row[d2belakang]</td>
-                        <td class=center>
-                        <a id ='editdosen' data-nim= $row[nim] data-toggle='modal' data-target='#listmodal'>
-                        <button type='button' class='btn btn-primary btn-circle btn-sm'><i class='fa fa-list'></i>
-                        </button></a>
-                        <a id ='deletedosen' data-toggle='modal' data-target='#deleteModal'>
-                        <button type='button' class='btn btn-danger btn-circle btn-sm'><i class='fa fa-times'></i>
-                        </button></a>
-                        </td>
-                        </tr>";
-                        $no+=1;
+                    $no =1;
+                    $sql = "SELECT dosen.gelar_depan,dosen.nama_dosen, dosen.gelar_belakang,s1.nim,mahasiswa.nama,s1.id_dosen AS dosen1, s2.id_dosen AS dosen2 FROM assign_sk AS s1, assign_sk AS s2, dosen,mahasiswa WHERE s1.nim = mahasiswa.nim AND s2.nim = mahasiswa.nim AND s1.id_dosen = dosen.id_dosen AND s1.id_semester = '".$_POST['idsemester']."' AND s1.assign_dosen = 'pembimbing 1' AND s2.assign_dosen = 'pembimbing 2' ORDER BY s1.nim ASC " ;
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                            // output data of each row
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>
+                            <td>$no</td>
+                            <td>$row[nim]</td>
+                            <td>$row[nama]</td>
+                            <td>$row[gelar_depan] $row[nama_dosen] $row[gelar_belakang]</td>
+                            <td>";
+                            $sql_dosen2 = "SELECT * FROM dosen where id_dosen = '$row[dosen2]'";
+                            $res = $conn->query($sql_dosen2);
+                            if($res->num_rows>0){
+                                while($row2 = $res->fetch_assoc()){
+                                    echo "$row2[gelar_depan] $row2[nama_dosen] $row2[gelar_belakang]";
+                                }
+                            }
+                            echo"</td>
+                            <td class=center>
+                            <a id ='editdosen' data-nim= $row[nim] data-toggle='modal' data-target='#listmodal'>
+                            <button type='button' class='btn btn-primary btn-circle btn-sm'><i class='fa fa-list'></i>
+                            </button></a>
+                            <a id ='deletedosen' data-toggle='modal' data-target='#deleteModal'>
+                            <button type='button' class='btn btn-danger btn-circle btn-sm'><i class='fa fa-times'></i>
+                            </button></a>
+                            </td>
+                            </tr>";
+                            $no+=1;
+                        }
+                    } else {
+                        echo "<tr align='center'>Data Dosen Pembimbing Masih Kosong</tr>";
                     }
-                } else {
-                    echo "<tr align='center'>Data Dosen Pembimbing Masih Kosong</tr>";
-                }
                 ?>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
         <?php 
+        }
+    }else{
+        ?>
+        <div class = "notification"> Belum ada Mahasiswa yang terverifikasi pada semester ini </div>
+    <?php
     }
+    $conn->close();
 }
-}
-$conn->close();
 ?>
 
 <div class="modal fade" id="listmodal" role="dialog">

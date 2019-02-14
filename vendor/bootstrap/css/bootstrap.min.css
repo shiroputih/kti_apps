@@ -522,6 +522,7 @@ pre code {
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto
+
 }
 
 @media (min-width: 576px) {
@@ -553,18 +554,10 @@ pre code {
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
-    margin-left: auto
+    margin-left: auto;
+    overflow: hidden;
 }
 
-.row {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px
-}
 
 .no-gutters {
     margin-right: 0;
@@ -2032,10 +2025,15 @@ pre code {
 
 .table-responsive {
     display: block;
-    width: 100%;
+    width: 98.5%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: -ms-autohiding-scrollbar
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    /* shiro */
+    background-color: white;
+    border-radius: 10px;
+    padding-top: 10px;
+    margin: 10px 20px 10px 10px;
 }
 
 .table-responsive > .table-bordered {
@@ -3884,7 +3882,7 @@ tbody.collapse.show {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-between;
-    padding: .5rem 1rem
+    padding: .5rem 1rem;
 }
 
 .navbar > .container, .navbar > .container-fluid {
@@ -3925,7 +3923,8 @@ tbody.collapse.show {
     flex-direction: column;
     padding-left: 0;
     margin-bottom: 0;
-    list-style: none
+    list-style: none;
+    overflow-y: auto !important;
 }
 
 .navbar-nav .nav-link {
@@ -4414,7 +4413,9 @@ tbody.collapse.show {
     -webkit-box-flex: 1;
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
-    padding: 1.25rem
+    padding: 1.25rem;
+    /* shiro */
+    margin : 5px 12px 10px 12px;
 }
 
 .card-title {
@@ -4654,7 +4655,7 @@ tbody.collapse.show {
     padding: .75rem 1rem;
     margin-bottom: 1rem;
     list-style: none;
-    background-color: #e9ecef;
+    background-color: #d7d7d7;
     border-radius: .25rem
 }
 
@@ -6079,7 +6080,7 @@ a.bg-light:focus, a.bg-light:hover, button.bg-light:focus, button.bg-light:hover
 
 .bg-dark {
     /*background-color: #343a40 !important shiro-original*/
-    background-color: #3a3a3a !important
+    background-color: #393939 !important
 }
 
 a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
@@ -9072,4 +9073,135 @@ a.text-dark:focus, a.text-dark:hover {
     }
 }
 
+
+ /* Style the tab */
+ .tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+    margin-left: 3%;
+    margin-right: 3%;
+  }
+
+  /* Style the buttons that are used to open the tab content */
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+  }
+
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #ddd;
+  }
+
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: #ccc;
+  }
+
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px 5px 10px;
+    border: 1px solid #ccc;
+    border-top: none;
+    margin-left: 3%;
+    margin-right: 3%;
+  }
+
+  /* add new legend proposal*/
+
+#myChart,#chartsemhas{
+    border:1px solid red;
+    width: 100%;
+    height: 100%;
+}
+.card-graphheader {
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: #5e52cc;
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    color: white;
+}
+
+.row-content { /* Flex Parent*/
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: 0px;
+}
+.row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px
+}
+.row-child{
+    max-width: 66%;
+    margin-left: 10px;
+    margin-top: 0%;
+}
+.row-child-upcoming-ujian-kti{
+    position: absolute;
+    margin-left: 59%;
+    margin-top: -70%;
+    width: 30%;
+    max-height: 25%;
+
+}
+.row-child-upcoming-seminarhasil{
+    border: 1px solid red;
+    margin-left: 68%;
+    margin-top: -55%;
+    width: 30%;
+    max-height: 50%;
+    position: fixed;
+}
+
+.row-child-upcoming-seminarproposal{
+    border: 1px solid red;
+    margin-left: 68%;
+    margin-top: 0%;
+    width: 30%;
+    max-height: 50%;
+}
+.card-graphheadersempro{
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: #ad8d34;
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    color: white;
+}
+.row-childsemhas{
+    max-width: 66%;
+    border-radius: 50px;
+    margin-left: 0%;
+    margin-top: 0%;
+    border: 1px solid red;
+}
+.card-graphheadersemhas{
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: #52cc62;
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    color: white;
+}
+.graphheadersemhas{
+    padding: .75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: #52cc62;
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    color: white;
+}
 /*# sourceMappingURL=bootstrap.min.css.map */

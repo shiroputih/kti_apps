@@ -2,11 +2,7 @@
 @include("header.php");
 @include("navigation.php");
 @include("dbconnect.php");
-/*
-    $katakunci1 = "";
-    $katakunci2 ="";
-    $katakunci3= "";*/
-    ?>
+?>
 
     <body class="fixed-nav sticky-footer bg-dark" id="page-top">
         <div class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -19,109 +15,21 @@
                         <li class="breadcrumb-item active"> Data Outline</li>
                     </ol>
                 </div>
-                <button type="button" style="margin-top: 0; margin-left: 1%; width:12%" class="btn btn-primary btn-sm" data-toggle="modal"
-                data-target="#inputdataoutlineModal"><img src="icons/contactadd.png" width="30px" height="30px"> Tambah Outline </button>
-                <button type="button" style="margin-top: 0; margin-left: 1%; width:12%" class="btn btn-primary btn-sm" data-toggle="modal"
-                data-target="#uploadoutlinemodal"><img src="icons/upload.jpg" width="30px" height="30px"> Tambah Outline </button>
+                <button type="button" style="margin-left: 1%; width: 4%" class="btn btn-default btn-sm" data-toggle="modal" data-target="#inputdataoutlineModal"><img src="icons/contactadd.png" width="30px" height="30px"></button>
+                <button type="button" style="margin-left: 1%; width: 4%" class="btn btn-default btn-sm" data-toggle="modal"
+                data-target="#uploadoutlinemodal"><img src="icons/upload.jpg" width="30px" height="30px"></button>
 
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>NIM</th>
-                                    <th>Nama Mahasiswa</th>
-                                    <th>Judul Outline</th>
-                                    <th>Dosen Pembimbing 1</th>
-                                    <th>Tgl Pengajuan</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>NIM</th>
-                                    <th>Nama Mahasiswa</th>
-                                    <th>Judul Outline</th>
-                                    <th>Dosen Pembimbing 1</th>
-                                    <th>Tgl Pengajuan</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                            </tfoot>
-                            <tbody>
-                                <?php
-                                $no=1;
-                                $sql = "SELECT * FROM outline JOIN mahasiswa ON mahasiswa.nim = outline.nim LEFT JOIN dosen ON outline.usulan_dosen1 = dosen.id_dosen ORDER BY outline.nim ASC";
-                                //$sql = "SELECT mahasiswa.nim, mahasiswa.nama, outline.*, d1.nama_dosen as d1_nama,d1.gelar_depan AS d1_gelardepan,d1.gelar_belakang AS d1_gelarbelakang,d2.nama_dosen,d2.gelar_depan,d2.gelar_belakang, outline.tgl_pengajuan, outline.status FROM outline JOIN dosen AS d1 ON outline.usulan_dosen1 = d1.id_dosen JOIN mahasiswa ON outline.nim = mahasiswa.nim JOIN dosen AS d2 ON outline.usulan_dosen2 = d2.id_dosen";
-                                $result = $conn->query($sql);
-                                if ($result->num_rows > 0) {
-                                // output data of each row
-                                    while ($path = $result->fetch_assoc()) {
-                                        echo "<tr>
-                                        <td>$path[nim]</td>
-                                        <td>$path[nama]</td>
-                                        <td>$path[judul_outline]</td>
-                                        <td>$path[gelar_depan] $path[nama_dosen] $path[gelar_belakang]</td>
-                                        <td>$path[tgl_pengajuan]</td>
-                                        <td>$path[status]</td>
-                                        <td class='center'>
-                                        <a id ='Viewoutline' 
-                                        data-nimmahasiswa='$path[nim]'
-                                        data-namamahasiswa='$path[nama]'  
-                                        data-semester='$path[semester]' 
-                                        data-toggle='modal' 
-                                        data-target='#ViewOutlineModal'>
-                                        <button type='button' class='btn btn-info btn-sm'>Detail</button></a>
-
-                                        <a id ='Editoutline' 
-                                        data-nimmahasiswa='$path[nim]' 
-                                        data-namamahasiswa='$path[nama]'  
-                                        data-juduloutline='$path[judul_outline]' 
-                                        data-pertanyaan='$path[pertanyaan_penelitian]' 
-                                        data-manfaat ='$path[manfaat_penelitian]' 
-                                        data-desain ='$path[desain_penelitian]' 
-                                        data-sample ='$path[sample_penelitian]' 
-                                        data-bebas ='$path[variabel_bebas]' 
-                                        data-tergantung ='$path[variabel_tergantung]' 
-                                        data-hipotesis ='$path[hipotesis]' 
-                                        data-usulandosen1 ='$path[usulan_dosen1]' 
-                                        data-usulandosen2 ='$path[usulan_dosen2]'
-                                        data-tanggal = '$path[tgl_pengajuan]'
-                                        data-toggle='modal' 
-                                        data-target='#EditOutlineModal'>
-                                        <button type='button' class='btn btn-warning btn-sm'>Edit</button></a>
-
-                                        <a id ='Deleteoutline'
-                                        data-idoutline='$path[id_outline]' 
-                                        data-nimmahasiswa='$path[nim]' 
-                                        data-namamahasiswa='$path[nama]'  
-                                        data-juduloutline='$path[judul_outline]' 
-                                        data-toggle='modal' 
-                                        data-target='#DeleteOutlineModal'>
-                                        <button type='button' class='btn btn-danger btn-sm'>Delete</button></a>
-                                        </td>
-                                        </tr>";
-                                        $no+=1;
-                                    }
-                                } else {
-
-                                }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
+                <div id="tableoutline" class="table-responsive">
                 </div>
-                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
             </div>
         </div>
     </body>
 
-    <?php
-    @include("footer.php");
-    ?>
+<?php
+@include("footer.php");
+?>
 
-    <!-- upload modal -->
+<!-- upload modal -->
     <div class="modal fade" id="uploadoutlinemodal" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -134,26 +42,26 @@
                     <div class="form-group">
                         <form action="uploadoutline.php" method="post" enctype="multipart/form-data" id="uploadfileoutline" >
                             <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <label class="input-group-text" for="inputsemester">Semester</label>
-                            </div>
-                            <select name="semester" class="custom-select" id="inputsemester">
-                                <option>--Pilih Semester--</option>
-                                <?php
-                                $sql = "SELECT * FROM semester";
-                                $result = $conn->query($sql);
-                                if ($result->num_rows > 0) {
-                                    while ($row = $result->fetch_assoc()) {
-                                        echo "<option value=$row[id_semester]>$row[semester]</option>";
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputsemester">Semester</label>
+                                </div>
+                                <select name="semester" class="custom-select" id="inputsemester">
+                                    <option>--Pilih Semester--</option>
+                                    <?php
+                                    $sql = "SELECT * FROM semester";
+                                    $result = $conn->query($sql);
+                                    if ($result->num_rows > 0) {
+                                        while ($row = $result->fetch_assoc()) {
+                                            echo "<option value=$row[id_semester]>$row[semester]</option>";
+                                        }
+                                    } else {
+                                        echo "0 results";
                                     }
-                                } else {
-                                    echo "0 results";
-                                }
-                                ?>
-                            </select>
-                        </div>
+                                    ?>
+                                </select>
+                            </div>
                     </div>
-                    
+
                         <input type="file" name="file" />
                         <input type="submit" class="btn btn-primary btn-sm" name="importOutline" value="IMPORT">
                     </form>
@@ -161,7 +69,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Modal ADD Data Outline-->
     <div class="modal fade" id="inputdataoutlineModal" tabindex="1" style="overflow-y: auto;" role="dialog">
         <div class="modal-dialog">
@@ -176,44 +84,42 @@
                             <div class="form-group">
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <label class="input-group-text" for="inputsemester">Semester</label>
+                                        <label class="input-group-text" for="inputGroupSelect01">NIM</label>
                                     </div>
-                                    <select name="semester" class="custom-select" id="inputsemester">
-                                        <option>--Pilih Semester--</option>
-                                        <?php
-                                        $sql = "SELECT * FROM semester";
+                                    <?php
+                                        $sql = "SELECT nim,nama FROM mahasiswa WHERE NOT EXISTS (SELECT nim FROM outline WHERE mahasiswa.nim = outline.nim) ORDER BY nim ASC";
                                         $result = $conn->query($sql);
                                         if ($result->num_rows > 0) {
+                                            echo "<select name ='nimmahasiswa' class='custom-select' id='inputGroupSelect01'>";
+                                            echo "<option>--Pilih Mahasiswa--</option>";
                                             while ($row = $result->fetch_assoc()) {
-                                                echo "<option value=$row[id_semester]>$row[semester]</option>";
+                                                echo "<option value=$row[nim]>$row[nim] | $row[nama]</option>";
                                             }
                                         } else {
-                                            echo "0 results";
+                                            echo "<input type='text' style='background-color:red;'class='form-control' value='Maaf Semua Mahasiswa Sudah Diinputkan'/></input>";
                                         }
-                                        ?>
-                                    </select>
+                                        echo "</select>";
+                                    ?>
                                 </div>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">NIM</label>
+                                <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="inputsemester">Semester</label>
+                                        </div>
+                                        <select name="semester" class="custom-select" id="inputsemester">
+                                            <option>--Pilih Semester--</option>
+                                            <?php
+                                            $sql = "SELECT * FROM semester";
+                                            $result = $conn->query($sql);
+                                            if ($result->num_rows > 0) {
+                                                while ($row = $result->fetch_assoc()) {
+                                                    echo "<option value=$row[id_semester]>$row[semester]</option>";
+                                                }
+                                            } else {
+                                                echo "0 results";
+                                            }
+                                            ?>
+                                        </select>
                                 </div>
-
-                                <?php
-                                $sql = "SELECT nim,nama FROM mahasiswa WHERE NOT EXISTS (SELECT nim FROM outline WHERE mahasiswa.nim = outline.nim)";
-                                $result = $conn->query($sql);
-                                if ($result->num_rows > 0) {
-                                    echo "<select name ='nimmahasiswa' class='custom-select' id='inputGroupSelect01'>";
-                                    echo "<option>--Pilih Mahasiswa--</option>";
-                                    while ($row = $result->fetch_assoc()) {
-                                        echo "<option value=$row[nim]>$row[nama] | $row[nim]</option>";
-                                    }
-                                } else {
-                                    echo "<input type='text' style='background-color:red;'class='form-control' value='Maaf Semua Mahasiswa Sudah Diinputkan'/></input>";
-                                }
-                                echo "</select>";
-                                ?>
-                            </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text">Judul Penelitian</label>
@@ -299,12 +205,12 @@
                                     <select class="custom-select" name="usulandosen1" id="inputsemester">
                                         <option>--Pilih Dosen Pembimbing 1--</option>
                                         <?php
-                                        $sql = "SELECT * FROM dosen";
+                                        $sql = "SELECT * FROM dosen ORDER BY nama_dosen ASC";
                                         $result = $conn->query($sql);
                                         if ($result->num_rows > 0) {
                                         // output data of each row
                                             while ($row = $result->fetch_assoc()) {
-                                                echo "<option value=$row[id_dosen]>$row[gelar_depan] $row[nama_dosen] $row[gelar_belakang]</option>";
+                                                echo "<option value=$row[id_dosen]>$row[nama_dosen] $row[gelar_depan] $row[gelar_belakang]</option>";
                                             }
                                         } else {
                                             echo "0 results";
@@ -319,11 +225,11 @@
                                     <select name="usulandosen2" class="custom-select">
                                         <option>--Pilih Dosen Pembimbing 2--</option>
                                         <?php
-                                        $sql = "SELECT * FROM dosen";
+                                        $sql = "SELECT * FROM dosen ORDER BY nama_dosen ASC";
                                         $result = $conn->query($sql);
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
-                                                echo "<option value=$row[id_dosen]>$row[gelar_depan] $row[nama_dosen] $row[gelar_belakang]</option> ";
+                                                echo "<option value=$row[id_dosen]>$row[nama_dosen] $row[gelar_depan] $row[gelar_belakang]</option> ";
                                             }
                                         } else {
                                             echo "0 results";
@@ -346,11 +252,13 @@
                                 </div>
                                 <button type="submit" name="AddDataOutline" class="btn btn-info btn-sm" >Simpan</button>
                             </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
         <!-- view modal outline -->
         <div class="modal fade" id="ViewOutlineModal" role="dialog">
@@ -397,7 +305,7 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body" style="background-color: #f7ca77">
-                        <div class="card-body"> 
+                        <div class="card-body">
                             <form id="formdosen" method="POST">
                                 <div class="form-group">
                                     <input type="hidden" class="form-control" name="hiddennim" id="hiddennim" type="text"
@@ -424,7 +332,7 @@
                                         </div>
                                         <textarea rows="3" cols="50" name="EditJudul" class="form-control" id="EditJudul"
                                         aria-describedby="nameHelp"
-                                        onkeyup="this.value=this.value.toUpperCase()"></textarea>
+                                        style="text-transform:uppercase"></textarea>
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -433,7 +341,7 @@
                                         <textarea rows="3" cols="50" class="form-control" name="EditPertanyaan"
                                         id="EditPertanyaan" aria-describedby="nameHelp"
                                         placeholder="Pertanyaan Penelitian"
-                                        onkeyup="this.value=this.value.toUpperCase()"></textarea>
+                                        style="text-transform:uppercase"></textarea>
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -442,7 +350,7 @@
                                         <textarea rows="3" cols="50" class="form-control" name="EditManfaat"
                                         id="EditManfaat" aria-describedby="nameHelp"
                                         placeholder="Manfaat Penelitian"
-                                        onkeyup="this.value=this.value.toUpperCase()"></textarea>
+                                        style="text-transform:uppercase"></textarea>
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -450,7 +358,7 @@
                                         </div>
                                         <textarea rows="3" cols="50" class="form-control" name="EditDesain" id="EditDesain"
                                         aria-describedby="nameHelp" placeholder="Desain Penelitian"
-                                        onkeyup="this.value=this.value.toUpperCase()"></textarea>
+                                        style="text-transform:uppercase"></textarea>
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -458,7 +366,7 @@
                                         </div>
                                         <textarea rows="3" cols="50" class="form-control" name="EditSample" id="EditSample"
                                         aria-describedby="nameHelp" placeholder="Sample Penelitian"
-                                        onkeyup="this.value=this.value.toUpperCase()"></textarea>
+                                        style="text-transform:uppercase"></textarea>
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -466,7 +374,7 @@
                                         </div>
                                         <textarea rows="3" cols="50" class="form-control" id="EditBebas" name="EditBebas"
                                         aria-describedby="nameHelp" placeholder="Variabel Bebas"
-                                        onkeyup="this.value=this.value.toUpperCase()"></textarea>
+                                        style="text-transform:uppercase"></textarea>
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -475,7 +383,7 @@
                                         <textarea rows="3" cols="50" class="form-control" id="EditTergantung"
                                         name="EditTergantung" aria-describedby="nameHelp"
                                         placeholder="Variabel Tergantung"
-                                        onkeyup="this.value=this.value.toUpperCase()"></textarea>
+                                        style="text-transform:uppercase"></textarea>
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -483,7 +391,7 @@
                                         </div>
                                         <textarea rows="3" cols="50" class="form-control" id="EditHipotesis"
                                         name="EditHipotesis" aria-describedby="nameHelp" placeholder="Hipotesis"
-                                        onkeyup="this.value=this.value.toUpperCase()"></textarea>
+                                        style="text-transform:uppercase"></textarea>
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -549,29 +457,12 @@
                     <div class="modal-body" style="background-color: #c82333">
                         <div class="card-body">
                             <form method="post" enctype="multipart/form-data">
-                                <label>Apakah anda ingin menghapus data outline</label> <br>
-                                <input type="hidden" id="hpsid" name="hpsid" class="form-control"></input><br>
-                                <input type="hidden" id="hpsnim" name="hpsnim" class="form-control"></input><br>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <label class="input-group-text">NIM</label>
-                                    </div>
-                                    <input id="deletenim" name="deletenim" class="form-control" disabled></input>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <label class="input-group-text">NIM</label>
-                                    </div>
-                                    <input id="deletenama" class="form-control" disabled></input>
-                                </div>
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <label class="input-group-text">Judul Outline</label>
-                                    </div>
-                                    <input id="deletejudul" class="form-control" disabled></input>
-                                </div>
-                                <button type="submit" class="btn btn-info btn-lg" data-dismiss="modal">NO</button>
-                                <button type="submit" name="DeleteDataOutline" class="btn btn-danger btn-lg">YES</button>
+                                <input type="hidden" id="hpsid" name="hpsid" class="form-control">
+                                <input type="hidden" id="hpsnim" name="hpsnim" class="form-control">
+                                <div id="hapusoutline"></div>
+                                <br>
+                            <button type="submit" class="btn btn-info btn-sm" data-dismiss="modal" data-dismiss="modal">NO</button>
+                            <button type="submit" name="Deleteoutline" class="btn btn-danger btn-sm" >YES</button>
                             </form>
                         </div>
                     </div>
@@ -591,8 +482,9 @@
                 });
             });
         </script>
+
         <!-- datepicker -->
-        <script>
+        <script type="text/javascript">
             $(document).ready(function () {
                 var date_input = $('input[name="tanggal"]');
                 var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
@@ -603,7 +495,17 @@
                     autoclose: true,
                 };
                 date_input.datepicker(options);
-            })
+
+                $.ajax({
+                    url : 'getoutlineall.php',
+                    type:'post',
+                    cache : false,
+                    success : function(data)
+                    {
+                        $('#tableoutline').html(data);
+                    }
+                    });
+                })
         </script>
 
         <!-- Show Check Judul -->
@@ -626,9 +528,9 @@
         });
         });
             });
-        </script> 
+        </script>
 
-        <!-- Show Detail Mahasiswa -->
+        <!-- Show Detail outline -->
         <script type="text/javascript">
             $(document).ready(function(){
                 $('#ViewOutlineModal').on('show.bs.modal', function (e) {
@@ -644,7 +546,7 @@
         });
         });
             });
-        </script> 
+        </script>
         <!-- edit outline -->
         <script type="text/javascript">
             $(document).on("click", "#Editoutline", function () {
@@ -693,34 +595,43 @@
                 $('#hpsnim').val(NIM);
                 $('#deletenama').val(nama);
                 $('#deletejudul').val(judul);
+
+                $.ajax({
+                type : 'post',
+                url : 'hapusoutline.php',
+                data :  'id='+ idoutline,
+                success : function(data){
+                    $('#hapusoutline').html(data);//menampilkan data ke dalam modal
+                }
+            });
             })
         </script>
 
         <?php
         if (isset($_POST['AddDataOutline'])) {
-            $sql = "INSERT INTO outline (nim,judul_outline,pertanyaan_penelitian,manfaat_penelitian,desain_penelitian,sample_penelitian,variabel_bebas,variabel_tergantung,hipotesis ,usulan_dosen1,usulan_dosen2 ,tgl_pengajuan,status,semester,kk1,kk2,kk3) VALUES ('" . $_POST['nimmahasiswa'] . "','" . $_POST['JudulPenelitian'] . "','" . $_POST['pertanyaanpenelitian'] . "','" . $_POST['manfaatpenelitian'] . "','" . $_POST['desainpenelitian'] . "','" . $_POST['samplepenelitian'] . "','" . $_POST['variabelbebas'] . "','" . $_POST['variabeltergantung'] . "','" . $_POST['hipotesis'] . "','" . $_POST['usulandosen1'] . "','" . $_POST['usulandosen2'] . "','" . $_POST['tanggal'] . "','','".$_POST['semester']."','".$_POST['katakunci1']."','".$_POST['katakunci2']."','".$_POST['katakunci3']."')";  
+            $sql = "INSERT INTO outline (nim,judul_outline,pertanyaan_penelitian,manfaat_penelitian,desain_penelitian,sample_penelitian,variabel_bebas,variabel_tergantung,hipotesis ,usulan_dosen1,usulan_dosen2 ,tgl_pengajuan,status,semester,kk1,kk2,kk3) VALUES ('" . $_POST['nimmahasiswa'] . "','" . $_POST['JudulPenelitian'] . "','" . $_POST['pertanyaanpenelitian'] . "','" . $_POST['manfaatpenelitian'] . "','" . $_POST['desainpenelitian'] . "','" . $_POST['samplepenelitian'] . "','" . $_POST['variabelbebas'] . "','" . $_POST['variabeltergantung'] . "','" . $_POST['hipotesis'] . "','" . $_POST['usulandosen1'] . "','" . $_POST['usulandosen2'] . "','" . $_POST['tanggal'] . "','','".$_POST['semester']."','".$_POST['katakunci1']."','".$_POST['katakunci2']."','".$_POST['katakunci3']."')";
             if (mysqli_query($conn, $sql)) {
-                echo "<meta http-equiv='refresh' content='0'>";
+
             }
         }
 
         if (isset($_POST['EditDataOutline'])) {
             $sql = "UPDATE outline SET
-            judul_outline = '$_POST[EditJudul]',
-            pertanyaan_penelitian = '$_POST[EditPertanyaan]',
-            manfaat_penelitian = '$_POST[EditManfaat]',
-            desain_penelitian = '$_POST[EditDesain]',
-            sample_penelitian = '$_POST[EditSample]',
-            variabel_bebas = '$_POST[EditBebas]',
-            variabel_tergantung = '$_POST[EditTergantung]',
-            hipotesis = '$_POST[EditHipotesis]',
+            judul_outline = UPPER('$_POST[EditJudul]'),
+            pertanyaan_penelitian = UPPER('$_POST[EditPertanyaan]'),
+            manfaat_penelitian = UPPER('$_POST[EditManfaat]'),
+            desain_penelitian = UPPER('$_POST[EditDesain]'),
+            sample_penelitian = UPPER('$_POST[EditSample]'),
+            variabel_bebas = UPPER('$_POST[EditBebas]'),
+            variabel_tergantung = UPPER('$_POST[EditTergantung]'),
+            hipotesis = UPPER('$_POST[EditHipotesis]'),
             usulan_dosen1 = '$_POST[EditDosen1]',
             usulan_dosen2 = '$_POST[EditDosen2]'
             WHERE nim = '$_POST[hiddennim]'";
             if (mysqli_query($conn, $sql)) {
-             echo "<meta http-equiv='refresh' content='0'>";
-         }
 
+         }
+/*
          $sqlupdateproposal = "UPDATE proposal SET judulproposal = '$_POST[EditJudul]' WHERE proposal.nim = '$_POST[hiddennim]'";
          if (mysqli_query($conn, $sqlupdateproposal)) {
             echo "<meta http-equiv='refresh' content='0'>";
@@ -735,27 +646,14 @@
         if (mysqli_query($conn, $sqlupdatekti)) {
             echo "<meta http-equiv='refresh' content='0'>";
         }
-
+*/
     }
 
-    if (isset($_POST['DeleteDataOutline'])) {
-        $sql = "DELETE FROM outline WHERE id_outline='$_POST[hpsid]'";
+    if (isset($_POST['Deleteoutline'])) {
+        $sql = "DELETE FROM outline WHERE id_outline='".$_POST['hpsid']."'";
         if (mysqli_query($conn, $sql)) {
-            echo "<meta http-equiv='refresh' content='0'>";
+
         }
     }
 
     ?>
-
-<!-- Bootstrap core JavaScript
-    <script src="vendor/jquery/jquery.min.js"></script>-->
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <!-- Page level plugin JavaScript-->
-    <script src="vendor/datatables/jquery.dataTables.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
-    <!-- Custom scripts for this page-->
-    <script src="js/sb-admin-datatables.min.js"></script>

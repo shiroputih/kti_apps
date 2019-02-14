@@ -20,11 +20,6 @@
         </div>
 
         <div class="container-fluid">
-            <div class="input-group mb-3">
-            
-                </div>
-            </div>
-
             <form id="cetak" action="cetaksk.php" method="POST" target="_blank">
                     <div class="form-group">
                         <div class="input-group mb-3">
@@ -49,24 +44,10 @@
                                 ?>
                             </select>
                         </div>
-                            <a href="cetaksk.php?semester=<?php echo $semester; ?>" target="_blank">
-                            <button type="submit" class="btn btn-info btn-medium" ><img src="icons/add.png" width="30px" height="30px">Cetak SK</button></a>
+
                     </div>
-                </form>
-
-
-
-            <div class="card mb-3">
-                <div class="card-header">
-                    <i class="fa fa-table"></i> Data Surat Keputusan FK UKDW</div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <div id="tabelsk"></div>
-                        </div>
-                    </div>
-                    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-                </div>
-
+            </form>
+                <div id="tabelsk" class="table-responsive"></div>
             </div>
         </body>
         </html>
@@ -88,19 +69,6 @@
                     });
                 });
             });
-        </script> 
+        </script>
 
-        <!-- Bootstrap core JavaScript
-        <script src="vendor/jquery/jquery.min.js"></script>-->
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <!-- Core plugin JavaScript-->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-        <!-- Page level plugin JavaScript-->
-        <script src="vendor/chart.js/Chart.min.js"></script>
-        <script src="vendor/datatables/jquery.dataTables.js"></script>
-        <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-        <!-- Custom scripts for all pages-->
-        <script src="js/sb-admin.min.js"></script>
-        <!-- Custom scripts for this page-->
-        <script src="js/sb-admin-datatables.min.js"></script>
-        <script src="js/sb-admin-charts.min.js"></script>
+

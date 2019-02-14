@@ -3,8 +3,8 @@
 require("fpdf/fpdf.php");
 
 if($_POST['nim']){
-	$query = "SELECT * FROM proposal,ruangsidang
-                WHERE proposal.ruangsidang = ruangsidang.id_ruang AND proposal.nim = '".$_POST['nim']."'";
+	$query = "SELECT * FROM proposal,ruangsidang,mahasiswa
+                WHERE proposal.nim = mahasiswa.nim AND proposal.id_ruangsidang = ruangsidang.id_ruang AND proposal.status_proposal IS NULL AND proposal.nim = '".$_POST['nim']."'";
 	$result = mysqli_query($conn,$query);
 	foreach ($result as $row) { 
 
@@ -84,7 +84,8 @@ if($_POST['nim']){
 		$pdf->Cell(110,5,"Nama Dosen Penguji",1,0,'C');
 		$pdf->Cell(30,5,"Tanda Tangan",1,0,'C');
 		
-		$dosensql = "SELECT * FROM proposal,dosen WHERE dosen.id_dosen = $row[dosen1]";
+		$dosensql = "SELECT * FROM  assign_sk,dosen WHERE assign_sk.nim = '".$_POST['nim']."' AND assign_sk.id_dosen = dosen.id_dosen
+		AND assign_sk.assign_dosen = 'pembimbing 1'";
 		$resdosen1 = mysqli_query($conn,$dosensql);
 		foreach ($resdosen1 as $row1) { 
 			$gelar_depan = $row1['gelar_depan'];
@@ -97,7 +98,7 @@ if($_POST['nim']){
 			$pdf->Cell(30,10,"",1,0,'C');
 		}
 
-		$dosensql2 = "SELECT * FROM proposal,dosen WHERE dosen.id_dosen = $row[dosen2]";
+		$dosensql2 = "SELECT * FROM  assign_sk,dosen WHERE assign_sk.nim = '".$_POST['nim']."' AND assign_sk.id_dosen = dosen.id_dosen AND assign_sk.assign_dosen = 'pembimbing 2'";
 		$resdosen2 = mysqli_query($conn,$dosensql2);
 		foreach ($resdosen2 as $row2) { 
 			$gelar_depan = $row2['gelar_depan'];
@@ -110,7 +111,7 @@ if($_POST['nim']){
 			$pdf->Cell(30,10,"",1,0,'C');
 		}
 
-		$dosensql3 = "SELECT * FROM proposal,dosen WHERE dosen.id_dosen = $row[penguji]";
+		$dosensql3 = "SELECT * FROM  assign_sk,dosen WHERE assign_sk.nim = '".$_POST['nim']."' AND assign_sk.id_dosen = dosen.id_dosen AND assign_sk.assign_dosen = 'penguji'";
 		$resdosen3 = mysqli_query($conn,$dosensql3);
 		foreach ($resdosen3 as $row3) { 
 			$gelar_depan = $row3['gelar_depan'];
@@ -158,7 +159,8 @@ if($_POST['nim']){
 		$pdf->Cell(115,10,"Nama",1,0,'C');
 		$pdf->Cell(40,10,"Tanda Tangan",1,0,'C');
 		
-		$dosensql = "SELECT * FROM proposal,dosen WHERE dosen.id_dosen = $row[dosen1]";
+		$dosensql = "SELECT * FROM  assign_sk,dosen WHERE assign_sk.nim = '".$_POST['nim']."' AND assign_sk.id_dosen = dosen.id_dosen
+		AND assign_sk.assign_dosen = 'pembimbing 1'";
 		$resdosen1 = mysqli_query($conn,$dosensql);
 		foreach ($resdosen1 as $row1) { 
 			$gelar_depan = $row1['gelar_depan'];
@@ -170,7 +172,7 @@ if($_POST['nim']){
 			$pdf->Cell(115,10,$gelar_depan.''.$nama_dosen.'.'.$gelar_belakang,1,0,'L');
 			$pdf->Cell(40,10,"",1,0,'C');
 		}
-		$dosensql2 = "SELECT * FROM proposal,dosen WHERE dosen.id_dosen = $row[dosen2]";
+		$dosensql2 = "SELECT * FROM  assign_sk,dosen WHERE assign_sk.nim = '".$_POST['nim']."' AND assign_sk.id_dosen = dosen.id_dosen AND assign_sk.assign_dosen = 'pembimbing 2'";
 		$resdosen2 = mysqli_query($conn,$dosensql2);
 		foreach ($resdosen2 as $row2) { 
 			$gelar_depan = $row2['gelar_depan'];
@@ -183,7 +185,7 @@ if($_POST['nim']){
 			$pdf->Cell(115,10,$gelar_depan.''.$nama_dosen.'.'.$gelar_belakang,1,0,'L');
 			$pdf->Cell(40,10,"",1,0,'C');
 		}
-		$dosensql3 = "SELECT * FROM proposal,dosen WHERE dosen.id_dosen = $row[penguji]";
+		$dosensql3 = "SELECT * FROM  assign_sk,dosen WHERE assign_sk.nim = '".$_POST['nim']."' AND assign_sk.id_dosen = dosen.id_dosen AND assign_sk.assign_dosen = 'penguji'";
 		$resdosen3 = mysqli_query($conn,$dosensql3);
 		foreach ($resdosen3 as $row3) { 
 			$gelar_depan = $row3['gelar_depan'];

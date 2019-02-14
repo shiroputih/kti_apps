@@ -30,6 +30,7 @@
                         ?>
                         <option value ="<?php echo $row['nim']; ?>"> <?php echo "$row[nama] | $row[nim]"; ?></option>
                         <?php
+
                     }
                 } else {
                     echo "0 results";

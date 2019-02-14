@@ -57,7 +57,7 @@ if ($_POST['nim']) {
 
                 <tr>
                     <td>Usulan Dosen 1</td>
-                    <td><?php echo $row['gelar_depan'] $row['nama_dosen'] $row['gelar_belakang'];?></td>
+                    <td><?php echo $row['gelar_depan']." ".$row['nama_dosen']."".$row['gelar_belakang'];?></td>
                 </tr>
 
                 <tr>

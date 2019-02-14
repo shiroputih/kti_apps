@@ -15,7 +15,11 @@
 		</div>
 
 		<form method="post" enctype="multipart/form-data">
-			<select class="custom-select" name="datasemester" id="semester">
+		<div class="input-group mb-3">
+				<div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Semester</label>
+                </div>
+				<select class="custom-select" name="semester" id="semester" selected="selected">
 				<option> -- Pilih Semester --</option>
 				<?php
 				$sql = "SELECT * FROM semester";
@@ -32,9 +36,15 @@
 				}
 				?>
 			</select>
-			<input class="form-control" name="pdf" id="pdf" accept="application/pdf" type="file">
-			<br>
+			</div>
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+						<label class="input-group-text" for="inputGroupSelect01">Upload File</label>
+				</div>
+				<input class="form-control" name="pdf" id="pdf" accept="application/pdf" type="file">
+				</div>
 			<button style="margin-left: 2%;" type="submit" name="uploadsk" id ="uploadsk" class="btn btn-info btn-sm" value="Upload File">SUBMIT</button>
+
 		</form>
 
 		<div id="Table" class="card-body">
@@ -57,7 +67,7 @@
 								</thead>
 								<tbody>
 									<?php
-									$sql = "SELECT * FROM semester,arsipsk WHERE arsipsk.idsemester = semester.id_semester ";
+									$sql = "SELECT * FROM semester,sk WHERE sk.id_semester = semester.id_semester ";
 									$result = $conn->query($sql);
 									if ($result->num_rows > 0) {
         // output data of each row
@@ -65,10 +75,10 @@
 											echo "
 											<tr>
 											<td>$row[semester]</td>
-											<td><a href=$row[sk_filepdf] target='_blank'><img src='icons/pdficon.png' width='30px' height='30px'></a>
+											<td><a href=$row[file_sk] target='_blank'><img src='icons/pdficon.png' width='30px' height='30px'></a>
 											</td>
 											<td>
-											<a id ='deletesk' data-idsk=$row[id_arsipsk] data-nm_file = $row[sk_filepdf] data-toggle='modal' data-target='#deleteskmodal'>
+											<a id ='deletesk' data-idsk=$row[id_sk] data-nm_file = $row[file_sk] data-toggle='modal' data-target='#deleteskmodal'>
 												<button type='button' class='btn btn-danger btn-circle btn-sm'>
 												<i class='fa fa-times'></i>
 												</button>
@@ -82,7 +92,7 @@
 								</tbody>
 							</tbody>
 						</table>
-						<?php 
+						<?php
 					}
 				}
 				?>
@@ -126,12 +136,12 @@
 
 		$('#delnmsk').val(id_sk);
 	});
-</script> 
+</script>
 
 <script type="text/javascript">
 	$(document).ready(function()
 	{
-		$('#deleteskmodal').on('show.bs.modal', function (e) 
+		$('#deleteskmodal').on('show.bs.modal', function (e)
 		{
 			var idsk = $(e.relatedTarget).data('idsk');
             //menggunakan fungsi ajax untuk pengambilan data
@@ -147,11 +157,11 @@
             });
         });
 	});
-</script> 
+</script>
 <?php
 if (isset($_POST['DeleteDataSK'])) {
         //update tabel mahasiswa
-	$sql = "DELETE FROM arsipsk WHERE id_arsipsk = '$_POST[delnmsk]'";
+	$sql = "DELETE FROM sk WHERE id_sk = '$_POST[delnmsk]'";
 	if (mysqli_query($conn, $sql)) {
 		echo "<meta http-equiv='refresh' content='0'>";
 	}
@@ -161,7 +171,7 @@ if (isset($_POST['DeleteDataSK'])) {
 <?php
 if(isset($_POST['uploadsk']))
 {
-	$semester = $_POST['datasemester'];
+	$semester = $_POST['semester'];
 	$nama_file=$_FILES['pdf']['name'];
 	$ukuran=$_FILES['pdf']['size'];
 
@@ -169,8 +179,8 @@ if(isset($_POST['uploadsk']))
 	$alamatfile=$uploaddir.$nama_file;
 	if(move_uploaded_file($_FILES['pdf']['tmp_name'],$alamatfile));
 	{
-		$sql = "INSERT INTO arsipsk (idsemester,sk_filepdf) VALUES ('".$semester."','".$alamatfile."')";
-		if (mysqli_query($conn, $sql)) 
+		$sql = "INSERT INTO sk (id_semester,file_sk) VALUES ('".$semester."','".$alamatfile."')";
+		if (mysqli_query($conn, $sql))
 		{
 			echo "<meta http-equiv='refresh' content='0'>";
 		}
@@ -190,3 +200,6 @@ if(isset($_POST['uploadsk']))
 	<script src="js/sb-admin.min.js"></script>
 	<!-- Custom scripts for this page-->
 	<script src="js/sb-admin-datatables.min.js"></script>
+
+
+
