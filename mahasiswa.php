@@ -14,9 +14,9 @@
                     <li class="breadcrumb-item active">Data Mahasiswa</li>
                 </ol>
             </div>
-            
+
             <button type="button" style="margin-left: 1%; width: 4%" class="btn btn-default btn-sm" data-toggle="modal" data-target="#inputdatamahasiswa"><img src="icons/contactadd.png" width="30px" height="30px"></button>
-            
+
             <a href="javascript:void(0);" onclick="$('#uploadfilemhs').slideToggle();">
                 <button type="button" style="margin-left: 1%; width: 4%" class="btn btn-default btn-sm" > <img src="icons/upload.jpg" width="30px" height="30px"></button>
             </a>
@@ -24,7 +24,7 @@
                     <input type="file" name="file" />
                     <input type="submit" class="btn btn-primary btn-sm" name="importSubmit" value="IMPORT">
                 </form>
-            
+
             <div id="tablemahasiswa" class="table-responsive">
             </div>
 
@@ -53,7 +53,7 @@
                                         <label class="input-group-text" for="exampleInputName">NIM Mahasiswa</label>
                                     </div>
                                     <input class="form-control" name="nimmahasiswa" id="exampleInputName" type="text"
-                                    aria-describedby="nameHelp" placeholder="Masukkan NIM Mahasiswa"> 
+                                    aria-describedby="nameHelp" placeholder="Masukkan NIM Mahasiswa">
                                 </div>
 
                                 <div class="input-group mb-3">
@@ -149,14 +149,14 @@
                                     aria-describedby="nameHelp">
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="inputGroupSelect01">NIM Mahasiswa</label>
-                                    </div>    
+                                    </div>
                                     <input class="form-control" name="shownim" id="shownim" type="text"
                                     aria-describedby="nameHelp" placeholder="Masukkan NIM Mahasiswa" disabled="">
                                 </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <label class="input-group-text" for="exampleInputLastName">Nama Mahasiswa</label>
-                                    </div> 
+                                    </div>
                                     <input class="form-control" name="namamahasiswa" id="namamahasiswa" type="text"
                                     aria-describedby="nameHelp" placeholder="Masukkan Nama Mahasiswa" style="text-transform: uppercase;">
                                 </div>
@@ -248,7 +248,7 @@
 
             </div>
         </div>
-    </div> 
+    </div>
 
     <!-- Modal View Detail-->
     <div class="modal fade" id="ViewmahasiswaModal" role="dialog">
@@ -281,7 +281,7 @@
             }
             });
 
-            $('#ViewmahasiswaModal').on('show.bs.modal', function (e) 
+            $('#ViewmahasiswaModal').on('show.bs.modal', function (e)
             {
                 var nim = $(e.relatedTarget).data('nimmahasiswa');
                 //menggunakan fungsi ajax untuk pengambilan data
@@ -302,7 +302,7 @@
             var tahunajaran = $(this).data('idtahunajaran');
             var angkatan = $(this).data('idangkatan');
             var semester = $(this).data('idsemester');
-            
+
             $('#nimmahasiswa').val(NIM);
             $('#shownim').val(NIM);
             $('#editangkatan').val(angkatan);
@@ -317,7 +317,7 @@
 
             $('#deletenim').val(nim);
             $('#deletenama').val(nama_mahasiswa);
-            
+
             $.ajax({
                 type : 'post',
                 url : 'hapusmahasiswa.php',
@@ -329,12 +329,12 @@
         });
     </script>
 
-    
+
 <?php
     if (isset($_POST['AddDataMahasiswa'])) {
         $sql = "INSERT INTO mahasiswa (nim,nama,id_tahunajaran,id_semester,id_angkatan) VALUES ('".$_POST['nimmahasiswa']."','".$_POST['namamahasiswa']."','".$_POST['tahunajaran']."','".$_POST['semester']."','".$_POST['angkatan']."')";
         if (mysqli_query($conn, $sql)) {
-            
+
         }
     }
 
@@ -342,7 +342,7 @@
         //update tabel mahasiswa
         $sql = "UPDATE mahasiswa SET nama=UPPER('$_POST[namamahasiswa]'),id_tahunajaran = '$_POST[edittahunajaran]',id_semester = '$_POST[editsemester]', id_angkatan = $_POST[editangkatan] WHERE nim = '$_POST[nimmahasiswa]'";
         if (mysqli_query($conn, $sql)) {
-            
+
         }
     }
 
@@ -350,7 +350,7 @@
         //update tabel mahasiswa
         $sql = "DELETE FROM mahasiswa WHERE nim = '$_POST[deletenim]'";
         if (mysqli_query($conn, $sql)) {
-            
+
         }
     }
 ?>

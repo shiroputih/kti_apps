@@ -3662,7 +3662,7 @@ tbody.collapse.show {
     display: inline-block;
     width: 100%;
     height: calc(2.25rem + 2px);
-    padding: .375rem 1.75rem .375rem .75rem;
+    padding: .175rem 1.75rem .375rem .75rem;
     line-height: 1.5;
     color: #495057;
     vertical-align: middle;
@@ -3672,7 +3672,7 @@ tbody.collapse.show {
     border-radius: .25rem;
     -webkit-appearance: none;
     -moz-appearance: none;
-    appearance: none
+    appearance: none;
 }
 
 .custom-select:focus {
