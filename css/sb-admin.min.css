@@ -156,16 +156,18 @@ body.fixed-nav {
         -webkit-flex-direction: column;
         -ms-flex-direction: column;
         flex-direction: column;
-        margin-top: 56px
-    }
+        margin-top: 56px;
 
+    }
+/*shiro edit on width and font size*/
     #mainNav .navbar-collapse .navbar-sidenav > .nav-item {
         width: 250px;
-        padding: 0
+        padding: 0;
     }
 
     #mainNav .navbar-collapse .navbar-sidenav > .nav-item > .nav-link {
-        padding: 1em
+        padding: 1em;
+
     }
 
     #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-second-level, #mainNav .navbar-collapse .navbar-sidenav > .nav-item .sidenav-third-level {
@@ -220,7 +222,8 @@ body.fixed-nav {
         -webkit-flex-direction: column;
         -ms-flex-direction: column;
         flex-direction: column;
-        margin-top: calc(100vh - 56px)
+        margin-top: calc(100vh - 56px);
+        width: 250px;
     }
 
     #mainNav.fixed-top .sidenav-toggler > .nav-item {

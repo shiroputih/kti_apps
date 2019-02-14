@@ -17,7 +17,7 @@
 
     <!-- card notification -->
     <div class="row-content">
-      <div class="col-xl-2 col-sm-6 mb-3">
+      <div class="col-xl-3 col-sm-6 mb-3">
           <div class="card text-white bg-primary o-hidden h-100">
               <div class="card-body">
                 <div class="card-body-icon">
@@ -45,7 +45,7 @@
               </a>
           </div>
       </div>
-      <div class="col-xl-2 col-sm-6 mb-3">
+      <div class="col-xl-3 col-sm-6 mb-3">
           <div class="card text-white bg-warning o-hidden h-100">
             <div class="card-body">
               <div class="card-body-icon">
@@ -73,7 +73,7 @@
             </a>
           </div>
       </div>
-      <div class="col-xl-2 col-sm-6 mb-3">
+      <div class="col-xl-3 col-sm-6 mb-3">
           <div class="card text-white bg-success o-hidden h-100">
             <div class="card-body">
               <div class="card-body-icon">
@@ -101,7 +101,7 @@
             </a>
           </div>
       </div>
-      <div class="col-xl-2 col-sm-6 mb-3">
+      <div class="col-xl-3 col-sm-6 mb-3">
           <div class="card text-white bg-danger o-hidden h-100">
             <div class="card-body">
               <div class="card-body-icon">
@@ -246,7 +246,7 @@
 
         <div class="row-child-upcoming-ujian-kti">
           <div class="card mb-1">
-              <div class="card-graphheader">
+              <div class="card-graphheader ">
                 <i class="fa fa-area-chart"></i> Ujian KTI Terjadwal
               </div>
               <div class="card-body">
@@ -380,3 +380,15 @@
 <?php
 @include("footer.php");
 ?>
+<!-- Bootstrap core JavaScript
+	<script src="vendor/jquery/jquery.min.js"></script>-->
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Page level plugin JavaScript-->
+	<script src="vendor/datatables/jquery.dataTables.js"></script>
+	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="js/sb-admin.min.js"></script>
+	<!-- Custom scripts for this page-->
+	<script src="js/sb-admin-datatables.min.js"></script>

@@ -24,7 +24,7 @@
 	<tbody>
 		<?php
 		$no = 1;
-		$sql = "SELECT * FROM dosen";
+		$sql = "SELECT * FROM dosen WHERE id_dosen !='0'";
 		$result = $conn->query($sql);
 		if ($result->num_rows > 0) {
                         // output data of each row
@@ -36,9 +36,9 @@
 				<td>$row[gelar_belakang]</td>
 				<td class=center>
 				<a id ='editdosen' data-iddosen=$row[id_dosen] data-namadosen='$row[nama_dosen]' data-gelardepan='$row[gelar_depan]' data-gelarbelakang='$row[gelar_belakang]' data-toggle='modal' data-target='#editModal'>
-				<button type='button' class='btn btn-warning btn-sm' data-toggle='tooltip' data-placement='top' title='Edit Data Dosen'><img src='icons/edit.png' width='20px' height='20px'></button></a>
+				<button type='button' class='btn btn-warning btn-sm' data-toggle='tooltip' data-placement='top' title='Edit Data Dosen' ><img src='icons/edit.png' width='10px' height='10px'></button></a>
 				<a id ='deletedosen' data-iddosen=$row[id_dosen] data-namadosen='$row[nama_dosen]' data-gelardepan='$row[gelar_depan]' data-gelarbelakang='$row[gelar_belakang]' data-toggle='modal' data-target='#deleteModal'>
-				<button type='button' class='btn btn-danger btn-sm' data-toggle='tooltip' data-placement='top' title='Delete Data Dosen'><img src='icons/delete.png' width='20px' height='20px'></button></a>
+				<button type='button' class='btn btn-danger btn-sm' data-toggle='tooltip' data-placement='top' title='Delete Data Dosen'><img src='icons/delete.png' width='10px' height='10px'></button></a>
 				</td>
 				</tr>";
 				$no+= 1;

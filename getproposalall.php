@@ -35,13 +35,13 @@
                                 <td>$path[status_proposal]</td>
                                 <td>$path[semester]</td>
                                 <td></td>
-                                <td align='center'>
+                                <td align='center' width='10%'>
                                     <a id ='detailproposal' data-nimmahasiswa='$path[nim]' data-namamahasiswa='$path[nama]' data-toggle='modal' data-target='#detailproposalmodal'>
-                                    <button type='button' class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='Detail Proposal'><img src='icons/detail.png' width='20px' height='20px'></button></a>
+                                    <button type='button' class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='Detail Proposal'><img src='icons/detail.png'width=15px' height='15px'></button></a>
                                     <a id ='beritaacaraproposal' data-flag='baru' data-nimmahasiswa='$path[nim]' data-judulproposal='$path[judulproposal]' data-toggle='modal' data-target='#beritaacaraproposalmodal'>
-                                    <button type='button' class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='Berita Acara'><img src='icons/file.png' width='20px' height='20px'></button></a>
+                                    <button type='button' class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='Berita Acara'><img src='icons/file.png'width=15px' height='15px'></button></a>
                                     <a id ='deleteproposal' data-nimmahasiswa='$path[nim]' data-namamahasiswa='$path[nama]' data-toggle='modal' data-target='#deleteproposal'>
-                                    <button type='button' class='btn btn-danger btn-sm' data-toggle='tooltip' data-placement='top' title='Hapus Proposal'><img src='icons/delete.png' width='20px' height='20px'></button></a>
+                                    <button type='button' class='btn btn-danger btn-sm' data-toggle='tooltip' data-placement='top' title='Hapus Proposal'><img src='icons/delete.png'width=15px' height='15px'></button></a>
                                     </td>
                                     </tr>";
                                 }elseif($path['status_proposal'] == 'Lolos'){
@@ -55,7 +55,7 @@
                                     <td align='center'><a href=$path[file_proposal] target='_blank'><img src='icons/pdficon.png' width='30px' height='30px'></a></td>
                                     <td align='center'>
                                         <a id ='detailproposal' data-nimmahasiswa='$path[nim]' data-namamahasiswa='$path[nama]' data-toggle='modal' data-target='#detailproposalmodal'>
-                                        <button type='button' class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='Detail Proposal'><img src='icons/detail.png' width='20px' height='20px'></button></a>
+                                        <button type='button' class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='Detail Proposal'><img src='icons/detail.png'width=15px' height='15px'></button></a>
                                         </td>
                                         </tr>";
                                 }
@@ -70,13 +70,13 @@
                                     <td></td>
                                     <td align='center'>
                                     <a id ='detailproposal' data-nimmahasiswa='$path[nim]' data-namamahasiswa='$path[nama]' data-toggle='modal' data-target='#detailproposalmodal'>
-                                    <button type='button' class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='Detail Proposal'><img src='icons/detail.png' width='20px' height='20px'></button></a>
+                                    <button type='button' class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='Detail Proposal'><img src='icons/detail.png'width=15px' height='15px'></button></a>
 
                                     <a id ='ulangproposal' data-flag='ulang' data-nimmahasiswa='$path[nim]' data-namamahasiswa='$path[nama]' data-toggle='modal' data-target='#beritaacaraproposalmodal'>
-                                    <button type='button' class='btn btn-success btn-sm' data-toggle='tooltip' data-placement='top' title='Ulang Proposal'><img src='icons/replay.png' width='20px' height='20px'></button></a>
+                                    <button type='button' class='btn btn-success btn-sm' data-toggle='tooltip' data-placement='top' title='Ulang Proposal'><img src='icons/replay.png'width=15px' height='15px'></button></a>
 
                                     <a id ='editproposal' data-flag='edit' data-nimmahasiswa='$path[nim]' data-namamahasiswa='$path[nama]' data-idangkatan='$path[id_angkatan]' data-idsemester='$path[id_semester]' data-idtahunajaran='$path[id_tahunajaran]'data-toggle='modal' data-target='#beritaacaraproposalmodal'>
-                                    <button type='button' class='btn btn-warning btn-sm' data-toggle='tooltip' data-placement='top' title='Edit Berita Acara'><img src='icons/edit.png' width='20px' height='20px'></button></a>
+                                    <button type='button' class='btn btn-warning btn-sm' data-toggle='tooltip' data-placement='top' title='Edit Berita Acara'><img src='icons/edit.png'width=15px' height='15px'></button></a>
                                     </td>
                                     </tr>";
                                 }

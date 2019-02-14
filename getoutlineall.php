@@ -16,11 +16,11 @@
             </tr>
         </thead>
         <tfoot>
-            <tr>
+        <tr>
                 <th>NIM</th>
                 <th>Nama Mahasiswa</th>
                 <th>Judul Outline</th>
-                <th>Usulan Dosen 1</th>
+                <th>Dosen Pembimbing 1</th>
                 <th>Dosen Pembimbing 2</th>
                 <th>Tgl Pengajuan</th>
                 <th>Status Outline</th>
@@ -55,14 +55,14 @@
                         <td>$path[dosen2_gelardepan] $path[dosen2_nama] $path[dosen2_gelarbelakang]</td>
                         <td>$path[tgl_pengajuan]</td>
                         <td>$path[status]</td>
-                        <td class='center'>
+                        <td class='center' width='10%'>
                         <a id ='Viewoutline'
                         data-nimmahasiswa='$path[nim]'
                         data-namamahasiswa='$path[nama]'
                         data-semester='$path[semester]'
                         data-toggle='modal'
                         data-target='#ViewOutlineModal'>
-                        <button type='button' class='btn btn-info btn-sm'><img src='icons/detail.png' width='100%' height='20px'></button></a>
+                        <button type='button' class='btn btn-primary btn-sm'><img src='icons/detail.png' width='10px' height='10px'></button></a>
 
                         <a id ='Editoutline'
                         data-nimmahasiswa='$path[nim]'
@@ -80,7 +80,7 @@
                         data-tanggal = '$path[tgl_pengajuan]'
                         data-toggle='modal'
                         data-target='#EditOutlineModal'>
-                        <button type='button' class='btn btn-warning btn-sm'><img src='icons/edit.png' width='20px' height='20px'></button></a>
+                        <button type='button' class='btn btn-warning btn-sm'><img src='icons/edit.png' width='10px' height='10px'></button></a>
                         ";
                         if($path['status'] != 'Lolos Outline'){
                             echo "<a id ='Deleteoutline'
@@ -91,7 +91,7 @@
                             data-idtahunajaran='$path[id_tahunajaran]'
                             data-toggle='modal'
                             data-target='#DeleteOutlineModal'>
-                            <button type='button' class='btn btn-danger btn-sm'><img src='icons/delete.png' width='20px' height='20px'></button></a>
+                            <button type='button' class='btn btn-danger btn-sm'><img src='icons/delete.png' width='10px' height='10px'></button></a>
                             </td>
                             </tr>";
                         }else{

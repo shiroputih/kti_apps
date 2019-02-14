@@ -776,7 +776,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Finalisasi Nilai KTI Mahasiswa</h4>
+                <h4 class="modal-title">- Finalisasi Nilai KTI Mahasiswa -</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -784,12 +784,12 @@
                 <div id="content" style="height: auto;">
                     <div class="datanilaifinal" style="width: 50%; float: left;">
                     </div>
-                    <div style=" margin-left: 50%;">
+                    <div style=" margin-left: 50%; ">
                         <iframe id="objpdf" src="" type="application/pdf" width="650px" height="650px"></iframe>
                     </div>
                 </div>
                 </div>
-                <button type="submit" name="editnilai3" class="btn btn-primary btn-sm" style="margin-left:30px;">Verifikasi</button>
+                <button type="submit" name="editnilai3" class="btn btn-primary" style="margin-left:30px;">Verifikasi</button>
             </div>
         </div>
     </div>

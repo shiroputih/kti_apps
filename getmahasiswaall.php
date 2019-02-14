@@ -17,14 +17,14 @@
 	<tbody>
 		<?php
 		$no=1;
-		$sql = "SELECT * FROM mahasiswa 
+		$sql = "SELECT * FROM mahasiswa
 		JOIN semester ON mahasiswa.id_semester = semester.id_semester
 		JOIN angkatan ON mahasiswa.id_angkatan = angkatan.id_angkatan
 		JOIN tahunajaran ON mahasiswa.id_tahunajaran = tahunajaran.id_tahunajaran ORDER BY nim ASC";
 		$result = $conn->query($sql);
-		if ($result->num_rows > 0) 
+		if ($result->num_rows > 0)
 		{
-			while ($row = $result->fetch_assoc()) 
+			while ($row = $result->fetch_assoc())
 			{
 				echo "<tr>
 				<td align='center'>$no</td>
@@ -35,11 +35,11 @@
 				<td>$row[tahunajaran]</td>
 				<td align='center'>
 				<a id ='Viewmahasiswa' data-nimmahasiswa='$row[nim]' data-namamahasiswa='$row[nama]' data-toggle='modal' data-target='#ViewmahasiswaModal'>
-				<button type='button' class='btn btn-primary btn-sm'><img src='icons/detail.png' width='20px' height='20px'></button></a>
+				<button type='button' class='btn btn-primary btn-sm'><img src='icons/detail.png' width='10px' height='10px'></button></a>
 				<a id ='Editmahasiswa' data-nimmahasiswa='$row[nim]' data-namamahasiswa='$row[nama]' data-idangkatan='$row[id_angkatan]' data-idsemester='$row[id_semester]' data-idtahunajaran='$row[id_tahunajaran]'data-toggle='modal' data-target='#EditmahasiswaModal'>
-				<button type='button' class='btn btn-warning btn-sm'><img src='icons/edit.png' width='20px' height='20px'></button></a>
+				<button type='button' class='btn btn-warning btn-sm'><img src='icons/edit.png' width='10px' height='10px'></button></a>
 				<a id ='Deletemahasiswa' data-nimmahasiswa='$row[nim]' data-namamahasiswa='$row[nama]' data-toggle='modal' data-target='#DeletemahasiswaModal'>
-				<button type='button' class='btn btn-danger btn-sm'><img src='icons/delete.png' width='20px' height='20px'></button></a>
+				<button type='button' class='btn btn-danger btn-sm'><img src='icons/delete.png' width='10px' height='10px'></button></a>
 				</td>
 				</tr>";
 				$no+=1;

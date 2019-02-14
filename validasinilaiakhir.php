@@ -88,11 +88,14 @@
                         <div id="content" style="height: auto;">
                         <form method="post">
                             <div class="datanilaifinal" style="width: 50%; float: left;">
+
                             </div>
-                            <div style=" margin-left: 50%;">
-                                <iframe id="objpdf" src="" type="application/pdf" width="650px" height="650px"></iframe>
+
+                            <div style=" margin-left: 55%;">
+                                <iframe id="objpdf" src="" type="application/pdf" width="450px" height="650px"></iframe>
+                                <button type="submit" name="finalnilai" class="btn btn-danger btn-md-1" >Verifikasi Nilai Akhir</button>
                             </div>
-                            <button type="submit" name="finalnilai" class="btn btn-primary btn-sm" >Verifikasi Nilai Akhir</button>
+
                         </form>
                         </div>
                     </div>
