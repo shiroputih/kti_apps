@@ -18,7 +18,7 @@ if($_POST['idsemester']){
                        <th>Action</th>
                    </tr>
                </thead>
-               
+
                <tbody>
                 <?php
                     $no =1;
@@ -45,12 +45,13 @@ if($_POST['idsemester']){
                             <a id ='editdosen' data-nim= $row[nim] data-toggle='modal' data-target='#listmodal'>
                             <button type='button' class='btn btn-primary btn-circle btn-sm'><i class='fa fa-list'></i>
                             </button></a>
-                            <a id ='deletedosen' data-toggle='modal' data-target='#deleteModal'>
-                            <button type='button' class='btn btn-danger btn-circle btn-sm'><i class='fa fa-times'></i>
-                            </button></a>
+
                             </td>
                             </tr>";
                             $no+=1;
+                            /*<a id ='deletedosen' data-toggle='modal' data-target='#deleteModal'>
+                            <button type='button' class='btn btn-danger btn-circle btn-sm'><i class='fa fa-times'></i>
+                            </button></a>*/
                         }
                     } else {
                         echo "<tr align='center'>Data Dosen Pembimbing Masih Kosong</tr>";
@@ -58,7 +59,7 @@ if($_POST['idsemester']){
                 ?>
                 </tbody>
             </table>
-        <?php 
+        <?php
         }
     }else{
         ?>
@@ -88,7 +89,7 @@ if($_POST['idsemester']){
 <script type="text/javascript">
     $(document).ready(function()
     {
-        $('#listmodal').on('show.bs.modal', function (e) 
+        $('#listmodal').on('show.bs.modal', function (e)
         {
             var nim = $(e.relatedTarget).data('nim');
                 //menggunakan fungsi ajax untuk pengambilan data
@@ -104,7 +105,7 @@ if($_POST['idsemester']){
                 });
             });
     });
-</script> 
+</script>
 
 
 <!-- Bootstrap core JavaScript

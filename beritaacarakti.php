@@ -5,16 +5,16 @@
 //New berita Acara -->
 if($_POST['nim'] && $_POST['flag'] == 'baru')
 {
-    $sql = "SELECT assign_sk.nim,mahasiswa.nama,kti.judul_penelitian,assign_sk.id_semester,assign_sk.id_tahunajaran 
-    FROM assign_sk,mahasiswa,kti 
+    $sql = "SELECT assign_sk.nim,mahasiswa.nama,kti.judul_penelitian,assign_sk.id_semester,assign_sk.id_tahunajaran
+    FROM assign_sk,mahasiswa,kti
     WHERE kti.nim = assign_sk.nim AND mahasiswa.nim = assign_sk.nim AND assign_sk.nim = '".$_POST['nim']."' GROUP BY assign_sk.nim";
     $result = $conn->query($sql);
-    if ($result->num_rows > 0) 
+    if ($result->num_rows > 0)
     {
         // output data of each row
-        while ($row = $result->fetch_assoc()) 
+        while ($row = $result->fetch_assoc())
         {
-?>          
+?>
             <form method="POST">
                         <div class="form-group">
                                 <input class="form-control" name="hiddennim" id="hiddennim" value="<?php echo $_POST['nim'];?>" type="hidden"
@@ -23,7 +23,7 @@ if($_POST['nim'] && $_POST['flag'] == 'baru')
                                 aria-describedby="nameHelp">
                                 <input class="form-control" name="hiddentahunajaran" id="hiddentahunajaran" value="<?php echo $row['id_tahunajaran'];?>" type="hidden"
                                 aria-describedby="nameHelp">
-                                
+
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <label class="input-group-text">Semester</label>
@@ -43,7 +43,7 @@ if($_POST['nim'] && $_POST['flag'] == 'baru')
                                         ?>
                                     </select>
                                 </div>
-                            
+
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">NIM</label>
@@ -71,7 +71,7 @@ if($_POST['nim'] && $_POST['flag'] == 'baru')
                                     <label class="input-group-text">Tanggal Seminar Hasil</label>
                                 </div>
                                 <input class="form-control" id="date" name="tanggal" placeholder="mm/dd/yyyy" type="text" onchange="bataskti(this.value)"/>
-                                <input type="hidden" class="form-control" id="hiddenbatas" name="hiddenbatas"/>        
+                                <input type="hidden" class="form-control" id="hiddenbatas" name="hiddenbatas"/>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend" data-provide='datetimepicker1'>
@@ -179,25 +179,25 @@ if($_POST['nim'] && $_POST['flag'] == 'baru')
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" name="CreateBeritaAcarakti" class="btn btn-primary btn-sm">Simpan</button>
+                        <button type="submit" name="CreateBeritaAcarakti" class="btn btn-primary btn-md">Simpan</button>
             </form>
 <?php
         }
     }
-} 
+}
 //ulang berita acara kti
 if($_POST['nim'] && $_POST['flag'] == 'ulang')
 {
-    $sql = "SELECT assign_sk.nim,mahasiswa.nama,kti.judul_penelitian,assign_sk.id_semester,assign_sk.id_tahunajaran 
-    FROM assign_sk,mahasiswa,kti 
+    $sql = "SELECT assign_sk.nim,mahasiswa.nama,kti.judul_penelitian,assign_sk.id_semester,assign_sk.id_tahunajaran
+    FROM assign_sk,mahasiswa,kti
     WHERE kti.nim = assign_sk.nim AND mahasiswa.nim = assign_sk.nim AND assign_sk.nim = '".$_POST['nim']."' GROUP BY assign_sk.nim";
     $result = $conn->query($sql);
-    if ($result->num_rows > 0) 
+    if ($result->num_rows > 0)
     {
         // output data of each row
-        while ($row = $result->fetch_assoc()) 
+        while ($row = $result->fetch_assoc())
         {
-?>          
+?>
             <form method="POST">
                         <div class="form-group">
                                 <input class="form-control" name="hiddennim" id="hiddennim" value="<?php echo $_POST['nim'];?>" type="hidden"
@@ -206,7 +206,7 @@ if($_POST['nim'] && $_POST['flag'] == 'ulang')
                                 aria-describedby="nameHelp">
                                 <input class="form-control" name="hiddentahunajaran" id="hiddentahunajaran" value="<?php echo $row['id_tahunajaran'];?>" type="hidden"
                                 aria-describedby="nameHelp">
-                                
+
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <label class="input-group-text">Semester</label>
@@ -226,7 +226,7 @@ if($_POST['nim'] && $_POST['flag'] == 'ulang')
                                         ?>
                                     </select>
                                 </div>
-                            
+
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">NIM</label>
@@ -254,7 +254,7 @@ if($_POST['nim'] && $_POST['flag'] == 'ulang')
                                     <label class="input-group-text">Tanggal Seminar Hasil</label>
                                 </div>
                                 <input class="form-control" id="date" name="tanggal" placeholder="mm/dd/yyyy" type="text" onchange="bataskti(this.value)"/>
-                                <input type="hidden" class="form-control" id="hiddenbatas" name="hiddenbatas"/>        
+                                <input type="hidden" class="form-control" id="hiddenbatas" name="hiddenbatas"/>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend" data-provide='datetimepicker1'>
@@ -362,26 +362,26 @@ if($_POST['nim'] && $_POST['flag'] == 'ulang')
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" name="UlangBeritaAcarakti" class="btn btn-primary btn-sm">Simpan</button>
+                        <button type="submit" name="UlangBeritaAcarakti" class="btn btn-primary btn-md">Simpan</button>
             </form>
 <?php
         }
     }
-} 
+}
 
 //edit berita acara kti
 if($_POST['nim'] && $_POST['flag'] == 'edit')
 {
-    $sql = "SELECT assign_sk.nim,mahasiswa.nama,kti.judul_penelitian,assign_sk.id_semester,assign_sk.id_tahunajaran 
-    FROM assign_sk,mahasiswa,kti 
+    $sql = "SELECT assign_sk.nim,mahasiswa.nama,kti.judul_penelitian,assign_sk.id_semester,assign_sk.id_tahunajaran
+    FROM assign_sk,mahasiswa,kti
     WHERE kti.nim = assign_sk.nim AND mahasiswa.nim = assign_sk.nim AND assign_sk.nim = '".$_POST['nim']."' GROUP BY assign_sk.nim";
     $result = $conn->query($sql);
-    if ($result->num_rows > 0) 
+    if ($result->num_rows > 0)
     {
         // output data of each row
-        while ($row = $result->fetch_assoc()) 
+        while ($row = $result->fetch_assoc())
         {
-?>          
+?>
             <form method="POST">
                         <div class="form-group">
                                 <input class="form-control" name="hiddennim" id="hiddennim" value="<?php echo $_POST['nim'];?>" type="hidden"
@@ -390,7 +390,7 @@ if($_POST['nim'] && $_POST['flag'] == 'edit')
                                 aria-describedby="nameHelp">
                                 <input class="form-control" name="hiddentahunajaran" id="hiddentahunajaran" value="<?php echo $row['id_tahunajaran'];?>" type="hidden"
                                 aria-describedby="nameHelp">
-                                
+
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <label class="input-group-text">Semester</label>
@@ -410,7 +410,7 @@ if($_POST['nim'] && $_POST['flag'] == 'edit')
                                         ?>
                                     </select>
                                 </div>
-                            
+
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">NIM</label>
@@ -438,7 +438,7 @@ if($_POST['nim'] && $_POST['flag'] == 'edit')
                                     <label class="input-group-text">Tanggal Seminar Hasil</label>
                                 </div>
                                 <input class="form-control" id="date" name="tanggal" placeholder="mm/dd/yyyy" type="text" onchange="bataskti(this.value)"/>
-                                <input type="hidden" class="form-control" id="hiddenbatas" name="hiddenbatas"/>        
+                                <input type="hidden" class="form-control" id="hiddenbatas" name="hiddenbatas"/>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend" data-provide='datetimepicker1'>
@@ -546,7 +546,7 @@ if($_POST['nim'] && $_POST['flag'] == 'edit')
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" name="UpdateBeritaAcarakti" class="btn btn-primary btn-sm">Simpan</button>
+                        <button type="submit" name="UpdateBeritaAcarakti" class="btn btn-primary btn-md">Simpan</button>
             </form>
 <?php
         }
@@ -583,9 +583,9 @@ if($_POST['nim'] && $_POST['flag'] == 'edit')
             {
                 year = oldinitial[2];
             }
-            
+
             var newdate = day+"/"+month+"/"+year;
-            
+
             $('#hiddenbatas').val(newdate);
         }
     </script>

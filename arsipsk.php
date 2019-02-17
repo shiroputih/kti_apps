@@ -43,7 +43,7 @@
 				</div>
 				<input class="form-control" name="pdf" id="pdf" accept="application/pdf" type="file">
 				</div>
-			<button style="margin-left: 2%;" type="submit" name="uploadsk" id ="uploadsk" class="btn btn-info btn-sm" value="Upload File">SUBMIT</button>
+			<button style="margin-left: 2%;" type="submit" name="uploadsk" id ="uploadsk" class="btn btn-primary btn-md" value="Upload File">SUBMIT</button>
 
 		</form>
 
@@ -119,8 +119,8 @@
 						aria-describedby="nameHelp">
 						<div id="datahapussk"></div>
 						<br>
-						<button type="submit" class="btn btn-info btn-sm" data-dismiss="modal" data-dismiss="modal">NO</button>
-						<button type="submit" name="DeleteDataSK" class="btn btn-danger btn-sm" >YES</button>
+						<button type="submit" class="btn btn-info btn-md" data-dismiss="modal" data-dismiss="modal">NO</button>
+						<button type="submit" name="DeleteDataSK" class="btn btn-danger btn-md" >YES</button>
 					</form>
 				</div>
 			</div>

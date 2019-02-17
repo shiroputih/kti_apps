@@ -80,6 +80,9 @@ if(isset($_POST['idsemester'])){
                 </tbody>
                 <a href="cetaksk.php?semester=<?php echo $semester; ?>" target="_blank">
                 <button type="submit" class="btn btn-link btn-sm"><img src="icons/print.png" width="50px" height="50px"></button></a>
+                <br><br><br><br>
+
+
             </table>
 <?php
     }

@@ -125,7 +125,7 @@ if ($result->num_rows > 0) {
             </div>
             <input class="form-control" name="pdf_publikasi" id="pdf_publikasi" accept="application/pdf" type="file">
             <br>
-            <button type="submit" name="uploadpublikasi" id="uploadpublikasi" class="btn btn-primary btn-sm" value="Upload File">Upload Publikasi</button>
+            <button type="submit" name="uploadpublikasi" id="uploadpublikasi" class="btn btn-primary btn-md" value="Upload File">Upload Publikasi</button>
           </form>
         </div>
       </div>
@@ -159,7 +159,7 @@ if ($result->num_rows > 0) {
             </div>
             <input class="form-control" name="pdf_naskahkti" id="pdf_naskahkti" accept="application/pdf" type="file">
             <br>
-            <button type="submit" name="uploadnaskahkti" id="uploadnaskahkti" class="btn btn-primary btn-sm" value="Upload File">Upload Naskah KTI</button>
+            <button type="submit" name="uploadnaskahkti" id="uploadnaskahkti" class="btn btn-primary btn-md" value="Upload File">Upload Naskah KTI</button>
           </form>
         </div>
       </div>
@@ -193,7 +193,7 @@ if ($result->num_rows > 0) {
             </div>
             <input class="form-control" name="pdf_berkas" id="pdf_berkas" accept="application/pdf" type="file">
             <br>
-            <button type="submit" name="uploadberkas" id="uploadberkas" class="btn btn-primary btn-sm" value="Upload File">Upload Penerimaan Berkas</button>
+            <button type="submit" name="uploadberkas" id="uploadberkas" class="btn btn-primary btn-md" value="Upload File">Upload Penerimaan Berkas</button>
           </form>
         </div>
       </div>

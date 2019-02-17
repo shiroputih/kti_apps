@@ -6,7 +6,7 @@
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
 	<div class="fixed-nav sticky-footer bg-dark" id="page-top">
 		<div class="content-wrapper">
-			
+
 			<div class="container-fluid">
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item">
@@ -33,13 +33,13 @@
 			<div class="input-group mb-2" style="margin: 0 50px 0px 10px; width:50%;">
 				<div class="input-group-prepend">
 					<label class="input-group-text">Kata Kunci 3</label>
-				</div>			
+				</div>
 				<input type='text' class="form-control" placeholder="Kata Kunci 3" id="katakunci3" name="katakunci3" onkeyup="this.value=this.value.toUpperCase()"/>
 			</div>
 
 			<div class="input-group mb-2" style="margin: 0 50px 0px 10px;">
 				<a id ='checkjudul'>
-					<button type='submit' class='btn btn-primary btn-sm'>Check Judul</button>
+					<button type='submit' class='btn btn-primary btn-md'>Check Judul</button>
 				</a>
 				</div>
 
@@ -57,14 +57,14 @@
 	@include("footer.php");
 	?>
 
-    
+
     	<!-- Show Detail Mahasiswa -->
 		    <script type="text/javascript">
   				$(document).on("click", "#checkjudul", function () {
 						var kk1 = document.getElementById('katakunci1').value;
 		                var kk2 = document.getElementById('katakunci2').value;
 		                var kk3 = document.getElementById('katakunci3').value;
-		                
+
 		                //menggunakan fungsi ajax untuk pengambilan data
 		                $.ajax(
 		                {
@@ -77,5 +77,5 @@
 		                    }
 		                });
 		            });
-		        
-		    </script> 
+
+		    </script>

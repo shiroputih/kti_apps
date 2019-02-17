@@ -21,11 +21,11 @@
                     <li class="breadcrumb-item active"> Validasi Proposal</li>
                 </ol>
             </div>
-            
+
             <div class="card-body">
                 <div id="tabelvalidasiproposal" class="table-responsive"></div>
             </div>
-            
+
         </div>
     </div>
 </body>
@@ -82,11 +82,11 @@
                 </div>
                 <div class="modal-body" style="background-color: #e60000">
                 <form method="POST">
-                    <input class="form-control" name="tglproposal" id="tglproposal" type="hidden" 
+                    <input class="form-control" name="tglproposal" id="tglproposal" type="hidden"
                     style="border: 0px solid red; background-color: #e60000; color:white; " >
-                    <input class="form-control" name="nim" id="lblnim" type="text" 
+                    <input class="form-control" name="nim" id="lblnim" type="text"
                     style="border: 0px solid red; background-color: #e60000; color:white; " >
-                    <input class="form-control" name="judul" id="lbljudul" type="text" 
+                    <input class="form-control" name="judul" id="lbljudul" type="text"
                     style="border: 0px solid red; background-color: #e60000; color:white;" >
                     <br>
                     <button type="submit" name="TidakLolos" class='btn btn-primary btn-sm' >  Tidak Lolos  </button>
@@ -120,13 +120,13 @@
                 </div>
                 <div class="modal-body" style="background-color: #b3b3ff">
                 <form method="post" enctype="multipart/form-data">
-                    <input class="form-control" name="tgl_proposal" id="tgl_proposal" type="hidden" 
+                    <input class="form-control" name="tgl_proposal" id="tgl_proposal" type="hidden"
                     style="border: 0px solid red; background-color: #b3b3ff; color:white; " >
-                    <input class="form-control" name="idsemester" id="idsemester" type="hidden" 
+                    <input class="form-control" name="idsemester" id="idsemester" type="hidden"
                     style="border: 0px solid red; background-color: #e60000; color:white; " >
-                    <input class="form-control" name="nim" id="nim" type="text" 
+                    <input class="form-control" name="nim" id="nim" type="text"
                     style="border: 0px solid red; background-color: #b3b3ff; color:white; " >
-                    <input class="form-control" name="judul_proposal" id="judul_proposal" type="text" 
+                    <input class="form-control" name="judul_proposal" id="judul_proposal" type="text"
                     style="border: 0px solid red; background-color: #b3b3ff; color:white;" >
                     <br>
                     <div class="input-group mb-3">
@@ -134,11 +134,11 @@
                             <span class="input-group-text">Upload Berita Acara Proposal</span>
                         </div>
                         <div class="custom-file">
-                            <input class="form-control" name="pdf" id="pdf" accept="application/pdf" type="file">   
+                            <input class="form-control" name="pdf" id="pdf" accept="application/pdf" type="file">
                         </div>
                     </div>
-                    <button type="submit" name="Lolos" class='btn btn-primary btn-sm' >  Lolos  </button>
-                    <button type="submit" name="cancel" data-dismiss="modal" class='btn btn-success btn-sm' > Batal </button>
+                    <button type="submit" name="Lolos" class='btn btn-primary btn-md' >  Lolos  </button>
+                    <button type="submit" name="cancel" data-dismiss="modal" class='btn btn-success btn-md' > Batal </button>
                 </form>
                 </div>
             </div>
@@ -148,7 +148,7 @@
 <?php
     if(isset($_POST['Lolos']))
     {
-       
+
         $nama_file=$_FILES['pdf']['name'];
 	    $ukuran=$_FILES['pdf']['size'];
 
@@ -157,12 +157,12 @@
         if(move_uploaded_file($_FILES['pdf']['tmp_name'],$alamatfile));
         {
             $sql = "UPDATE proposal SET status_proposal ='Lolos', file_proposal = '$alamatfile' WHERE nim = '$_POST[nim]' AND tgl_sidangproposal = '$_POST[tgl_proposal]'";
-            if (mysqli_query($conn, $sql)) 
+            if (mysqli_query($conn, $sql))
             {
                 $sql = "INSERT INTO semhas (nim,judul_penelitian,tgl_seminarhasil,idsemester) VALUES ('$_POST[nim]','$_POST[judul_proposal]','00/00/0000','0')";
-                if (mysqli_query($conn, $sql)) 
+                if (mysqli_query($conn, $sql))
                 {
-                   
+
                 }
             }
         }

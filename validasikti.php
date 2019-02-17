@@ -108,8 +108,8 @@
                     <input class="form-control" name="judul" id="lbljudul" type="text"
                     style="border: 0px solid red; background-color: #e60000; color:white;" >
                     <br>
-                    <button type="submit" name="TidakLolos" class='btn btn-primary btn-sm' >  Tidak Lolos  </button>
-                    <button type="submit" name="cancel" data-dismiss="modal" class='btn btn-success btn-sm' > Batal </button>
+                    <button type="submit" name="TidakLolos" class='btn btn-primary btn-md' >  Tidak Lolos  </button>
+                    <button type="submit" name="cancel" data-dismiss="modal" class='btn btn-success btn-md' > Batal </button>
                 </form>
                 </div>
             </div>
@@ -158,8 +158,8 @@
                             <input class="form-control" name="pdf" id="pdf" accept="application/pdf" type="file">
                         </div>
                     </div>
-                    <button type="submit" name="Lolos" class='btn btn-primary btn-sm' >  Lolos  </button>
-                    <button type="submit" name="cancel" data-dismiss="modal" class='btn btn-success btn-sm' > Batal </button>
+                    <button type="submit" name="Lolos" class='btn btn-primary btn-md' >  Lolos  </button>
+                    <button type="submit" name="cancel" data-dismiss="modal" class='btn btn-success btn-md' > Batal </button>
                 </form>
                 </div>
             </div>

@@ -158,7 +158,7 @@
                                 <label class="input-group-text" for="inputGroupSelect01">(30)</label>
                             </div>
                         </div>
-                        <button type="submit" name="addnilai1" class="btn btn-primary btn-sm" >Simpan</button>
+                        <button type="submit" name="addnilai1" class="btn btn-primary btn-md" >Simpan</button>
                     </form>
                 </div>
             </div>
@@ -249,7 +249,7 @@
                                 <label class="input-group-text" for="inputGroupSelect01">(30)</label>
                             </div>
                         </div>
-                        <button type="submit" name="editnilai1" class="btn btn-primary btn-sm" >Update</button>
+                        <button type="submit" name="editnilai1" class="btn btn-primary btn-md" >Update</button>
                     </form>
                 </div>
             </div>
@@ -392,7 +392,7 @@
                                 <label class="input-group-text" for="inputGroupSelect01">(30)</label>
                             </div>
                         </div>
-                        <button type="submit" name="addnilai2" class="btn btn-primary btn-sm" >Simpan</button>
+                        <button type="submit" name="addnilai2" class="btn btn-primary btn-md" >Simpan</button>
                     </form>
                 </div>
             </div>
@@ -482,7 +482,7 @@
                                 <label class="input-group-text" for="inputGroupSelect01">(30)</label>
                             </div>
                         </div>
-                        <button type="submit" name="editnilai2" class="btn btn-primary btn-sm" >Update</button>
+                        <button type="submit" name="editnilai2" class="btn btn-primary btn-md" >Update</button>
                     </form>
                 </div>
             </div>
@@ -623,7 +623,7 @@
                                 <label class="input-group-text" for="inputGroupSelect01">(30)</label>
                             </div>
                         </div>
-                        <button type="submit" name="addnilai3" class="btn btn-primary btn-sm" >Simpan</button>
+                        <button type="submit" name="addnilai3" class="btn btn-primary btn-md" >Simpan</button>
                     </form>
                 </div>
             </div>
@@ -712,7 +712,7 @@
                                 <label class="input-group-text" for="inputGroupSelect01">(30)</label>
                             </div>
                         </div>
-                        <button type="submit" name="editnilai3" class="btn btn-primary btn-sm" >Update</button>
+                        <button type="submit" name="editnilai3" class="btn btn-primary btn-md" >Update</button>
                     </form>
                 </div>
             </div>

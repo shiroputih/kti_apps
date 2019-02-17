@@ -63,7 +63,7 @@
                     </div>
 
                         <input type="file" name="file" />
-                        <input type="submit" class="btn btn-primary btn-sm" name="importOutline" value="IMPORT">
+                        <input type="submit" class="btn btn-primary btn-md" name="importOutline" value="IMPORT">
                     </form>
                 </div>
             </div>
@@ -137,7 +137,7 @@
                                 <input type='text' class="form-control" placeholder="Kata Kunci 3" id="katakunci3" name="katakunci3" onkeyup="this.value=this.value.toUpperCase()"/>
 
                                 <a href="ViewCheckJudul" id ='checkjudul' data-toggle='modal' data-target='#ViewCheckJudul'>
-                                    <button type='button' id = "btncheck" class='btn btn-info btn-sm'>Check Judul</button></a>
+                                    <button type='button' id = "btncheck" class='btn btn-info btn-md'>Check Judul</button></a>
                                 </div>
 
                                 <div class="input-group mb-3">
@@ -250,7 +250,7 @@
                                     <input type='text' class="form-control" id="verified" name="status"
                                     value="NULL" disabled/>
                                 </div>
-                                <button type="submit" name="AddDataOutline" class="btn btn-info btn-sm" >Simpan</button>
+                                <button type="submit" name="AddDataOutline" class="btn btn-info btn-md" >Simpan</button>
                             </form>
                             </div>
                         </div>

@@ -4,7 +4,7 @@
 
 if (isset($_POST['nim'])) {
     $nim = $_POST['nim'];
-    $sql_databerkas = "SELECT * FROM kti 
+    $sql_databerkas = "SELECT * FROM kti
     JOIN mahasiswa ON mahasiswa.nim = '$nim '
     WHERE kti.nim = '$nim'";
     $result = $conn->query($sql_databerkas);
@@ -14,7 +14,7 @@ if (isset($_POST['nim'])) {
             <form method="POST">
                 <div class="form-group">
                     <input class="form-control" name="hiddennimberkas" id="hiddennimberkas" value="<?php echo $_POST['nim']; ?>" type="hidden"
-                    aria-describedby="nameHelp"> 
+                    aria-describedby="nameHelp">
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
                             <label class="input-group-text">Semester</label>
@@ -34,7 +34,7 @@ if (isset($_POST['nim'])) {
                                         ?>
                                     </select>
                     </div>
-                            
+
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">NIM</label>
@@ -62,7 +62,7 @@ if (isset($_POST['nim'])) {
                                     <label class="input-group-text">Tanggal Kumpul Berkas</label>
                                 </div>
                                 <input class="form-control" id="date" name="tanggal" placeholder="dd/mm/yyyy" type="text" />
-    
+
                             </div>
                             <hr width="10px">
                             <div class="input-group mb-3">
@@ -103,7 +103,7 @@ if (isset($_POST['nim'])) {
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" name="createberitaacarapenerimaanberkas" class="btn btn-primary btn-sm">Simpan</button>
+                        <button type="submit" name="createberitaacarapenerimaanberkas" class="btn btn-primary btn-md">Simpan</button>
             </form>
 <?php
 
@@ -116,7 +116,7 @@ if (isset($_POST['nim'])) {
 <!-- datepicker -->
 <script>
  $(document).ready(function(){
-        var date_input=$('input[name="tanggal"]'); 
+        var date_input=$('input[name="tanggal"]');
         var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
         var options={
             format: 'dd/mm/yyyy',

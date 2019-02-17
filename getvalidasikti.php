@@ -12,17 +12,17 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            
+
                 <tbody>
                     <?php
-                    $sql = "SELECT * FROM kti k1 
-                    INNER JOIN ( select nim,MAX(tgl_ujiankti) as tgl FROM kti group by nim ) k2 
-                    ON k1.nim = k2.nim AND k1.tgl_ujiankti = k2.tgl 
+                    $sql = "SELECT * FROM kti k1
+                    INNER JOIN ( select nim,MAX(tgl_ujiankti) as tgl FROM kti group by nim ) k2
+                    ON k1.nim = k2.nim AND k1.tgl_ujiankti = k2.tgl
                     JOIN mahasiswa ON mahasiswa.nim = k1.nim
                     JOIN semester ON k1.idsemester = semester.id_semester";
                     $result = $conn->query($sql);
                     if ($result->num_rows > 0) {
-                        while ($path = $result->fetch_assoc()) 
+                        while ($path = $result->fetch_assoc())
                         {
                             if($path['tgl_ujiankti'] != '00/00/0000')
                             {
@@ -39,10 +39,10 @@
                                 }else{
                                     echo"
                                         <a id ='loloskti' data-tglujiankti='$path[tgl_ujiankti]' data-nimmahasiswa='$path[nim]' data-judulkti='$path[judul_penelitian]' data-idsemester = '$path[idsemester]'   data-toggle='modal' data-target='#lolosktimodal'>
-                                        <button type='button' class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='Lolos Semhas'><img src='icons/check.png' width='20px' height='20px'></button></a>
-                                        
+                                        <button type='button' class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='Lolos KTI'><img src='icons/check.png' width='20px' height='20px'></button></a>
+
                                         <a id ='tidakloloskti' data-tglujiankti='$path[tgl_ujiankti]' data-nimmahasiswa='$path[nim]' data-judulkti='$path[judul_penelitian]' data-idsemester = '$path[idsemester]'   data-toggle='modal' data-target='#tidaklolosktimodal'>
-                                        <button type='button' class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='Tidak Lolos Semhas'><img src='icons/uncheck.png' width='20px' height='20px'></button></a>
+                                        <button type='button' class='btn btn-primary btn-sm' data-toggle='tooltip' data-placement='top' title='Tidak Lolos KTI'><img src='icons/uncheck.png' width='20px' height='20px'></button></a>
                                         ";
                                 }
                                 echo "</td>
@@ -53,7 +53,7 @@
                         ?>
                 </tbody>
             </table>
-            
+
 <!-- Bootstrap core JavaScript
     <script src="vendor/jquery/jquery.min.js"></script>-->
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

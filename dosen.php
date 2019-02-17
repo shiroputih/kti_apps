@@ -15,10 +15,10 @@
         </div>
         <button type="button" style="margin-top: 0; margin-left: 1%; width:7% border-radius:10px;" class="btn btn-default btn-sm" data-toggle="modal"
         data-target="#inputdatadosen"><img src="icons/contactadd.png" width="30px" height="30px"></button>
-        
+
         <div id="tabledosen" class="table-responsive">
         </div>
-        
+
     </div>
 </body>
 <?php
@@ -65,7 +65,7 @@
                             aria-describedby="nameHelp" placeholder="Masukkan Gelar Belakang">
                         </div>
                     </div>
-                    
+
                     <button type="submit" name="adddata" class="btn btn-info btn-md">SUBMIT</button>
                 </form>
             </div>
@@ -111,7 +111,7 @@
                             aria-describedby="nameHelp" placeholder="Masukkan Gelar Belakang">
                         </div>
                     </div>
-                    <button type="submit" name="updatedata" id="updatedata" class="btn btn-info btn-sm" >SUBMIT</button>
+                    <button type="submit" name="updatedata" id="updatedata" class="btn btn-info btn-md" >SUBMIT</button>
                 </form>
             </div>
         </div>
@@ -171,7 +171,7 @@
         }
     });
     })
-    
+
     $(document).ready(function(){
     $.ajax({
         url : 'getdosenall.php',
@@ -191,7 +191,7 @@
 if (isset($_POST['adddata'])) {
     $sql = "INSERT INTO dosen (nama_dosen,gelar_depan,gelar_belakang) VALUES ('" . $_POST['namadosen'] . "','" . $_POST['gelardepan'] . "','" . $_POST['gelarbelakang'] . "')";
     if (mysqli_query($conn, $sql)) {
-       
+
     }
 }
 
@@ -206,7 +206,7 @@ if (isset($_POST['updatedata'])) {
 if (isset($_POST['deletedata'])) {
     $sql = "DELETE FROM dosen WHERE id_dosen='$_POST[hididdosen]'";
     if (mysqli_query($conn, $sql)) {
-       
+
     }
 }
 ?>

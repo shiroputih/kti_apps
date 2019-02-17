@@ -14,6 +14,7 @@
             </ol>
         </div>
         <div class="container-fluid">
+        <form method="post" action="exceltrackrecorddosen.php">
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <label class="input-group-text" for="inputGroupSelect01">Nama Dosen</label>
@@ -37,9 +38,12 @@
                     ?>
                 </select>
             </div>
+            <button type="submit" name="export" style="margin-top: 0; margin-left: 1%; width:8% height:5%" class="btn btn-default btn-sm"><img src="icons/excel.png" width="30px" height="30px">Export</button>
+            </form>
         </div>
 
          <!-- Tab links -->
+         <br><br>
         <div class="tab">
         <button class="tablinks" onclick="openTable(event, 'Table1')">Pembimbing 1</button>
         <button class="tablinks" onclick="openTable(event, 'Table2')">Pembimbing 2</button>
